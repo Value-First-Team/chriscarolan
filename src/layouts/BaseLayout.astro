@@ -1,0 +1,40 @@
+---
+/**
+ * BaseLayout — placeholder shell for chriscarolan.com.
+ * Showcase will replace this with the Brand Alchemy design system layout.
+ */
+import { SITE } from '../lib/site';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  path: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  path,
+} = Astro.props;
+
+const fullTitle = path === '/' ? SITE.name : `${title} — ${SITE.name}`;
+const canonicalUrl = `${SITE.url}${path}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+  </head>
+  <body>
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>

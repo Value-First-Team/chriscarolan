@@ -1,0 +1,9 @@
+/*
+ * global.css — placeholder for chriscarolan.com
+ * Showcase will replace this with the Brand Alchemy design token system.
+ * Do not add permanent styles here — this file is a scaffold placeholder only.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
