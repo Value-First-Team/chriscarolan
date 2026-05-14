@@ -88,6 +88,7 @@ const others = [
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: 60px;
+    align-items: start;
     background:
       radial-gradient(ellipse at 50% 0%, rgba(248, 95, 54, 0.04) 0%, rgba(248, 95, 54, 0) 70%),
       #1C1B2D;
@@ -96,6 +97,15 @@ const others = [
     display: flex;
     flex-direction: column;
     gap: 18px;
+  }
+  .cc-cmp-col-chris {
+    background: var(--cc-card-dark);
+    border-radius: 16px;
+    padding: clamp(28px, 3.5vw, 44px) clamp(28px, 3.5vw, 44px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  }
+  .cc-cmp-col-others {
+    padding-top: clamp(28px, 3.5vw, 44px);
   }
   .cc-cmp-col h3 {
     font-family: var(--cc-font-display);
@@ -135,6 +145,12 @@ const others = [
       grid-template-columns: 1fr;
       gap: 36px;
       padding: 36px;
+    }
+    .cc-cmp-col-chris {
+      padding: 28px;
+    }
+    .cc-cmp-col-others {
+      padding-top: 0;
     }
   }
 </style>

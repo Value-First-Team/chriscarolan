@@ -10,9 +10,11 @@
  * Book blurb pulled from canonical synopsis.
  */
 import { SITE } from '../lib/site';
+import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-kit">
+  <CosmicHalo size={580} right="-260px" bottom="-180px" opacity={0.4} hideOnMobile />
   <!-- Speaking Kit row -->
   <div class="cc-kit-row cc-kit-row-speaking">
     <div class="cc-kit-text">
@@ -54,12 +56,16 @@ import { SITE } from '../lib/site';
 
 <style>
   .cc-kit {
+    position: relative;
     padding: 80px clamp(24px, 16vw, 314px);
     display: flex;
     flex-direction: column;
     gap: 80px;
+    overflow: hidden;
   }
   .cc-kit-row {
+    position: relative;
+    z-index: 1;
     display: grid;
     gap: 60px;
     align-items: center;

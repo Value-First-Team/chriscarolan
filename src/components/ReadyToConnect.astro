@@ -4,9 +4,11 @@
  * Copy verbatim from bundle.
  */
 import { SITE } from '../lib/site';
+import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-ready">
+  <CosmicHalo size={520} right="-240px" top="0" opacity={0.4} hideOnMobile />
   <h2 class="cc-ready-headline">Ready to Connect?</h2>
   <p class="cc-ready-body">
     If something feels off in how your company is operating, you&rsquo;re probably right. Let&rsquo;s have a real conversation and see where you are.
@@ -16,12 +18,18 @@ import { SITE } from '../lib/site';
 
 <style>
   .cc-ready {
+    position: relative;
     padding: 60px clamp(24px, 20vw, 390px) 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 28px;
     text-align: center;
+    overflow: hidden;
+  }
+  .cc-ready > *:not(.cc-halo) {
+    position: relative;
+    z-index: 1;
   }
   .cc-ready-headline {
     font-family: var(--cc-font-display);

@@ -4,9 +4,11 @@
  * Copy from bundle (already correct: "From free Office Hours to the AI-Native Shift...").
  */
 import { SITE } from '../lib/site';
+import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-vft">
+  <CosmicHalo size={560} left="-260px" top="40px" opacity={0.45} hideOnMobile />
   <div class="cc-vft-grid">
     <div class="cc-vft-logo-card" aria-hidden="true"></div>
     <div class="cc-vft-text">
@@ -29,9 +31,13 @@ import { SITE } from '../lib/site';
 
 <style>
   .cc-vft {
+    position: relative;
     padding: 60px clamp(24px, 20vw, 390px);
+    overflow: hidden;
   }
   .cc-vft-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;

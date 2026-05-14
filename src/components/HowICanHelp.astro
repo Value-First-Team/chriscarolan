@@ -4,6 +4,7 @@
  * Step copy verbatim from bundle (already in Chris's voice).
  */
 import { SITE } from '../lib/site';
+import CosmicHalo from './CosmicHalo.astro';
 
 const steps = [
   {
@@ -25,6 +26,7 @@ const steps = [
 ---
 
 <section class="cc-how">
+  <CosmicHalo size={520} right="-220px" top="-120px" opacity={0.55} hideOnMobile />
   <div class="cc-how-inner">
     <h2 class="cc-how-headline">How I Can Help</h2>
     <div class="cc-how-grid">
@@ -44,9 +46,13 @@ const steps = [
 
 <style>
   .cc-how {
+    position: relative;
     padding: 60px clamp(24px, 16vw, 314px);
+    overflow: hidden;
   }
   .cc-how-inner {
+    position: relative;
+    z-index: 1;
     border-radius: 25px;
     background: var(--cc-pearl);
     color: var(--cc-prune);
@@ -56,8 +62,9 @@ const steps = [
     gap: 50px;
     align-items: center;
     text-align: left;
-    max-width: 1180px;
+    max-width: 1080px;
     margin: 0 auto;
+    margin-right: clamp(40px, 8vw, 140px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   }
   .cc-how-headline {
@@ -103,6 +110,9 @@ const steps = [
     opacity: 0.9;
   }
   @media (max-width: 900px) {
+    .cc-how-inner {
+      margin-right: auto;
+    }
     .cc-how-grid {
       grid-template-columns: 1fr;
       gap: 40px;

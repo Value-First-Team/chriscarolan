@@ -4,9 +4,11 @@
  * card on the RIGHT, with "WATCH & LISTEN" CTA.
  */
 import { SITE } from '../lib/site';
+import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-itm">
+  <CosmicHalo size={500} left="-240px" bottom="-120px" opacity={0.4} hideOnMobile />
   <div class="cc-itm-frame">
     <div class="cc-itm-photo" aria-hidden="true"></div>
     <div class="cc-itm-card">
@@ -33,10 +35,13 @@ import { SITE } from '../lib/site';
 
 <style>
   .cc-itm {
+    position: relative;
     padding: 60px clamp(24px, 16vw, 314px);
+    overflow: hidden;
   }
   .cc-itm-frame {
     position: relative;
+    z-index: 1;
     max-width: 1318px;
     margin: 0 auto;
     min-height: 580px;
@@ -93,6 +98,8 @@ import { SITE } from '../lib/site';
   }
   .cc-itm-cta {
     margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   @media (max-width: 900px) {
     .cc-itm {

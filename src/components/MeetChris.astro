@@ -4,9 +4,12 @@
  * Copy: bundle text + brand correction ("Value-First mindset", not "values-first").
  * Bundle's "values-first mindset" was a typo against brand rule "always Value-First, never Values-First."
  */
+import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-meet">
+  <CosmicHalo size={520} left="-220px" top="-60px" opacity={0.4} hideOnMobile />
+  <CosmicHalo size={480} right="-200px" bottom="-100px" opacity={0.4} hideOnMobile />
   <h2 class="cc-meet-headline">Meet Chris</h2>
 
   <div class="cc-meet-grid">
@@ -37,8 +40,11 @@
   .cc-meet {
     position: relative;
     padding: 120px clamp(24px, 20vw, 390px) 60px;
+    overflow: hidden;
   }
   .cc-meet-headline {
+    position: relative;
+    z-index: 1;
     font-family: var(--cc-font-display);
     font-weight: 500;
     font-size: clamp(36px, 4.2vw, 64px);
@@ -48,6 +54,8 @@
     text-align: center;
   }
   .cc-meet-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1.4fr 1fr;
     gap: 40px;
