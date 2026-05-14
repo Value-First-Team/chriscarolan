@@ -51,27 +51,30 @@ const { size = 2400, left, top, opacity = 1 } = Astro.props;
 const toCss = (v: string | number | undefined) =>
   v === undefined ? undefined : typeof v === 'number' ? `${v}px` : v;
 
-// Ring series: 6 rings, outer radii from R_MAX down to R_MIN in even steps.
+// Ring series: 6 rings packed TIGHT — each ring's inner radius equals the
+// next ring's outer radius. Zero gap. Reads as one continuous rippled surface.
 // R_MAX = size/2 keeps the outermost ring within the wrapper width.
-// R_MIN small enough to provide a tight inner "half-disc" center cap.
+// R_MIN = 180px is the innermost ring's inner radius (the half-disc fills
+// from its outer radius down to the baseline; this R_MIN value sets the
+// thickness denominator only).
 // Composition (per Chris's Figma count):
 //   1 outermost (faint, no mask, no stroke) per #2036_8
 //   4 middle (masked half-donut, 2px stroke) per #2036_11
 //   1 innermost (half-disc, 2px stroke, dy=+10) per #2036_13
 const RING_COUNT = 6;
 const R_MAX = size / 2; // 1200 at default size=2400
-const R_MIN = 180;      // innermost half-disc footprint (slightly larger for 6-ring spacing)
-const R_STEP = (R_MAX - R_MIN) / (RING_COUNT - 1); // even spacing => 204px per step
+const R_MIN = 180;
+// Uniform thickness T such that 6 rings stack tight from R_MIN..R_MAX.
+const T = (R_MAX - R_MIN) / RING_COUNT; // 170px per ring at default size=2400
 
-// Per-ring outer radius (px), index 0 = innermost, RING_COUNT-1 = outermost
+// Per-ring outer radius (px), index 0 = innermost, RING_COUNT-1 = outermost.
+// Outer radius for ring i = R_MIN + (i+1) * T.
+// => i=0: 350, i=1: 520, i=2: 690, i=3: 860, i=4: 1030, i=5: 1200.
+// Each ring's inner radius (R - T) equals the previous ring's outer radius.
 const rings = Array.from({ length: RING_COUNT }, (_, i) => {
-  const R = R_MIN + i * R_STEP;
+  const R = R_MIN + (i + 1) * T;
   const isInnermost = i === 0;
   const isOutermost = i === RING_COUNT - 1;
-  // Thickness: ~70% of the radial step so rings have a clear gap between them.
-  // With R_STEP = 204 at default size=2400, T ≈ 143px — visible tube, ~60px gap.
-  // Floor at 60px so the innermost ring still reads as a tube (when not half-disc).
-  const T = Math.max(60, R_STEP * 0.7);
   // Inner radius for the half-donut return arc
   const Ri = R - T;
   // viewBox: width = 2R, height = R (perfect half-circle bounding box)
@@ -108,8 +111,13 @@ const rings = Array.from({ length: RING_COUNT }, (_, i) => {
   const dy = isInnermost ? 10 : -10;
   // Innermost gradient inner stop differs slightly (per #2036_13)
   const stop0 = isInnermost ? '#1C1B2D' : '#1D1C31';
-  // Outermost: faint, no mask, no stroke
-  const ringOpacity = isOutermost ? 0.2 : 1;
+  // Linear opacity progression: outermost 0.20 -> innermost 1.00.
+  // Spec uses ring index 0 = outermost; code uses i = 0 = innermost.
+  // Convert: outerIndex = (RING_COUNT - 1) - i, so opacity = 1.00 at i=0
+  // and 0.20 at i=RING_COUNT-1.
+  // Formula: 0.20 + (i / (RING_COUNT - 1)) * 0.80
+  const ringOpacity = 0.20 + (i / (RING_COUNT - 1)) * 0.80;
+  // Outermost remains the only ring with no mask / no stroke (per #2036_8).
   const hasStroke = !isOutermost;
   const widthPct = (R / R_MAX) * 100;
   return {
