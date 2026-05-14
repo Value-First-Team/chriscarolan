@@ -45,3 +45,6 @@ pnpm-debug.log*
 # Turbo
 .turbo/
 .vercel
+
+# Mirror/QA session artifacts
+screenshots/
