@@ -50,7 +50,10 @@
     line-height: 1.6;
     color: var(--cc-pearl);
   }
+  /* Force cream on body paragraphs — defensive against any global p
+     color override (Mirror v2 found these rendering orange). */
   .cc-why-body p {
     margin: 0;
+    color: var(--cc-fg);
   }
 </style>

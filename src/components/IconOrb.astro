@@ -30,7 +30,17 @@ const chipOffsetBottom = -(size * 0.25);
   .cc-icon-orb {
     position: relative;
     border-radius: 50%;
-    background: conic-gradient(from 0deg, #fff6e4 0%, #f5872b 56%, #f85f36 100%);
+    /* Conic sweep tuned so cream highlight reads at top-left, transitioning
+       through orange to deep-orange. Wider cream band so it's visible on the
+       dark card background — matches Figma orb treatment. */
+    background-color: #f5872b;
+    background-image: conic-gradient(
+      from 215deg,
+      #fff6e4 0%,
+      #f5872b 35%,
+      #f85f36 70%,
+      #f5872b 100%
+    );
     display: flex;
     align-items: center;
     justify-content: center;

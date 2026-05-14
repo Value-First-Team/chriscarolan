@@ -65,7 +65,8 @@ import { SITE } from '../lib/site';
     top: 0;
   }
 
-  /* Portrait — centered, soft radial alpha mask so edges fade into navy */
+  /* Portrait — centered, soft radial alpha mask on the img itself so the
+     bitmap edges fade into navy with no rectangular crop visible. */
   .cc-hero-portrait {
     position: absolute;
     left: 50%;
@@ -76,18 +77,6 @@ import { SITE } from '../lib/site';
     height: 600px;
     pointer-events: none;
     z-index: 1;
-    -webkit-mask-image: radial-gradient(
-      ellipse 65% 60% at 50% 45%,
-      #000 50%,
-      rgba(0, 0, 0, 0.55) 75%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    mask-image: radial-gradient(
-      ellipse 65% 60% at 50% 45%,
-      #000 50%,
-      rgba(0, 0, 0, 0.55) 75%,
-      rgba(0, 0, 0, 0) 100%
-    );
   }
   .cc-hero-portrait img {
     width: 100%;
@@ -95,6 +84,22 @@ import { SITE } from '../lib/site';
     object-fit: cover;
     object-position: center 15%;
     display: block;
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      #000 55%,
+      rgba(0, 0, 0, 0.6) 78%,
+      rgba(0, 0, 0, 0) 95%
+    );
+    mask-image: radial-gradient(
+      ellipse at center,
+      #000 55%,
+      rgba(0, 0, 0, 0.6) 78%,
+      rgba(0, 0, 0, 0) 95%
+    );
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
   }
 
   /* Headline stack — overlays the portrait */

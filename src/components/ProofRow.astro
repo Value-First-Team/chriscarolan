@@ -1,9 +1,10 @@
 ---
 /**
- * ProofRow — "PROOF OF IMPACT" lime eyebrow + four credential columns.
+ * ProofRow — "PROOF OF IMPACT" orange eyebrow + four credential columns.
  *
- * Per Figma render: lime green Poppins ALL-CAPS eyebrow sits as the leftmost
- * column, with the four verified credentials filling the remaining columns.
+ * Per V (2026-05-14): eyebrow is orange (--cc-mirinda), not lime. Lime is
+ * reserved for CTAs (buttons + dates). Eyebrows on dark surfaces default
+ * to the orange accent.
  *
  * Verified credentials:
  *   1. Founder, Value-First Team
@@ -49,7 +50,9 @@ const items = [
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--cc-chinese);
+    /* Orange — lime is reserved for CTAs (buttons + dates) per bundle README.
+       Eyebrows on dark surfaces default to the orange accent. */
+    color: var(--cc-mirinda);
     padding-top: 4px;
     white-space: nowrap;
   }
