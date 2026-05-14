@@ -3,9 +3,11 @@
  * DottedOrbits — concentric crisp wireframe rings behind the hero portrait.
  *
  * Name kept for stable imports. Despite the historical name, these are NOT
- * dotted, dashed, blurred, or feathered. They are 1px solid black SVG circles
- * at 20% opacity — clean 'sonar' rings that read as faint watermark lines
- * a slightly darker shade than the navy `#1C1B2D` page background.
+ * dotted, dashed, blurred, or feathered. They are paired 1px SVG circles:
+ *   - A black ring at 35% opacity (Figma source-of-truth color)
+ *   - An inner cream ring at 8% opacity, 1px smaller radius
+ * The paired treatment gives a subtle engraved/embossed 3D edge against
+ * the textured cosmic-particle background.
  *
  * Source of truth: Figma "Chris Carolan - One page" — 4 concentric rings
  * with outer radii ~295, ~422, ~538, ~701 on a 1920px canvas (centered at
@@ -51,16 +53,30 @@ const rings = [369, 528, 673, 877];
 >
   {
     rings.map((r) => (
-      <circle
-        cx="1200"
-        cy="1200"
-        r={r}
-        fill="none"
-        stroke="#000000"
-        stroke-width="1"
-        stroke-opacity="0.2"
-        vector-effect="non-scaling-stroke"
-      />
+      <>
+        {/* Inner highlight — subtle cream engraved edge for 3D feel */}
+        <circle
+          cx="1200"
+          cy="1200"
+          r={r - 1}
+          fill="none"
+          stroke="#FFF6E4"
+          stroke-width="1"
+          stroke-opacity="0.08"
+          vector-effect="non-scaling-stroke"
+        />
+        {/* Crisp black ring — Figma source-of-truth */}
+        <circle
+          cx="1200"
+          cy="1200"
+          r={r}
+          fill="none"
+          stroke="#000000"
+          stroke-width="1"
+          stroke-opacity="0.35"
+          vector-effect="non-scaling-stroke"
+        />
+      </>
     ))
   }
 </svg>
