@@ -2,13 +2,14 @@
 /**
  * DottedOrbits — concentric luminous half-donut ring tubes behind the hero.
  *
- * Name kept for stable imports. Implementation is now a parameterized ring
- * generator producing a dense concentric series (~10 rings), built from a
- * single canonical template derived from Chris's Figma SVGs (#2036_8 /
- * #2036_11 / #2036_13). Those three SVGs were anchor specimens for the
- * outermost / middle / innermost variants — the Figma render itself shows
- * a continuous radiating pattern of many rings of the same masked half-donut
- * style at progressively smaller radii.
+ * Name kept for stable imports. Implementation is a parameterized ring
+ * generator producing a 6-ring concentric series, built from a single
+ * canonical template derived from Chris's Figma SVGs (#2036_8 / #2036_11 /
+ * #2036_13). Those three SVGs were anchor specimens for the outermost /
+ * middle / innermost variants — the Figma render itself shows a continuous
+ * radiating pattern of 6 rings of the same masked half-donut style at
+ * progressively smaller radii: 1 outer faint + 4 middle masked + 1 inner
+ * half-disc.
  *
  * Geometry per ring (index i, outer radius R):
  *   - viewBox 0 0 (2R) R                         — perfect half-circle box
@@ -50,21 +51,27 @@ const { size = 2400, left, top, opacity = 1 } = Astro.props;
 const toCss = (v: string | number | undefined) =>
   v === undefined ? undefined : typeof v === 'number' ? `${v}px` : v;
 
-// Ring series: 10 rings, outer radii from R_MAX down to R_MIN in even steps.
+// Ring series: 6 rings, outer radii from R_MAX down to R_MIN in even steps.
 // R_MAX = size/2 keeps the outermost ring within the wrapper width.
 // R_MIN small enough to provide a tight inner "half-disc" center cap.
-const RING_COUNT = 10;
+// Composition (per Chris's Figma count):
+//   1 outermost (faint, no mask, no stroke) per #2036_8
+//   4 middle (masked half-donut, 2px stroke) per #2036_11
+//   1 innermost (half-disc, 2px stroke, dy=+10) per #2036_13
+const RING_COUNT = 6;
 const R_MAX = size / 2; // 1200 at default size=2400
-const R_MIN = 120;      // matches canonical innermost half-disc footprint
-const R_STEP = (R_MAX - R_MIN) / (RING_COUNT - 1); // even spacing
+const R_MIN = 180;      // innermost half-disc footprint (slightly larger for 6-ring spacing)
+const R_STEP = (R_MAX - R_MIN) / (RING_COUNT - 1); // even spacing => 204px per step
 
 // Per-ring outer radius (px), index 0 = innermost, RING_COUNT-1 = outermost
 const rings = Array.from({ length: RING_COUNT }, (_, i) => {
   const R = R_MIN + i * R_STEP;
   const isInnermost = i === 0;
   const isOutermost = i === RING_COUNT - 1;
-  // Thickness ≈ 11% of width (2R) ≈ 22% of R, matching #2036_11's 117/1076 ratio
-  const T = R * 0.2175;
+  // Thickness: ~70% of the radial step so rings have a clear gap between them.
+  // With R_STEP = 204 at default size=2400, T ≈ 143px — visible tube, ~60px gap.
+  // Floor at 60px so the innermost ring still reads as a tube (when not half-disc).
+  const T = Math.max(60, R_STEP * 0.7);
   // Inner radius for the half-donut return arc
   const Ri = R - T;
   // viewBox: width = 2R, height = R (perfect half-circle bounding box)
