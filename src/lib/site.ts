@@ -17,7 +17,7 @@ export const SITE = {
     youtube: 'https://www.youtube.com/@Value-First',
   },
   links: {
-    bookCall: 'https://www.valuefirstteam.com/office-hours',
+    bookCall: 'https://meetings.hubspot.com/chris-carolan1/value-first-team-free-consult',
     valueFirstTeam: 'https://www.valuefirstteam.com',
     shows: 'https://www.valuefirstteam.com/shows',
     aiDailyShow: 'https://www.valuefirstteam.com/shows/vf-ai-daily',
