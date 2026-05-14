@@ -1,18 +1,22 @@
 ---
 /**
- * DottedOrbits — concentric soft-edged ring bands radiating from a center point.
+ * DottedOrbits — concentric crisp wireframe rings behind the hero portrait.
  *
- * Despite the name (kept for stable imports), this no longer renders dashed strokes.
- * The Figma cosmic backdrop is layered soft-edged ring bands forming a 3D orb effect,
- * NOT dotted orbits. Each ring is a thin solid stroke with a glow blur, layered with
- * decreasing opacity outward.
+ * Name kept for stable imports. Despite the historical name, these are NOT
+ * dotted, dashed, blurred, or feathered. They are 1px solid black SVG circles
+ * at 20% opacity — clean 'sonar' rings that read as faint watermark lines
+ * a slightly darker shade than the navy `#1C1B2D` page background.
+ *
+ * Source of truth: Figma "Chris Carolan - One page" — 4 concentric rings
+ * with outer radii ~295, ~422, ~538, ~701 on a 1920px canvas (centered at
+ * the visual center of the hero portrait). We scale that proportionally
+ * across a 2400px viewBox so the rings sit comfortably behind the portrait
+ * and fade out past the hero's overflow boundary.
  */
 interface Props {
   size?: number;
   left?: string | number;
   top?: string | number;
-  centerLeft?: string | number;
-  centerTop?: string | number;
   opacity?: number;
 }
 
@@ -31,22 +35,10 @@ const styleParts = [
 
 const styleStr = styleParts.join('; ');
 
-// 9 concentric rings forming the cosmic-orb backdrop. Each is a thin stroke that
-// the Gaussian blur softens into a glowing band. We render in a slightly lighter
-// purple-violet (--cc-violet equivalent) over the navy page; mix-blend-mode: screen
-// makes the bands brighten the navy rather than darken it, which matches the
-// Figma's "bands of subtle inner light" effect.
-const rings = [
-  { r: 1180, op: 0.08, w: 28 },
-  { r: 1060, op: 0.10, w: 26 },
-  { r:  950, op: 0.13, w: 24 },
-  { r:  840, op: 0.16, w: 22 },
-  { r:  730, op: 0.19, w: 20 },
-  { r:  620, op: 0.22, w: 18 },
-  { r:  510, op: 0.25, w: 16 },
-  { r:  400, op: 0.28, w: 14 },
-  { r:  290, op: 0.30, w: 12 },
-];
+// 4 concentric rings. Radii proportional to the Figma source (295, 422, 538, 701
+// against a 1920px width), scaled up to a 2400px viewBox so the centerpoint sits
+// behind the portrait. Even radial intervals roughly matching the Figma render.
+const rings = [369, 528, 673, 877];
 ---
 
 <svg
@@ -57,33 +49,26 @@ const rings = [
   style={styleStr}
   aria-hidden="true"
 >
-  <defs>
-    <filter id="orb-glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="6" />
-    </filter>
-  </defs>
-  <g filter="url(#orb-glow)">
-    {
-      rings.map((ring) => (
-        <circle
-          cx="1200"
-          cy="1200"
-          r={ring.r}
-          fill="none"
-          stroke="#9C97D6"
-          stroke-width={ring.w}
-          opacity={ring.op}
-        />
-      ))
-    }
-  </g>
+  {
+    rings.map((r) => (
+      <circle
+        cx="1200"
+        cy="1200"
+        r={r}
+        fill="none"
+        stroke="#000000"
+        stroke-width="1"
+        stroke-opacity="0.2"
+        vector-effect="non-scaling-stroke"
+      />
+    ))
+  }
 </svg>
 
 <style>
   .cc-orbits {
     position: absolute;
     pointer-events: none;
-    mix-blend-mode: screen;
     max-width: none;
     width: 100%;
     height: 100%;
