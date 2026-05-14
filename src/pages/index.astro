@@ -1,11 +1,45 @@
 ---
 /**
- * index.astro — placeholder homepage for chriscarolan.com.
- * Showcase will replace all content and styling in the Brand Alchemy handoff.
+ * index.astro — chriscarolan.com one-page authority site.
+ * Composition order per Brand Alchemy bundle README:
+ *   TopNav → Hero → ProofRow → ProblemStatement → HowICanHelp → WhyChris
+ *   → ComparisonCard → MeetChris → SpeakingMedia → ValueFirstTeam → InTheMedia
+ *   → PodcastSection → SpeakingKit → JustForFun → ReadyToConnect → Footer
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TopNav from '../components/TopNav.astro';
+import Hero from '../components/Hero.astro';
+import ProofRow from '../components/ProofRow.astro';
+import ProblemStatement from '../components/ProblemStatement.astro';
+import HowICanHelp from '../components/HowICanHelp.astro';
+import WhyChris from '../components/WhyChris.astro';
+import ComparisonCard from '../components/ComparisonCard.astro';
+import MeetChris from '../components/MeetChris.astro';
+import SpeakingMedia from '../components/SpeakingMedia.astro';
+import ValueFirstTeam from '../components/ValueFirstTeam.astro';
+import InTheMedia from '../components/InTheMedia.astro';
+import PodcastSection from '../components/PodcastSection.astro';
+import SpeakingKit from '../components/SpeakingKit.astro';
+import JustForFun from '../components/JustForFun.astro';
+import ReadyToConnect from '../components/ReadyToConnect.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <BaseLayout title="Chris Carolan" path="/">
-  <p>Hello from chriscarolan.com</p>
+  <TopNav />
+  <Hero />
+  <ProofRow />
+  <ProblemStatement />
+  <HowICanHelp />
+  <WhyChris />
+  <ComparisonCard />
+  <MeetChris />
+  <SpeakingMedia />
+  <ValueFirstTeam />
+  <InTheMedia />
+  <PodcastSection />
+  <SpeakingKit />
+  <JustForFun />
+  <ReadyToConnect />
+  <Footer />
 </BaseLayout>

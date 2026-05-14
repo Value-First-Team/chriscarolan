@@ -1,9 +1,12 @@
 ---
 /**
- * BaseLayout — placeholder shell for chriscarolan.com.
- * Showcase will replace this with the Brand Alchemy design system layout.
+ * BaseLayout — chriscarolan.com shell.
+ * Loads Brand Alchemy design tokens (Kameron + Roboto + Poppins via colors_and_type.css)
+ * and Tailwind utilities. Tailwind is layout-only; brand colors and typography come
+ * from CSS custom properties in colors_and_type.css.
  */
 import { SITE } from '../lib/site';
+import '../styles/colors_and_type.css';
 import '../styles/global.css';
 
 export interface Props {
@@ -18,7 +21,7 @@ const {
   path,
 } = Astro.props;
 
-const fullTitle = path === '/' ? SITE.name : `${title} — ${SITE.name}`;
+const fullTitle = path === '/' ? `${SITE.name} — Business Transformation Advisor for the AI Era` : `${title} — ${SITE.name}`;
 const canonicalUrl = `${SITE.url}${path}`;
 ---
 
@@ -31,6 +34,17 @@ const canonicalUrl = `${SITE.url}${path}`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo-cc-mark-orange.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={SITE.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
   </head>
   <body>
     <main id="main">

@@ -1,9 +1,43 @@
 /*
- * global.css — placeholder for chriscarolan.com
- * Showcase will replace this with the Brand Alchemy design token system.
- * Do not add permanent styles here — this file is a scaffold placeholder only.
+ * global.css — chriscarolan.com
+ * Tailwind utilities for layout. Brand tokens live in colors_and_type.css.
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Reset just enough so the brand styles in colors_and_type.css land cleanly. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+/* Anchor reset — colors_and_type.css sets `a { color: var(--cc-mirinda) }`,
+   but inside our brand surfaces we want links to inherit so they look like real CTAs. */
+a.cc-btn,
+a.cc-btn-outline {
+  text-decoration: none;
+}
+

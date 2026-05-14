@@ -15,7 +15,7 @@ export default defineConfig({
       filter: (page) => !page.endsWith('/sitemap') && !page.endsWith('/sitemap/'),
     }),
   ],
-  output: 'server',
+  output: 'static',
   adapter: vercel({
     imageService: true,
   }),

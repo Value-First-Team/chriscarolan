@@ -1,0 +1,47 @@
+---
+/**
+ * CCLogo — brand lockup: orange-gradient CC monogram + Chris Carolan wordmark.
+ * Recreates the JSX Primitives.CCLogo with a masked div for the gradient mark.
+ */
+interface Props {
+  height?: number;
+  color?: 'cream' | 'dark';
+}
+
+const { height = 50, color = 'cream' } = Astro.props;
+
+const wordmark =
+  color === 'cream'
+    ? '/assets/logo-cc-wordmark-fill-cream.svg'
+    : '/assets/logo-wordmark-dark-fill.svg';
+
+const markWidth = Math.round(height * 1.375);
+const wordmarkHeight = Math.round(height * 0.4);
+---
+
+<div class="cc-logo" style={`height: ${height}px;`}>
+  <div
+    class="cc-logo-mark"
+    style={`width: ${markWidth}px; height: ${height}px;`}
+    aria-hidden="true"
+  >
+  </div>
+  <img src={wordmark} alt="Chris Carolan" style={`height: ${wordmarkHeight}px;`} />
+</div>
+
+<style>
+  .cc-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cc-logo-mark {
+    background: linear-gradient(180deg, #f5872b 0%, #f85f36 100%);
+    -webkit-mask: url('/assets/logo-cc-mark-orange.svg') center / contain no-repeat;
+    mask: url('/assets/logo-cc-mark-orange.svg') center / contain no-repeat;
+    flex-shrink: 0;
+  }
+  .cc-logo img {
+    flex-shrink: 0;
+  }
+</style>

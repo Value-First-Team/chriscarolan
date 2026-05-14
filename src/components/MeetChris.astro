@@ -1,0 +1,98 @@
+---
+/**
+ * MeetChris — left bio column, center portrait, right second column.
+ * Copy: bundle text + brand correction ("Value-First mindset", not "values-first").
+ * Bundle's "values-first mindset" was a typo against brand rule "always Value-First, never Values-First."
+ */
+---
+
+<section class="cc-meet">
+  <h2 class="cc-meet-headline">Meet Chris</h2>
+
+  <div class="cc-meet-grid">
+    <div class="cc-meet-col cc-meet-col-left">
+      <p>
+        Hey! I&rsquo;m Chris Carolan, and I help leaders and businesses move from industrial-age operations to AI-empowered organizations. I do this with a Value-First mindset so you can activate your team&rsquo;s capabilities instead of replacing them.
+      </p>
+      <p>
+        What makes my work different isn&rsquo;t just my understanding of HubSpot, AI, or business systems. It&rsquo;s how I think.
+      </p>
+    </div>
+
+    <div class="cc-meet-portrait" aria-hidden="true"></div>
+
+    <div class="cc-meet-col cc-meet-col-right">
+      <p>
+        I see patterns across domains that most people miss. I question assumptions others have stopped noticing. And I bring a kind of optimism that makes change feel possible, even when the decision in front of you feels impossible.
+      </p>
+      <p class="cc-meet-emphasis">Most of all, I care.</p>
+      <p>
+        About the people inside the system. About helping leaders make better decisions. About building companies that actually work for the humans inside them, not just the spreadsheet.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-meet {
+    position: relative;
+    padding: 120px clamp(24px, 20vw, 390px) 60px;
+  }
+  .cc-meet-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(36px, 4.2vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0 0 30px;
+    text-align: center;
+  }
+  .cc-meet-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .cc-meet-col {
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--cc-pearl);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cc-meet-col-right {
+    padding-top: 80px;
+  }
+  .cc-meet-col p {
+    margin: 0;
+  }
+  .cc-meet-emphasis {
+    font-weight: 500;
+  }
+  .cc-meet-portrait {
+    aspect-ratio: 855 / 801;
+    background-image: url('/assets/chris-portrait-meet.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+  }
+  @media (max-width: 900px) {
+    .cc-meet {
+      padding: 60px 24px;
+    }
+    .cc-meet-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .cc-meet-col-right {
+      padding-top: 0;
+    }
+    .cc-meet-portrait {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>

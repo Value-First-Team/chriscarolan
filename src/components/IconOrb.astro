@@ -1,0 +1,53 @@
+---
+/**
+ * IconOrb — 55-60px conic-gradient circle with a navy chip cut out of the bottom,
+ * housing an outline icon. Brand iconography pattern.
+ * Pass an SVG via the default slot.
+ */
+interface Props {
+  size?: number;
+}
+
+const { size = 56 } = Astro.props;
+const chipSize = size * 0.5;
+const chipOffsetLeft = size * 0.25;
+const chipOffsetBottom = -(size * 0.25);
+---
+
+<div class="cc-icon-orb" style={`width: ${size}px; height: ${size}px;`}>
+  <div
+    class="cc-icon-orb-chip"
+    style={`left: ${chipOffsetLeft}px; bottom: ${chipOffsetBottom}px; width: ${chipSize}px; height: ${chipSize}px;`}
+    aria-hidden="true"
+  >
+  </div>
+  <div class="cc-icon-orb-inner">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cc-icon-orb {
+    position: relative;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #fff6e4 0%, #f5872b 56%, #f85f36 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .cc-icon-orb-chip {
+    position: absolute;
+    border-radius: 50%;
+    background: #1c1b2d;
+  }
+  .cc-icon-orb-inner {
+    position: relative;
+    z-index: 1;
+    color: #1c1b2d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

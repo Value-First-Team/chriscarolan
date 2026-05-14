@@ -1,0 +1,210 @@
+---
+/**
+ * SpeakingMedia — section headline + 2 image-top topic cards + 2 icon-orb cards + CTA.
+ * Topics drawn from bundle + discovery Q3 (Chris's signature talks).
+ */
+import IconOrb from './IconOrb.astro';
+import { SITE } from '../lib/site';
+---
+
+<section class="cc-speak">
+  <div class="cc-speak-inner">
+    <div class="cc-speak-heading">
+      <h2 class="cc-speak-headline">Speaking &amp; Media</h2>
+      <div class="cc-speak-sub">
+        I speak to leaders and teams who know the old way of operating no longer fits and want a more human, practical path into the AI era.
+      </div>
+    </div>
+
+    <!-- Top row: two image cards -->
+    <div class="cc-speak-row cc-speak-row-images">
+      <div class="cc-speak-topic">
+        <div
+          class="cc-speak-topic-image"
+          style="background-image: url('/assets/photo-conversation.png');"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="cc-speak-topic-title">From the Industrial Age<br />to the AI Era</div>
+        <div class="cc-speak-topic-body">
+          How to rethink the way your company operates before you add more tools.
+        </div>
+      </div>
+      <div class="cc-speak-topic">
+        <div
+          class="cc-speak-topic-image"
+          style="background-image: url('/assets/chris-speaking-media.png');"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="cc-speak-topic-title">Value Over Activity</div>
+        <div class="cc-speak-topic-body">
+          Why most companies are measuring the wrong things and what to do instead.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row: two orb cards -->
+    <div class="cc-speak-row cc-speak-row-orbs">
+      <div class="cc-speak-orb-card">
+        <IconOrb size={56}>
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 3h7v7H3z"></path>
+            <path d="M14 3h7v7h-7z"></path>
+            <path d="M14 14h7v7h-7z"></path>
+            <path d="M3 14h7v7H3z"></path>
+          </svg>
+        </IconOrb>
+        <div class="cc-speak-orb-title">Transformation,<br />Not Optimization</div>
+        <div class="cc-speak-orb-body">Stop improving broken systems. Build the right one.</div>
+      </div>
+      <div class="cc-speak-orb-card">
+        <IconOrb size={56}>
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="12 2 22 8.5 12 15 2 8.5 12 2"></polyline>
+            <polyline points="2 15.5 12 22 22 15.5"></polyline>
+            <polyline points="2 12 12 18.5 22 12"></polyline>
+          </svg>
+        </IconOrb>
+        <div class="cc-speak-orb-title">The 5-Layer Model<br />to Become AI-Native</div>
+        <div class="cc-speak-orb-body">What it takes to rebuild your company for the AI era.</div>
+      </div>
+    </div>
+
+    <a class="cc-btn" href={SITE.links.speakingKit}>Book to Speak</a>
+  </div>
+</section>
+
+<style>
+  .cc-speak {
+    padding: 80px clamp(24px, 20vw, 390px);
+  }
+  .cc-speak-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    max-width: 1142px;
+    margin: 0 auto;
+  }
+  .cc-speak-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    max-width: 700px;
+    text-align: center;
+  }
+  .cc-speak-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(36px, 4.2vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-speak-sub {
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--cc-pearl);
+  }
+
+  .cc-speak-row {
+    display: grid;
+    width: 100%;
+    gap: 60px;
+  }
+  .cc-speak-row-images {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cc-speak-row-orbs {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 80%;
+  }
+
+  .cc-speak-topic {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cc-speak-topic-image {
+    aspect-ratio: 338 / 268;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+  }
+  .cc-speak-topic-title {
+    font-family: var(--cc-font-display);
+    font-size: clamp(24px, 2.4vw, 30px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--cc-mirinda-deep);
+    white-space: pre-line;
+  }
+  .cc-speak-topic-body {
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--cc-pearl);
+  }
+
+  .cc-speak-orb-card {
+    border-radius: 12px;
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(248, 95, 54, 0.3) 0%,
+      rgba(248, 95, 54, 0) 100%
+    );
+    border: 0.5px solid var(--cc-mirinda-deep);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cc-speak-orb-title {
+    font-family: var(--cc-font-body);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--cc-mirinda-deep);
+    white-space: pre-line;
+  }
+  .cc-speak-orb-body {
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--cc-pearl);
+  }
+
+  @media (max-width: 900px) {
+    .cc-speak {
+      padding: 60px 24px;
+    }
+    .cc-speak-row-images,
+    .cc-speak-row-orbs {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      width: 100%;
+    }
+  }
+</style>

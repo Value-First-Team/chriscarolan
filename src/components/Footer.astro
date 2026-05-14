@@ -1,0 +1,145 @@
+---
+/**
+ * Footer — dark gray, logo row, tagline + email, divider, copyright + 4 social icons.
+ * Social icons: Lucide-style SVGs in rust-orange (--cc-mirinda-light).
+ */
+import CCLogo from './CCLogo.astro';
+import { SITE } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="cc-footer">
+  <div class="cc-footer-top">
+    <CCLogo height={50} color="cream" />
+    <div class="cc-footer-tagline-row">
+      <div class="cc-footer-tagline">Helping companies operate in the AI era</div>
+      <a class="cc-footer-email" href={`mailto:${SITE.email}`}>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <polyline points="2 6 12 13 22 6"></polyline>
+        </svg>
+        <span>{SITE.email}</span>
+      </a>
+    </div>
+  </div>
+
+  <hr class="cc-footer-rule" />
+
+  <div class="cc-footer-bottom">
+    <div class="cc-footer-copy">© {year} Chris Carolan | Site by Brand Alchemy</div>
+    <div class="cc-footer-socials" aria-label="Social links">
+      <a href={SITE.social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M20.5 3h-17A1.5 1.5 0 002 4.5v15A1.5 1.5 0 003.5 21h17a1.5 1.5 0 001.5-1.5v-15A1.5 1.5 0 0020.5 3zM8.5 17.5h-2.5v-7.5h2.5v7.5zm-1.25-8.6a1.45 1.45 0 11.01-2.9 1.45 1.45 0 010 2.9zm10.75 8.6h-2.5v-3.65c0-.87-.02-2-1.22-2-1.22 0-1.4.95-1.4 1.93v3.72h-2.5v-7.5h2.4v1.03h.03c.34-.64 1.16-1.31 2.38-1.31 2.54 0 3.01 1.67 3.01 3.84v3.94z"
+          ></path>
+        </svg>
+      </a>
+      <a href={SITE.social.x} target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18 3h3l-7 8 8 10h-6.5l-5-6-5.5 6H1l7.5-8.5L1 3h6.5l4.5 5.5L18 3z"></path>
+        </svg>
+      </a>
+      <a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"></circle>
+        </svg>
+      </a>
+      <a href={SITE.social.youtube} target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M23 12s0-3.6-.45-5.3a2.78 2.78 0 00-1.95-2C18.85 4.27 12 4.27 12 4.27s-6.85 0-8.6.46a2.78 2.78 0 00-1.95 2C1 8.4 1 12 1 12s0 3.6.45 5.3a2.78 2.78 0 001.95 2c1.75.46 8.6.46 8.6.46s6.85 0 8.6-.46a2.78 2.78 0 001.95-2C23 15.6 23 12 23 12zM9.74 15.27V8.73L15.5 12l-5.76 3.27z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .cc-footer {
+    background: var(--cc-footer);
+    padding: 50px clamp(24px, 20vw, 390px);
+    color: var(--cc-pearl);
+    font-family: var(--cc-font-body);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .cc-footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cc-footer-tagline-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .cc-footer-tagline {
+    font-size: 20px;
+  }
+  .cc-footer-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--cc-muted);
+    font-size: 20px;
+    text-decoration: none;
+  }
+  .cc-footer-email:hover {
+    color: var(--cc-pearl);
+  }
+  .cc-footer-rule {
+    border: none;
+    height: 1px;
+    background: var(--cc-line);
+    margin: 0;
+  }
+  .cc-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .cc-footer-copy {
+    font-size: 18px;
+    color: var(--cc-muted);
+  }
+  .cc-footer-socials {
+    display: flex;
+    gap: 22px;
+  }
+  .cc-footer-socials a {
+    color: var(--cc-mirinda-light);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+  .cc-footer-socials a:hover {
+    color: var(--cc-mirinda);
+  }
+</style>

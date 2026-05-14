@@ -1,0 +1,257 @@
+---
+/**
+ * PodcastSection — audio mockup card + description + Listen & Subscribe circular badge.
+ *
+ * COPY OVERRIDE: Bundle had "Nick Lafakis and I" co-host framing. Per brief,
+ * Value-First AI Daily is now SOLO host (Chris only). Description used here is the
+ * canonical Sanity record for vf-ai-daily: spinning wheel of 87 agents, weekday 6:30a CT.
+ */
+import { SITE } from '../lib/site';
+---
+
+<section class="cc-podcast">
+  <div class="cc-podcast-grid">
+    <!-- Audio mockup -->
+    <div class="cc-podcast-mockup">
+      <div
+        class="cc-podcast-thumb"
+        style="background-image: url('/assets/podcast-thumbnail.png');"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="cc-podcast-controls" aria-hidden="true">
+        <div>1×</div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          ><polygon points="11 19 2 12 11 5"></polygon><polygon points="22 19 13 12 22 5"
+          ></polygon></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          ><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"
+          ></rect></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          ><polygon points="2 5 11 12 2 19"></polygon><polygon points="13 5 22 12 13 19"
+          ></polygon></svg>
+        <div class="cc-podcast-controls-end">30s</div>
+      </div>
+      <div class="cc-podcast-now">
+        <div class="cc-podcast-date">Weekdays · 6:30a Central</div>
+        <div class="cc-podcast-blurb">
+          Meet one of 87 agents. The wheel spins live every weekday.
+        </div>
+      </div>
+    </div>
+
+    <!-- Description column -->
+    <div class="cc-podcast-text">
+      <div class="cc-podcast-eyebrow">Meet one of 87 agents. The wheel spins live every weekday at 6:30 Central.</div>
+      <h2 class="cc-podcast-headline">Value-First AI Daily</h2>
+      <p>
+        Each weekday at 6:30a CT, the Value-First team spins a wheel to introduce one of 87 AI agents. I show what it does — live.
+      </p>
+      <p>
+        It&rsquo;s a working demo, not a pitch. You see the agent, you see what it does, and you see how it fits into the broader operating system we&rsquo;re building.
+      </p>
+      <p>
+        If you want to see what AI-native operations actually look like — not in theory, but in production — this is the easiest way in.
+      </p>
+
+      <div class="cc-podcast-badge-wrap">
+        <a
+          href={SITE.links.aiDailyShow}
+          target="_blank"
+          rel="noopener"
+          class="cc-podcast-badge"
+          aria-label="Listen & Subscribe to Value-First AI Daily"
+        >
+          <div class="cc-podcast-badge-ring">
+            <div class="cc-podcast-badge-art" aria-hidden="true"></div>
+            <div class="cc-podcast-badge-play" aria-hidden="true"></div>
+          </div>
+          <div class="cc-podcast-badge-label">Listen &amp; Subscribe</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-podcast {
+    padding: 60px clamp(24px, 20vw, 390px);
+  }
+  .cc-podcast-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .cc-podcast-mockup {
+    width: 392px;
+    border-radius: 25px;
+    box-shadow: 0 0 80px 0 #171625;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border: 0.5px solid rgba(255, 246, 228, 0.08);
+  }
+  .cc-podcast-thumb {
+    width: 100%;
+    height: 345px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+  }
+  .cc-podcast-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--cc-font-body);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .cc-podcast-controls-end {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+  .cc-podcast-now {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cc-podcast-date {
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cc-chinese);
+  }
+  .cc-podcast-blurb {
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--cc-pearl);
+  }
+
+  .cc-podcast-text {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-top: 50px;
+  }
+  .cc-podcast-eyebrow {
+    font-family: var(--cc-font-meta);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cc-fg-subtle);
+  }
+  .cc-podcast-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-podcast-text p {
+    margin: 0;
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--cc-pearl);
+  }
+
+  .cc-podcast-badge-wrap {
+    margin-top: 14px;
+  }
+  .cc-podcast-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .cc-podcast-badge-ring {
+    position: relative;
+    width: 232px;
+    height: 232px;
+    border-radius: 50%;
+    background-color: #1c1b2d;
+    border: 1px solid var(--cc-pearl);
+    flex-shrink: 0;
+  }
+  .cc-podcast-badge-art {
+    position: absolute;
+    left: 23px;
+    top: 23px;
+    width: 186px;
+    height: 186px;
+    border-radius: 50%;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url('/assets/podcast-art.png') center / cover no-repeat;
+  }
+  .cc-podcast-badge-play {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid var(--cc-pearl);
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+  }
+  .cc-podcast-badge-label {
+    margin-left: -40px;
+    height: 48px;
+    border-radius: 100px;
+    background: #1c1b2d;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-family: var(--cc-font-body);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--cc-chinese);
+    white-space: nowrap;
+    border: 1px solid var(--cc-chinese);
+  }
+  .cc-podcast-badge:hover .cc-podcast-badge-label {
+    background: var(--cc-chinese);
+    color: var(--cc-prune);
+  }
+
+  @media (max-width: 900px) {
+    .cc-podcast {
+      padding: 40px 24px;
+    }
+    .cc-podcast-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .cc-podcast-text {
+      padding-top: 0;
+    }
+    .cc-podcast-mockup {
+      width: 100%;
+    }
+    .cc-podcast-thumb {
+      height: 280px;
+    }
+    .cc-podcast-badge-ring {
+      width: 180px;
+      height: 180px;
+    }
+    .cc-podcast-badge-art {
+      left: 18px;
+      top: 18px;
+      width: 144px;
+      height: 144px;
+    }
+    .cc-podcast-badge-play {
+      left: 78px;
+      top: 78px;
+    }
+  }
+</style>

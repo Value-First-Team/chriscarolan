@@ -1,0 +1,41 @@
+---
+/**
+ * TopNav — brand left, single outlined "Book a Call" CTA right.
+ * No multi-link nav. One-page scroll site.
+ */
+import CCLogo from './CCLogo.astro';
+import { SITE } from '../lib/site';
+---
+
+<header class="cc-topnav">
+  <a href="/" class="cc-topnav-brand" aria-label="Chris Carolan — home">
+    <CCLogo height={50} color="cream" />
+  </a>
+  <a class="cc-btn-outline" href={SITE.links.bookCall} target="_blank" rel="noopener">
+    Book a Call
+  </a>
+</header>
+
+<style>
+  .cc-topnav {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px clamp(24px, 20vw, 390px);
+  }
+  .cc-topnav-brand {
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width: 600px) {
+    .cc-topnav {
+      height: auto;
+      padding: 20px 24px;
+      gap: 16px;
+    }
+  }
+</style>

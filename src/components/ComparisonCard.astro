@@ -1,0 +1,112 @@
+---
+/**
+ * ComparisonCard — Chris vs Others. Orange-hairline glow shell, two inner columns.
+ * Bullet style: tiny conic-gradient orb (no checkmarks, no emoji).
+ */
+const chris = [
+  'Focuses on the operating model underneath everything',
+  'Helps you decide what needs to change first',
+  'Rebuilds how systems, data, and teams connect',
+  'Focuses on value, not activity',
+];
+
+const others = [
+  'Focus on tools and workflows',
+  'Optimize what already exists',
+  'Implement platforms in isolation',
+  'Measure activity and performance',
+];
+---
+
+<section class="cc-cmp">
+  <div class="cc-cmp-shell">
+    <div class="cc-cmp-col cc-cmp-col-chris">
+      <h3>Chris</h3>
+      {
+        chris.map((p) => (
+          <div class="cc-cmp-bullet">
+            <span class="cc-cmp-dot" aria-hidden="true" />
+            <span>{p}</span>
+          </div>
+        ))
+      }
+    </div>
+    <div class="cc-cmp-col cc-cmp-col-others">
+      <h3>Others</h3>
+      {
+        others.map((p) => (
+          <div class="cc-cmp-bullet">
+            <span class="cc-cmp-dot" aria-hidden="true" />
+            <span>{p}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-cmp {
+    padding: 20px clamp(24px, 16vw, 314px) 80px;
+  }
+  .cc-cmp-shell {
+    border-radius: 25px;
+    border: 0.5px solid var(--cc-mirinda-deep);
+    box-shadow: 0 0 80px 0 #171625;
+    padding: clamp(28px, 4vw, 75px);
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 18px;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(248, 95, 54, 0.05) 0%,
+      rgba(248, 95, 54, 0) 70%
+    );
+  }
+  .cc-cmp-col {
+    border-radius: 12px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .cc-cmp-col-chris {
+    background: #171625;
+  }
+  .cc-cmp-col-others {
+    opacity: 0.8;
+  }
+  .cc-cmp-col h3 {
+    font-family: var(--cc-font-body);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.07;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-cmp-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--cc-pearl);
+  }
+  .cc-cmp-dot {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #fff6e4 0%, #f5872b 56%, #f85f36 100%);
+  }
+  @media (max-width: 900px) {
+    .cc-cmp-shell {
+      grid-template-columns: 1fr;
+    }
+    .cc-cmp-col {
+      padding: 28px;
+    }
+  }
+</style>

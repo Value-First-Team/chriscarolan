@@ -1,0 +1,106 @@
+---
+/**
+ * HowICanHelp — three-step path to working with Chris. Numbered titles + body + CTA.
+ * Step copy verbatim from bundle (already in Chris's voice).
+ */
+import { SITE } from '../lib/site';
+
+const steps = [
+  {
+    n: '1',
+    title: 'Start with a\nreal conversation',
+    body: 'No pitch deck. No overproduced demo. Just an honest conversation about what feels off, what’s not working, and what may need to change.',
+  },
+  {
+    n: '2',
+    title: 'See what’s possible',
+    body: 'In a live working session, I’ll help you build something real so the difference becomes obvious fast.',
+  },
+  {
+    n: '3',
+    title: 'Build the\nright path forward',
+    body: 'From coaching to deep transformation work, the goal is always the same: help your organization work better, think better, and build capability and value that lasts.',
+  },
+];
+---
+
+<section class="cc-how">
+  <div class="cc-how-inner">
+    <h2 class="cc-how-headline">How I Can Help</h2>
+    <div class="cc-how-grid">
+      {
+        steps.map((s) => (
+          <div class="cc-how-step">
+            <div class="cc-how-step-n">{s.n}</div>
+            <div class="cc-how-step-title">{s.title}</div>
+            <div class="cc-how-step-body">{s.body}</div>
+          </div>
+        ))
+      }
+    </div>
+    <a class="cc-btn" href={SITE.links.bookCall} target="_blank" rel="noopener">Work With Me</a>
+  </div>
+</section>
+
+<style>
+  .cc-how {
+    padding: 60px clamp(24px, 16vw, 314px);
+  }
+  .cc-how-inner {
+    border-radius: 25px;
+    padding: clamp(32px, 5vw, 75px);
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    text-align: left;
+  }
+  .cc-how-headline {
+    align-self: stretch;
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(36px, 4.2vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda);
+    margin: 0;
+  }
+  .cc-how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 60px;
+    align-self: stretch;
+  }
+  .cc-how-step {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .cc-how-step-n {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+  }
+  .cc-how-step-title {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.05;
+    color: var(--cc-pearl);
+    white-space: pre-line;
+  }
+  .cc-how-step-body {
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--cc-pearl);
+    opacity: 0.9;
+  }
+  @media (max-width: 900px) {
+    .cc-how-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,142 @@
+---
+/**
+ * SpeakingKit — cream feature card. Two rows:
+ *   1. Speaking Kit + photo  → "Download Speaking Kit" CTA
+ *   2. Book cover + SaaSpocalypse synopsis → "Learn More" CTA
+ *
+ * Book blurb pulled from canonical synopsis file (back-cover blurb, ~50 words).
+ */
+import { SITE } from '../lib/site';
+---
+
+<section class="cc-kit">
+  <div class="cc-kit-card">
+    <!-- Speaking Kit row -->
+    <div class="cc-kit-row cc-kit-row-speaking">
+      <div class="cc-kit-text">
+        <h2>Speaking Kit</h2>
+        <p>
+          Want the full overview? Reach out for my speaking kit &mdash; bio, topics, podcast appearances, and more.
+        </p>
+        <div>
+          <a class="cc-btn" href={SITE.links.speakingKit}>Download Speaking Kit</a>
+        </div>
+      </div>
+      <div class="cc-kit-photo" aria-hidden="true"></div>
+    </div>
+
+    <div class="cc-kit-divider" aria-hidden="true"></div>
+
+    <!-- Book row -->
+    <div class="cc-kit-row cc-kit-row-book">
+      <img
+        src="/assets/book-cover.png"
+        alt="Surviving the SaaSpocalypse — book cover"
+        class="cc-kit-book-cover"
+      />
+      <div class="cc-kit-text">
+        <h2 class="cc-kit-book-title">Surviving the SaaSpocalypse</h2>
+        <p>
+          The SaaSpocalypse is what happens when fifteen rational tool decisions add up to one fragmented company that AI can&rsquo;t actually help. This book explains why it happened, why context is the missing ingredient, and how to architect your platform as an Agent OS instead of a filing cabinet.
+        </p>
+        <div>
+          <a class="cc-btn cc-btn-dark" href={SITE.links.bookLearnMore} target="_blank" rel="noopener">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-kit {
+    padding: 80px clamp(24px, 16vw, 314px);
+  }
+  .cc-kit-card {
+    border-radius: 25px;
+    background: var(--cc-pearl);
+    padding: clamp(32px, 5vw, 75px);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .cc-kit-row {
+    display: grid;
+    gap: 50px;
+    align-items: center;
+  }
+  .cc-kit-row-speaking {
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .cc-kit-row-book {
+    grid-template-columns: auto 1fr;
+  }
+  .cc-kit-text {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .cc-kit-text h2 {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 4.2vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-kit-book-title {
+    font-size: clamp(28px, 4vw, 60px) !important;
+  }
+  .cc-kit-text p {
+    margin: 0;
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--cc-prune);
+  }
+  .cc-kit-photo {
+    aspect-ratio: 562 / 442;
+    background-image: url('/assets/chris-speaking-media.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+  }
+  .cc-kit-book-cover {
+    width: 320px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+  .cc-kit-divider {
+    height: 16px;
+    width: 100%;
+    background: #d9d9d9;
+    border-radius: 50% / 100%;
+    box-shadow: inset 0 -8px 24px rgba(0, 0, 0, 0.45);
+    margin: 20px 0;
+  }
+  /* Dark variant of cc-btn used inside cream card so action feels grounded */
+  .cc-kit :global(.cc-btn-dark) {
+    background: var(--cc-prune);
+    color: var(--cc-pearl);
+  }
+  .cc-kit :global(.cc-btn-dark:hover) {
+    box-shadow: 0 8px 24px -8px rgba(28, 27, 45, 0.5);
+  }
+
+  @media (max-width: 900px) {
+    .cc-kit {
+      padding: 40px 24px;
+    }
+    .cc-kit-row-speaking,
+    .cc-kit-row-book {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .cc-kit-book-cover {
+      width: 200px;
+      margin: 0 auto;
+    }
+  }
+</style>

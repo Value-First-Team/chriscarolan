@@ -1,0 +1,298 @@
+/* ============================================================
+   Chris Carolan — Design Tokens
+   Colors, type, spacing, radii, shadows.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Kameron:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500&display=swap");
+
+:root {
+  /* ---------- Brand colors ---------- */
+  /* Primary */
+  --cc-prune:        #1C1B2D;  /* Deep navy/aubergine — primary brand bg */
+  --cc-dark:         #171625;  /* Dark vignette / deeper edge */
+  --cc-prune-2:      #1D1C31;  /* Slight purple lift inside cards */
+  --cc-pearl:        #FFF6E4;  /* Cream — primary fg on dark */
+  --cc-pearl-soft:   #FFFCF6;  /* Lighter cream for delicate text */
+
+  /* Accents */
+  --cc-mirinda:      #F5872B;  /* Orange — section headers */
+  --cc-mirinda-deep: #F85F36;  /* Deeper orange — CTAs / brand mark */
+  --cc-mirinda-light:#F2784B;  /* Lighter rust-orange (social icons) */
+  --cc-peach:        #FDC490;  /* Pale peach (de-emphasized text) */
+  --cc-gold:         #F6CE90;  /* Warm gold gradient stop */
+  --cc-chinese:      #B3CF58;  /* Lime green — button fill / inline emphasis */
+
+  /* Cosmic / atmosphere */
+  --cc-violet:       #595697;  /* Inner glow of cosmic gradient ring */
+  --cc-deep:         #1D1C31;  /* Outer ring */
+
+  /* Footer + neutrals */
+  --cc-footer:       #222222;  /* Footer dark gray */
+  --cc-line:         rgba(255, 252, 246, 0.10);
+  --cc-muted:        #C8C0B5;  /* Footer secondary text */
+  --cc-paper:        #F4F3F1;  /* Off-white surface */
+  --cc-white:        #FFFFFF;
+  --cc-black:        #0A0A0A;
+
+  /* Surfaces */
+  --cc-card-dark:    #171625;  /* Cards on the dark page */
+  --cc-card-cream:   #FFF6E4;  /* Cream feature cards */
+  --cc-card-glow:    rgba(248, 95, 54, 0.30); /* radial fill in motif cards */
+
+  /* Gradients */
+  --cc-grad-orange:  linear-gradient(180deg, #F5872B 0%, #F85F36 100%);
+  --cc-grad-cosmic:  radial-gradient(circle, #1D1C31 0%, #595697 100%);
+  --cc-grad-conic-icon: conic-gradient(from 0deg, #FFF6E4 0%, #F5872B 56%, #F85F36 100%);
+  --cc-grad-hero-veil:  linear-gradient(180deg, #1C1B2D 0%, rgba(28,27,45,0) 75%, #171625 100%);
+
+  /* ---------- Semantic foreground / background ---------- */
+  --cc-bg:           var(--cc-prune);
+  --cc-fg:           var(--cc-pearl);
+  --cc-fg-muted:     rgba(255, 246, 228, 0.72);
+  --cc-fg-subtle:    rgba(255, 246, 228, 0.50);
+  --cc-accent:       var(--cc-mirinda-deep);
+  --cc-cta:          var(--cc-chinese);
+  --cc-cta-fg:       var(--cc-prune);
+
+  /* ---------- Type — families ---------- */
+  --cc-font-display: "Kameron", "Roboto Slab", "Rockwell", Georgia, serif;
+  --cc-font-body:    "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --cc-font-meta:    "Poppins", "Raleway", "Roboto", sans-serif;
+
+  /* ---------- Type — scale (px) ---------- */
+  /* Hero */
+  --cc-fs-display-xxl: 128px; /* "Chris Carolan" hero */
+  --cc-fs-display-xl:  96px;  /* H1 page headline */
+  --cc-fs-display-l:   64px;  /* Section headlines */
+  --cc-fs-display-m:   48px;  /* Card titles */
+  --cc-fs-display-s:   32px;  /* Sub-display */
+  /* Body */
+  --cc-fs-body-xl:     20px;  /* Long-form body */
+  --cc-fs-body-l:      18px;  /* Buttons, callouts */
+  --cc-fs-body-m:      16px;  /* Meta */
+  --cc-fs-body-s:      12px;  /* Eyebrow labels */
+
+  /* Line-heights */
+  --cc-lh-display:     1.0;
+  --cc-lh-tight:       1.25;
+  --cc-lh-body:        1.6;
+  --cc-lh-button:      1.56;  /* 28/18 */
+
+  /* Tracking */
+  --cc-tr-eyebrow:     0.340em; /* "FONTS", "COLORS" labels */
+  --cc-tr-allcaps:     0.260em; /* swatch chips */
+  --cc-tr-display:    -0.005em;
+
+  /* Weights */
+  --cc-fw-light:       300;
+  --cc-fw-regular:     400;
+  --cc-fw-medium:      500;
+  --cc-fw-bold:        700;
+
+  /* ---------- Spacing scale ---------- */
+  --cc-s-1:  4px;
+  --cc-s-2:  8px;
+  --cc-s-3:  12px;
+  --cc-s-4:  15px;
+  --cc-s-5:  20px;
+  --cc-s-6:  25px;
+  --cc-s-7:  30px;
+  --cc-s-8:  40px;
+  --cc-s-9:  50px;
+  --cc-s-10: 75px;
+  --cc-s-11: 100px;
+
+  /* Layout */
+  --cc-page-pad-x:   390px;  /* desktop content gutter @1920w */
+  --cc-card-pad:     75px;   /* large card padding */
+  --cc-card-pad-sm:  50px;   /* smaller card padding */
+
+  /* ---------- Radii ---------- */
+  --cc-r-pill:  100px;       /* buttons */
+  --cc-r-card:  25px;        /* big content cards */
+  --cc-r-tile:  12px;        /* inline tiles, icon orbs sized 56px */
+  --cc-r-image: 12px;        /* photo crops inside cards */
+  --cc-r-image-lg: 25px;     /* full feature photos */
+
+  /* ---------- Borders ---------- */
+  --cc-bd-thin:   0.5px solid var(--cc-mirinda-deep);
+  --cc-bd-cream:  0.5px solid var(--cc-pearl);
+  --cc-bd-cta:    1px solid var(--cc-chinese);
+
+  /* ---------- Shadows / elevation ---------- */
+  --cc-shadow-soft: 0 0 80px 0 rgba(23, 22, 37, 0.85);     /* lifted card glow on dark */
+  --cc-shadow-ring: inset 0 -10px 80px 20px rgba(0,0,0,1); /* cosmic orb interior */
+  --cc-shadow-hover: 0 12px 40px -8px rgba(248, 95, 54, 0.4);
+}
+
+/* ============================================================
+   Semantic element styles  (h1, p, etc)
+   Page should set body background to --cc-bg.
+   ============================================================ */
+
+body {
+  background: var(--cc-bg);
+  color: var(--cc-fg);
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-body-xl);
+  line-height: var(--cc-lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .cc-h1 {
+  font-family: var(--cc-font-display);
+  font-weight: var(--cc-fw-medium);
+  font-size: var(--cc-fs-display-xl);
+  line-height: var(--cc-lh-display);
+  letter-spacing: var(--cc-tr-display);
+  color: var(--cc-fg);
+  margin: 0;
+}
+
+h2, .cc-h2 {
+  font-family: var(--cc-font-display);
+  font-weight: var(--cc-fw-medium);
+  font-size: var(--cc-fs-display-l);
+  line-height: var(--cc-lh-display);
+  color: var(--cc-mirinda); /* section heads default to orange */
+  margin: 0;
+}
+
+h3, .cc-h3 {
+  font-family: var(--cc-font-display);
+  font-weight: var(--cc-fw-medium);
+  font-size: var(--cc-fs-display-s);
+  line-height: var(--cc-lh-tight);
+  color: var(--cc-fg);
+  margin: 0;
+}
+
+h4, .cc-h4 {
+  font-family: var(--cc-font-body);
+  font-weight: var(--cc-fw-bold);
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--cc-mirinda-deep);
+  margin: 0;
+}
+
+p, .cc-p {
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-body-xl);
+  line-height: 1.6;
+  color: var(--cc-fg);
+  margin: 0;
+}
+
+.cc-lead {
+  font-size: var(--cc-fs-display-s);
+  line-height: 1.1;
+  color: var(--cc-pearl-soft);
+}
+
+.cc-meta {
+  font-family: var(--cc-font-meta);
+  font-size: var(--cc-fs-body-s);
+  letter-spacing: var(--cc-tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--cc-fg-subtle);
+}
+
+small, .cc-small {
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-body-m);
+  line-height: 1.5;
+  color: var(--cc-muted);
+}
+
+a {
+  color: var(--cc-mirinda);
+  text-decoration: none;
+}
+a:hover { color: var(--cc-mirinda-deep); }
+
+/* ============================================================
+   Common reusable patterns
+   ============================================================ */
+
+/* Pill button — primary (lime fill on navy text) */
+.cc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  border-radius: var(--cc-r-pill);
+  background: var(--cc-chinese);
+  color: var(--cc-prune);
+  font-family: var(--cc-font-body);
+  font-weight: var(--cc-fw-medium);
+  font-size: var(--cc-fs-body-l);
+  line-height: 28px;
+  border: none;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+.cc-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(179,207,88,0.5); }
+.cc-btn:active { transform: translateY(0); }
+
+/* Pill button — outline (lime stroke on transparent) */
+.cc-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  border-radius: var(--cc-r-pill);
+  background: transparent;
+  color: var(--cc-chinese);
+  font-family: var(--cc-font-body);
+  font-weight: var(--cc-fw-medium);
+  font-size: var(--cc-fs-body-l);
+  line-height: 28px;
+  border: 1px solid var(--cc-chinese);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+.cc-btn-outline:hover {
+  background: var(--cc-chinese);
+  color: var(--cc-prune);
+}
+
+/* Large content card on dark — outlined glow */
+.cc-card-glow {
+  border-radius: var(--cc-r-card);
+  border: 0.5px solid var(--cc-mirinda-deep);
+  box-shadow: var(--cc-shadow-soft);
+  padding: var(--cc-card-pad);
+  background: transparent;
+}
+
+/* Large content card — cream surface */
+.cc-card-cream {
+  border-radius: var(--cc-r-card);
+  background: var(--cc-pearl);
+  color: var(--cc-prune);
+  padding: var(--cc-card-pad);
+}
+
+/* Eyebrow rule (FONTS / COLORS pattern) */
+.cc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--cc-font-meta);
+  font-size: var(--cc-fs-body-s);
+  letter-spacing: var(--cc-tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--cc-fg);
+  opacity: 0.6;
+}
+.cc-eyebrow::before, .cc-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}

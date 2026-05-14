@@ -1,0 +1,42 @@
+---
+/**
+ * ReadyToConnect — closing CTA. Centered headline, short body, primary CTA.
+ * Copy verbatim from bundle.
+ */
+import { SITE } from '../lib/site';
+---
+
+<section class="cc-ready">
+  <h2 class="cc-ready-headline">Ready to Connect?</h2>
+  <p class="cc-ready-body">
+    If something feels off in how your company is operating, you&rsquo;re probably right. Let&rsquo;s have a real conversation and see where you are.
+  </p>
+  <a class="cc-btn" href={SITE.links.bookCall} target="_blank" rel="noopener">Book a Call</a>
+</section>
+
+<style>
+  .cc-ready {
+    padding: 60px clamp(24px, 20vw, 390px) 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  .cc-ready-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(36px, 4.2vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-ready-body {
+    margin: 0;
+    max-width: 640px;
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--cc-pearl);
+  }
+</style>

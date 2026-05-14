@@ -1,0 +1,53 @@
+---
+/**
+ * ProofRow — verified credentials only. Four columns.
+ * No "As Featured In" logos. Bundle's verified proof set:
+ *   1. Founder, Value-First Team
+ *   2. Creator of the Value-First methodology
+ *   3. HubSpot Solutions Partner since 2020
+ *   4. Host of 1,000+ live episodes across 11 shows
+ */
+const items = [
+  { headline: 'Founder,', sub: 'Value-First Team' },
+  { headline: 'Creator of the', sub: 'Value-First methodology' },
+  { headline: 'HubSpot Solutions', sub: 'Partner since 2020' },
+  { headline: 'Host of 1,000+', sub: 'live episodes across 11 shows' },
+];
+---
+
+<section class="cc-proofrow">
+  {
+    items.map((it) => (
+      <div class="cc-proof-item">
+        <div class="cc-proof-headline">{it.headline}</div>
+        <div class="cc-proof-sub">{it.sub}</div>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .cc-proofrow {
+    position: relative;
+    z-index: 2;
+    padding: 40px clamp(24px, 20vw, 390px) 80px;
+    display: flex;
+    gap: 48px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .cc-proof-item {
+    color: var(--cc-pearl);
+    font-family: var(--cc-font-body);
+    font-size: 18px;
+    line-height: 24px;
+    flex: 1 1 200px;
+    min-width: 180px;
+  }
+  .cc-proof-headline {
+    font-weight: 500;
+  }
+  .cc-proof-sub {
+    opacity: 0.85;
+  }
+</style>

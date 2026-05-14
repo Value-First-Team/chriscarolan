@@ -1,0 +1,57 @@
+---
+/**
+ * DottedOrbits — concentric dotted-stroke circles suggesting orbit lines.
+ * Sits behind the hero at low opacity.
+ */
+interface Props {
+  size?: number;
+  left?: string | number;
+  top?: string | number;
+  opacity?: number;
+}
+
+const { size = 2296, left, top, opacity = 0.2 } = Astro.props;
+
+const toCss = (v: string | number | undefined) =>
+  v === undefined ? undefined : typeof v === 'number' ? `${v}px` : v;
+
+const styleParts = [
+  toCss(left) ? `left: ${toCss(left)}` : undefined,
+  toCss(top) ? `top: ${toCss(top)}` : undefined,
+  `opacity: ${opacity}`,
+].filter(Boolean);
+
+const styleStr = styleParts.join('; ');
+
+const radii = [1100, 950, 800, 650, 500, 350];
+---
+
+<svg
+  class="cc-orbits"
+  width={size}
+  height={size}
+  viewBox="0 0 2296 2296"
+  style={styleStr}
+  aria-hidden="true"
+>
+  {
+    radii.map((r) => (
+      <circle
+        cx="1148"
+        cy="1148"
+        r={r}
+        fill="none"
+        stroke="#FFF6E4"
+        stroke-width="1"
+        stroke-dasharray="2 8"
+      />
+    ))
+  }
+</svg>
+
+<style>
+  .cc-orbits {
+    position: absolute;
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+/**
+ * ValueFirstTeam — left image card (logo on dark), right copy + CTA.
+ * Copy from bundle (already correct: "From free Office Hours to the AI-Native Shift...").
+ */
+import { SITE } from '../lib/site';
+---
+
+<section class="cc-vft">
+  <div class="cc-vft-grid">
+    <div class="cc-vft-logo-card" aria-hidden="true"></div>
+    <div class="cc-vft-text">
+      <h2 class="cc-vft-headline">Value-First Team</h2>
+      <div class="cc-vft-body">
+        <p>I do this work through my company, Value-First Team.</p>
+        <p>
+          From free Office Hours to the AI-Native Shift, there are different ways to start depending on where you are.
+        </p>
+        <p>We&rsquo;ll meet you there and help you move forward.</p>
+      </div>
+      <div>
+        <a class="cc-btn" href={SITE.links.valueFirstTeam} target="_blank" rel="noopener">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-vft {
+    padding: 60px clamp(24px, 20vw, 390px);
+  }
+  .cc-vft-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .cc-vft-logo-card {
+    aspect-ratio: 550 / 492;
+    border-radius: 25px;
+    background-color: #171625;
+    background-image: url('/assets/value-first-team-logo.png');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .cc-vft-text {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 0 20px;
+  }
+  .cc-vft-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 64px);
+    line-height: 1;
+    color: var(--cc-mirinda-deep);
+    margin: 0;
+  }
+  .cc-vft-body {
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--cc-pearl);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cc-vft-body p {
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .cc-vft {
+      padding: 40px 24px;
+    }
+    .cc-vft-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .cc-vft-text {
+      padding: 0;
+    }
+  }
+</style>

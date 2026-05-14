@@ -1,0 +1,97 @@
+---
+/**
+ * ProblemStatement — left column: orange-on-cream headline + body.
+ * Right column: full-bleed dark photo card.
+ * Body copy verbatim from bundle (Challenger Coach voice, three named patterns).
+ */
+---
+
+<section class="cc-problem">
+  <div class="cc-problem-text">
+    <h2 class="cc-problem-headline">
+      AI isn&rsquo;t the problem. The way most companies operate is.
+    </h2>
+    <div class="cc-problem-body">
+      <p>
+        Leaders don&rsquo;t need more tools or more dashboards. They need a better way to run the business.
+      </p>
+      <p>
+        <strong>Your systems don&rsquo;t reflect reality.</strong>
+        Data is spread across too many tools. Teams work from different definitions. Reports say one thing, people say another, and things break down fast.
+      </p>
+      <p>
+        <strong>Your people are being managed by activity, not value.</strong>
+        When the system rewards call volume, task completion, and box-checking, people stop using judgment. The best ones work around it. Everyone else learns to play small.
+      </p>
+      <p>
+        <strong>AI on top of a broken system only makes it worse.</strong>
+        If the foundation is messy, AI just helps you do more of the wrong things faster. More output. More confusion. Less value.
+      </p>
+    </div>
+  </div>
+
+  <div class="cc-problem-photo" aria-hidden="true">
+    <img src="/assets/chris-portrait-speaking.png" alt="" />
+  </div>
+</section>
+
+<style>
+  .cc-problem {
+    padding: 60px clamp(24px, 20vw, 390px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 50px;
+    align-items: center;
+  }
+  .cc-problem-text {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .cc-problem-headline {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 64px);
+    line-height: 1;
+    color: var(--cc-pearl);
+    margin: 0;
+  }
+  .cc-problem-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-family: var(--cc-font-body);
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--cc-pearl);
+  }
+  .cc-problem-body p {
+    margin: 0;
+  }
+  .cc-problem-body strong {
+    font-weight: 500;
+  }
+  .cc-problem-photo {
+    position: relative;
+    border-radius: 25px;
+    background-color: #171625;
+    aspect-ratio: 569 / 767;
+    overflow: hidden;
+  }
+  .cc-problem-photo img {
+    position: absolute;
+    inset: 54px 0 0 0;
+    width: calc(100% - 21px);
+    margin: 0 auto;
+    height: auto;
+    border-radius: 0 0 0 25px;
+    display: block;
+  }
+  @media (max-width: 900px) {
+    .cc-problem {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px 24px;
+    }
+  }
+</style>
