@@ -1,22 +1,28 @@
 ---
 /**
- * DottedOrbits — concentric luminous half-donut ring tubes behind the hero
- * portrait (Figma "Chris Carolan - One page" source of truth).
+ * DottedOrbits — THREE canonical Figma half-ring SVGs stacked concentrically
+ * behind the hero portrait (verbatim from Chris's Figma "Chris Carolan -
+ * One page" source: SVG ids #2036_8 / #2036_11 / #2036_13).
  *
- * Name kept for stable imports. These are NOT dotted/dashed outlines anymore —
- * they are 3D luminous half-donut tubes arcing UP from the baseline where the
- * headline sits, nested concentrically to create a portal/tunnel effect behind
- * the portrait.
+ * Name kept for stable imports. These are NOT five linearly-interpolated
+ * rings — they are three discrete shapes with distinct properties:
  *
- * Each ring is the canonical Figma SVG pattern:
- *   - Half-donut path (outer half-circle + inner half-circle)
- *   - Radial gradient fill: #1D1C31 (deep navy) -> #595697 (violet)
- *   - Inner shadow filter (feMorphology erode r=20 + dy=-10 + blur 20) for 3D
- *   - 2px black stroke masked to ring shape
+ *   Ring 1 (1920x705) — outermost.   opacity 0.2, NO mask, NO stroke,
+ *                                    inner-shadow dy=-10 (light from below).
+ *   Ring 2 (1076x538) — middle.       full opacity, masked, 2px black stroke,
+ *                                    inner-shadow dy=-10 (light from below).
+ *   Ring 3 (591x296)  — innermost.    full opacity, masked, 2px black stroke,
+ *                                    HALF-DISC (not half-donut),
+ *                                    inner-shadow dy=+10 (light from ABOVE).
  *
- * Each instance scales the canonical 1076x538 pattern proportionally.
- * Ring thickness scales with width (~10.9% of width per Figma: 117/1076).
- * All rings share the same baseline (bottom edge of viewBox = bottom of hero).
+ * All three share a common bottom-center baseline (the headline baseline in
+ * the hero composition). Each SVG is absolutely positioned at left:50%,
+ * bottom:0, translateX(-50%) of the wrapper, with width scaled proportionally
+ * to Ring 1's design width (1920px). preserveAspectRatio "xMidYMax meet" on
+ * every SVG keeps each ring's own bottom-center pinned to its allocated box.
+ *
+ * Stacking order (back -> front): Ring 1, Ring 2, Ring 3. Portrait sits in
+ * front of all three via z-index on the Hero.
  */
 interface Props {
   size?: number;
@@ -25,179 +31,254 @@ interface Props {
   opacity?: number;
 }
 
-const { size = 2400, left, top, opacity = 1 } = Astro.props;
+const { size = 1920, left, top, opacity = 1 } = Astro.props;
 
 const toCss = (v: string | number | undefined) =>
   v === undefined ? undefined : typeof v === 'number' ? `${v}px` : v;
 
-const styleParts = [
+// Ring 1 is the design reference width. Rings 2 and 3 scale down from there
+// using their canonical Figma widths (1076 and 591 against 1920).
+const RING1_W = 1920;
+const RING1_H = 705;
+const RING2_W_PCT = (1076 / RING1_W) * 100; // ~56.04%
+const RING3_W_PCT = (591 / RING1_W) * 100;  // ~30.78%
+
+const wrapperStyleParts = [
   toCss(left) ? `left: ${toCss(left)}` : undefined,
   toCss(top) ? `top: ${toCss(top)}` : undefined,
   `opacity: ${opacity}`,
   `width: ${size}px`,
-  `height: ${size / 2}px`,
+  `height: ${(size * RING1_H) / RING1_W}px`,
 ].filter(Boolean);
 
-const styleStr = styleParts.join('; ');
-
-/**
- * Ring system — 5 nested half-donut tubes.
- * Width in pixels relative to a 2400px canvas. Largest ring spans the full
- * hero width; each subsequent ring nests inside. Aspect is 2:1 (W:H) since
- * each is a half-donut (top half of a ring) anchored at the bottom-center.
- *
- * Widths chosen to match the visible ring count + spacing in the Figma render
- * (4-5 distinct tubes behind the portrait).
- */
-const ringWidths = [2400, 2000, 1620, 1260, 920];
-
-/**
- * Build the half-donut path for a given canonical width W.
- * Outer half-circle radius = W/2, inner half-circle radius = W/2 - thickness.
- * Thickness scales with width per the canonical ratio (117 / 1076 ≈ 0.1087).
- * Path starts top-right of the outer half-circle, arcs to top-left, drops to
- * the inner half-circle's top-left, arcs back to top-right, and closes.
- *
- * Coordinate system per ring: viewBox "0 0 W W/2" with the ring's center at
- * (W/2, W/2) — the bottom-center of its own viewBox.
- */
-function buildRingPath(W: number) {
-  const H = W / 2;
-  const rOuter = W / 2;
-  const thickness = W * (117 / 1076);
-  const rInner = rOuter - thickness;
-  const cx = W / 2;
-  const cy = H;
-  // Outer half-circle: from (W, H) at right baseline, arc up over the top
-  // to (0, H) at left baseline (sweep over the top).
-  // Inner half-circle: from (cx - rInner, H) back to (cx + rInner, H), arc
-  // over the top in opposite sweep direction so the ring is hollow on top.
-  return [
-    `M ${cx + rOuter} ${cy}`,
-    `A ${rOuter} ${rOuter} 0 0 0 ${cx - rOuter} ${cy}`,
-    `L ${cx - rInner} ${cy}`,
-    `A ${rInner} ${rInner} 0 0 1 ${cx + rInner} ${cy}`,
-    'Z',
-  ].join(' ');
-}
-
-// Pre-compute per-ring data with unique IDs (filter + gradient) to avoid SVG ID collisions.
-const ringsData = ringWidths.map((W, i) => {
-  const H = W / 2;
-  return {
-    W,
-    H,
-    path: buildRingPath(W),
-    filterId: `cc-ring-shadow-${i}`,
-    gradientId: `cc-ring-grad-${i}`,
-    maskId: `cc-ring-mask-${i}`,
-  };
-});
-
-// The wrapper SVG uses the largest ring's coordinate space. Smaller rings are
-// nested as <svg> children offset to share the same bottom-center baseline.
-const outerW = ringWidths[0];
-const outerH = outerW / 2;
+const wrapperStyle = wrapperStyleParts.join('; ');
 ---
 
-<svg
-  class="cc-orbits"
-  width={size}
-  height={size / 2}
-  viewBox={`0 0 ${outerW} ${outerH}`}
-  preserveAspectRatio="xMidYMax meet"
-  style={styleStr}
-  aria-hidden="true"
->
-  <defs>
-    {
-      ringsData.map((r) => (
-        <>
-          <radialGradient
-            id={r.gradientId}
-            cx="0"
-            cy="0"
-            r="1"
-            gradientUnits="userSpaceOnUse"
-            gradientTransform={`translate(${r.W / 2} ${r.H * 0.6}) rotate(90) scale(${r.H * 0.75})`}
-          >
-            <stop stop-color="#1D1C31" />
-            <stop offset="1" stop-color="#595697" />
-          </radialGradient>
-          <filter
-            id={r.filterId}
-            x="0"
-            y="-10"
-            width={r.W}
-            height={r.H + 10}
-            filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
-          >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
-            />
-            <feColorMatrix
-              in="SourceAlpha"
-              type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              result="hardAlpha"
-            />
-            <feMorphology
-              radius="20"
-              operator="erode"
-              in="SourceAlpha"
-              result={`${r.filterId}-erode`}
-            />
-            <feOffset dy="-10" />
-            <feGaussianBlur stdDeviation="20" />
-            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"
-            />
-            <feBlend mode="normal" in2="shape" result={`${r.filterId}-inner`} />
-          </filter>
-        </>
-      ))
-    }
-  </defs>
+<div class="cc-orbits" style={wrapperStyle} aria-hidden="true">
+  {/* Ring 1 — outermost (canonical SVG #2036_8) */}
+  <svg
+    class="cc-orbits-ring cc-orbits-ring-1"
+    width="1920"
+    height="705"
+    viewBox="0 0 1920 705"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMax meet"
+    aria-hidden="true"
+  >
+    <g opacity="0.2" filter="url(#filter0_i_2036_8)">
+      <path
+        d="M2108 705C2108 400.531 1987.05 108.533 1771.76 -106.759C1556.47 -322.05 1264.47 -443 960 -443C655.532 -443 363.533 -322.05 148.242 -106.759C-67.0503 108.533 -188 400.531 -188 705H74.0184C74.0184 470.023 167.363 244.67 333.516 78.5163C499.67 -87.6375 725.023 -180.982 960 -180.982C1194.98 -180.982 1420.33 -87.6374 1586.48 78.5164C1752.64 244.67 1845.98 470.023 1845.98 705H2108Z"
+        fill="url(#paint0_radial_2036_8)"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_i_2036_8"
+        x="-188"
+        y="-453"
+        width="2296"
+        height="1158"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology radius="20" operator="erode" in="SourceAlpha" result="effect1_innerShadow_2036_8" />
+        <feOffset dy="-10" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2036_8" />
+      </filter>
+      <radialGradient
+        id="paint0_radial_2036_8"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(960 244.093) rotate(90) scale(859.933)"
+      >
+        <stop stop-color="#1D1C31" />
+        <stop offset="1" stop-color="#595697" />
+      </radialGradient>
+    </defs>
+  </svg>
 
-  {
-    ringsData.map((r) => {
-      // Center each ring's coordinate space on the bottom-center of the outer
-      // viewBox. Translate so the ring's (W/2, H) sits at (outerW/2, outerH).
-      const tx = (outerW - r.W) / 2;
-      const ty = outerH - r.H;
-      return (
-        <g transform={`translate(${tx} ${ty})`}>
-          {/* 3D luminous tube fill with inner shadow */}
-          <g filter={`url(#${r.filterId})`}>
-            <path d={r.path} fill={`url(#${r.gradientId})`} />
-          </g>
-          {/* Crisp black edge stroke — 2px per canonical SVG */}
-          <path
-            d={r.path}
-            fill="none"
-            stroke="#000000"
-            stroke-width="2"
-            stroke-opacity="0.85"
-            vector-effect="non-scaling-stroke"
-          />
-        </g>
-      );
-    })
-  }
-</svg>
+  {/* Ring 2 — middle (canonical SVG #2036_11) */}
+  <svg
+    class="cc-orbits-ring cc-orbits-ring-2"
+    width="1076"
+    height="538"
+    viewBox="0 0 1076 538"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMax meet"
+    aria-hidden="true"
+  >
+    <mask id="path-1-inside-1_2036_11" fill="white">
+      <path
+        d="M1076 538C1076 395.314 1019.32 258.471 918.423 157.577C817.529 56.682 680.687 1.07725e-05 538 0C395.314 -1.07725e-05 258.471 56.682 157.577 157.577C56.682 258.471 2.15451e-05 395.313 0 538H117.166C117.166 426.388 161.504 319.347 240.426 240.426C319.347 161.504 426.388 117.166 538 117.166C649.612 117.166 756.653 161.504 835.574 240.426C914.496 319.347 958.834 426.388 958.834 538H1076Z"
+      />
+    </mask>
+    <g filter="url(#filter0_i_2036_11)">
+      <path
+        d="M1076 538C1076 395.314 1019.32 258.471 918.423 157.577C817.529 56.682 680.687 1.07725e-05 538 0C395.314 -1.07725e-05 258.471 56.682 157.577 157.577C56.682 258.471 2.15451e-05 395.313 0 538H117.166C117.166 426.388 161.504 319.347 240.426 240.426C319.347 161.504 426.388 117.166 538 117.166C649.612 117.166 756.653 161.504 835.574 240.426C914.496 319.347 958.834 426.388 958.834 538H1076Z"
+        fill="url(#paint0_radial_2036_11)"
+      />
+    </g>
+    <path
+      d="M1076 538C1076 395.314 1019.32 258.471 918.423 157.577C817.529 56.682 680.687 1.07725e-05 538 0C395.314 -1.07725e-05 258.471 56.682 157.577 157.577C56.682 258.471 2.15451e-05 395.313 0 538H117.166C117.166 426.388 161.504 319.347 240.426 240.426C319.347 161.504 426.388 117.166 538 117.166C649.612 117.166 756.653 161.504 835.574 240.426C914.496 319.347 958.834 426.388 958.834 538H1076Z"
+      stroke="black"
+      stroke-width="2"
+      mask="url(#path-1-inside-1_2036_11)"
+    />
+    <defs>
+      <filter
+        id="filter0_i_2036_11"
+        x="0"
+        y="-10"
+        width="1076"
+        height="548"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology radius="20" operator="erode" in="SourceAlpha" result="effect1_innerShadow_2036_11" />
+        <feOffset dy="-10" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2036_11" />
+      </filter>
+      <radialGradient
+        id="paint0_radial_2036_11"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(538 322) rotate(90) scale(403)"
+      >
+        <stop stop-color="#1D1C31" />
+        <stop offset="1" stop-color="#595697" />
+      </radialGradient>
+    </defs>
+  </svg>
 
-<style>
+  {/* Ring 3 — innermost half-DISC (canonical SVG #2036_13) */}
+  <svg
+    class="cc-orbits-ring cc-orbits-ring-3"
+    width="591"
+    height="296"
+    viewBox="0 0 591 296"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMax meet"
+    aria-hidden="true"
+  >
+    <mask id="path-1-inside-1_2036_13" fill="white">
+      <path
+        d="M590.822 295.411C590.822 217.063 559.698 141.924 504.298 86.5239C448.898 31.1236 373.759 5.9151e-06 295.411 0C217.063 -5.9151e-06 141.924 31.1235 86.5239 86.5238C31.1236 141.924 1.18302e-05 217.063 0 295.411L295.411 295.411H590.822Z"
+      />
+    </mask>
+    <g filter="url(#filter0_i_2036_13)">
+      <path
+        d="M590.822 295.411C590.822 217.063 559.698 141.924 504.298 86.5239C448.898 31.1236 373.759 5.9151e-06 295.411 0C217.063 -5.9151e-06 141.924 31.1235 86.5239 86.5238C31.1236 141.924 1.18302e-05 217.063 0 295.411L295.411 295.411H590.822Z"
+        fill="url(#paint0_radial_2036_13)"
+      />
+    </g>
+    <path
+      d="M590.822 295.411C590.822 217.063 559.698 141.924 504.298 86.5239C448.898 31.1236 373.759 5.9151e-06 295.411 0C217.063 -5.9151e-06 141.924 31.1235 86.5239 86.5238C31.1236 141.924 1.18302e-05 217.063 0 295.411L295.411 295.411H590.822Z"
+      stroke="black"
+      stroke-width="2"
+      mask="url(#path-1-inside-1_2036_13)"
+    />
+    <defs>
+      <filter
+        id="filter0_i_2036_13"
+        x="0"
+        y="0"
+        width="590.822"
+        height="305.411"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feMorphology radius="20" operator="erode" in="SourceAlpha" result="effect1_innerShadow_2036_13" />
+        <feOffset dy="10" />
+        <feGaussianBlur stdDeviation="20" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2036_13" />
+      </filter>
+      <radialGradient
+        id="paint0_radial_2036_13"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(295.411 295.411) rotate(90) scale(295.411)"
+      >
+        <stop stop-color="#1C1B2D" />
+        <stop offset="1" stop-color="#595697" />
+      </radialGradient>
+    </defs>
+  </svg>
+</div>
+
+<style define:vars={{ ring2WidthPct: `${RING2_W_PCT}%`, ring3WidthPct: `${RING3_W_PCT}%` }}>
   .cc-orbits {
     position: absolute;
     pointer-events: none;
     max-width: none;
     display: block;
+  }
+
+  /* Every ring is absolutely positioned at the bottom-center of the wrapper.
+     preserveAspectRatio="xMidYMax meet" + height:auto means the SVG's own
+     bottom-center sits exactly at the wrapper's bottom-center, regardless of
+     viewBox aspect ratio differences between rings. */
+  .cc-orbits-ring {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: auto;
+    display: block;
+  }
+
+  /* Ring 1 — outermost. Full wrapper width. */
+  .cc-orbits-ring-1 {
+    width: 100%;
+  }
+
+  /* Ring 2 — middle. Scaled proportionally to canonical Figma ratio. */
+  .cc-orbits-ring-2 {
+    width: var(--ring2WidthPct);
+  }
+
+  /* Ring 3 — innermost half-disc. Scaled proportionally to canonical Figma ratio. */
+  .cc-orbits-ring-3 {
+    width: var(--ring3WidthPct);
   }
 </style>

@@ -58,21 +58,23 @@ import { SITE } from '../lib/site';
     background: var(--cc-prune, #1C1B2D);
   }
 
-  /* Concentric luminous half-donut ring tubes — anchored at hero baseline.
-     Each ring is a half-donut arcing UP, so the wrap sits at the bottom of
-     the hero with the rings nesting concentrically behind the portrait. */
+  /* Concentric luminous half-ring SVGs — anchored at the hero baseline.
+     Three canonical Figma SVGs (Ring 1: 1920x705, Ring 2: 1076x538, Ring 3:
+     591x296 half-disc) stack with shared bottom-center. Wrapper aspect ratio
+     matches Ring 1 (1920:705 ~ 2.723:1) so Ring 1 fills the box exactly. */
   .cc-hero-orbits-wrap {
     position: absolute;
     left: 50%;
     bottom: 70px;
     transform: translateX(-50%);
-    width: 2400px;
-    height: 1200px;
-    max-width: 200vw;
+    width: min(1920px, 140vw);
+    aspect-ratio: 1920 / 705;
+    max-width: none;
     pointer-events: none;
     z-index: 1;
   }
   .cc-hero-orbits-wrap :global(.cc-orbits) {
+    position: absolute;
     left: 0;
     bottom: 0;
     top: auto;
@@ -167,8 +169,8 @@ import { SITE } from '../lib/site';
       padding: 20px 24px 60px;
     }
     .cc-hero-orbits-wrap {
-      width: min(1600px, 220vw);
-      height: min(800px, 110vw);
+      width: min(1600px, 180vw);
+      aspect-ratio: 1920 / 705;
       bottom: 40px;
     }
     .cc-hero-portrait {
