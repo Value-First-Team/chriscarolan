@@ -21,6 +21,9 @@ export const SITE = {
     valueFirstTeam: 'https://www.valuefirstteam.com',
     shows: 'https://www.valuefirstteam.com/shows',
     aiDailyShow: 'https://www.valuefirstteam.com/shows/vf-ai-daily',
+    // Public speaking booking — HubSpot Meetings (per Chris, 2026-05-14).
+    bookToSpeak: 'https://meetings.hubspot.com/chris-carolan1/public-speaking',
+    // Speaking kit request — mailto until hosted PDF exists.
     speakingKit: 'mailto:chris.carolan@valuefirstteam.com?subject=Speaking%20Kit%20request',
     bookLearnMore: 'https://www.valuefirstteam.com',
   },

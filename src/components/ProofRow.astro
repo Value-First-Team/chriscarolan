@@ -1,7 +1,11 @@
 ---
 /**
- * ProofRow — verified credentials only. Four columns.
- * No "As Featured In" logos. Bundle's verified proof set:
+ * ProofRow — "PROOF OF IMPACT" lime eyebrow + four credential columns.
+ *
+ * Per Figma render: lime green Poppins ALL-CAPS eyebrow sits as the leftmost
+ * column, with the four verified credentials filling the remaining columns.
+ *
+ * Verified credentials:
  *   1. Founder, Value-First Team
  *   2. Creator of the Value-First methodology
  *   3. HubSpot Solutions Partner since 2020
@@ -16,38 +20,71 @@ const items = [
 ---
 
 <section class="cc-proofrow">
-  {
-    items.map((it) => (
-      <div class="cc-proof-item">
-        <div class="cc-proof-headline">{it.headline}</div>
-        <div class="cc-proof-sub">{it.sub}</div>
-      </div>
-    ))
-  }
+  <div class="cc-proof-eyebrow">Proof of Impact</div>
+  <div class="cc-proof-items">
+    {
+      items.map((it) => (
+        <div class="cc-proof-item">
+          <div class="cc-proof-headline">{it.headline}</div>
+          <div class="cc-proof-sub">{it.sub}</div>
+        </div>
+      ))
+    }
+  </div>
 </section>
 
 <style>
   .cc-proofrow {
     position: relative;
     z-index: 2;
-    padding: 40px clamp(24px, 20vw, 390px) 80px;
-    display: flex;
+    padding: 20px clamp(24px, 12vw, 240px) 80px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 60px;
+  }
+  .cc-proof-eyebrow {
+    font-family: var(--cc-font-meta);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cc-chinese);
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+  .cc-proof-items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 48px;
-    justify-content: space-between;
-    flex-wrap: wrap;
   }
   .cc-proof-item {
     color: var(--cc-pearl);
     font-family: var(--cc-font-body);
     font-size: 18px;
-    line-height: 24px;
-    flex: 1 1 200px;
-    min-width: 180px;
+    line-height: 1.35;
   }
   .cc-proof-headline {
-    font-weight: 500;
+    font-weight: 700;
   }
   .cc-proof-sub {
-    opacity: 0.85;
+    font-weight: 700;
+    opacity: 0.95;
+  }
+  @media (max-width: 900px) {
+    .cc-proofrow {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 20px 24px 60px;
+    }
+    .cc-proof-items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+  @media (max-width: 520px) {
+    .cc-proof-items {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

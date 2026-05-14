@@ -1,16 +1,22 @@
 ---
 /**
- * DottedOrbits — concentric dotted-stroke circles suggesting orbit lines.
- * Sits behind the hero at low opacity.
+ * DottedOrbits — concentric soft-edged ring bands radiating from a center point.
+ *
+ * Despite the name (kept for stable imports), this no longer renders dashed strokes.
+ * The Figma cosmic backdrop is layered soft-edged ring bands forming a 3D orb effect,
+ * NOT dotted orbits. Each ring is a thin solid stroke with a glow blur, layered with
+ * decreasing opacity outward.
  */
 interface Props {
   size?: number;
   left?: string | number;
   top?: string | number;
+  centerLeft?: string | number;
+  centerTop?: string | number;
   opacity?: number;
 }
 
-const { size = 2296, left, top, opacity = 0.2 } = Astro.props;
+const { size = 2400, left, top, opacity = 1 } = Astro.props;
 
 const toCss = (v: string | number | undefined) =>
   v === undefined ? undefined : typeof v === 'number' ? `${v}px` : v;
@@ -19,39 +25,64 @@ const styleParts = [
   toCss(left) ? `left: ${toCss(left)}` : undefined,
   toCss(top) ? `top: ${toCss(top)}` : undefined,
   `opacity: ${opacity}`,
+  `width: ${size}px`,
+  `height: ${size}px`,
 ].filter(Boolean);
 
 const styleStr = styleParts.join('; ');
 
-const radii = [1100, 950, 800, 650, 500, 350];
+// 9 concentric rings forming the cosmic-orb backdrop. Each is a thin stroke that
+// the Gaussian blur softens into a glowing band. We render in a slightly lighter
+// purple-violet (--cc-violet equivalent) over the navy page; mix-blend-mode: screen
+// makes the bands brighten the navy rather than darken it, which matches the
+// Figma's "bands of subtle inner light" effect.
+const rings = [
+  { r: 1180, op: 0.08, w: 28 },
+  { r: 1060, op: 0.10, w: 26 },
+  { r:  950, op: 0.13, w: 24 },
+  { r:  840, op: 0.16, w: 22 },
+  { r:  730, op: 0.19, w: 20 },
+  { r:  620, op: 0.22, w: 18 },
+  { r:  510, op: 0.25, w: 16 },
+  { r:  400, op: 0.28, w: 14 },
+  { r:  290, op: 0.30, w: 12 },
+];
 ---
 
 <svg
   class="cc-orbits"
   width={size}
   height={size}
-  viewBox="0 0 2296 2296"
+  viewBox="0 0 2400 2400"
   style={styleStr}
   aria-hidden="true"
 >
-  {
-    radii.map((r) => (
-      <circle
-        cx="1148"
-        cy="1148"
-        r={r}
-        fill="none"
-        stroke="#FFF6E4"
-        stroke-width="1"
-        stroke-dasharray="2 8"
-      />
-    ))
-  }
+  <defs>
+    <filter id="orb-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" />
+    </filter>
+  </defs>
+  <g filter="url(#orb-glow)">
+    {
+      rings.map((ring) => (
+        <circle
+          cx="1200"
+          cy="1200"
+          r={ring.r}
+          fill="none"
+          stroke="#9C97D6"
+          stroke-width={ring.w}
+          opacity={ring.op}
+        />
+      ))
+    }
+  </g>
 </svg>
 
 <style>
   .cc-orbits {
     position: absolute;
     pointer-events: none;
+    mix-blend-mode: screen;
   }
 </style>

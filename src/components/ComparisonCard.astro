@@ -1,9 +1,12 @@
 ---
 /**
- * ComparisonCard — Chris vs Others. Orange-hairline glow shell, two inner columns.
- * Bullet style: tiny conic-gradient orb (no checkmarks, no emoji).
+ * ComparisonCard — Chris vs Others.
+ *
+ * Single dark glow shell, two columns inside (no inner panel on the Chris side).
+ * Chris bullets prefixed with orange checkmarks; Others bullets prefixed with X marks.
  */
 const chris = [
+  'Helps you build a company that actually works with AI',
   'Focuses on the operating model underneath everything',
   'Helps you decide what needs to change first',
   'Rebuilds how systems, data, and teams connect',
@@ -11,6 +14,7 @@ const chris = [
 ];
 
 const others = [
+  'Help you adopt AI',
   'Focus on tools and workflows',
   'Optimize what already exists',
   'Implement platforms in isolation',
@@ -25,7 +29,20 @@ const others = [
       {
         chris.map((p) => (
           <div class="cc-cmp-bullet">
-            <span class="cc-cmp-dot" aria-hidden="true" />
+            <svg
+              class="cc-cmp-check"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="3 9.5 7 13.5 15 5" />
+            </svg>
             <span>{p}</span>
           </div>
         ))
@@ -36,7 +53,21 @@ const others = [
       {
         others.map((p) => (
           <div class="cc-cmp-bullet">
-            <span class="cc-cmp-dot" aria-hidden="true" />
+            <svg
+              class="cc-cmp-x"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="4" y1="4" x2="14" y2="14" />
+              <line x1="14" y1="4" x2="4" y2="14" />
+            </svg>
             <span>{p}</span>
           </div>
         ))
@@ -53,60 +84,57 @@ const others = [
     border-radius: 25px;
     border: 0.5px solid var(--cc-mirinda-deep);
     box-shadow: 0 0 80px 0 #171625;
-    padding: clamp(28px, 4vw, 75px);
+    padding: clamp(40px, 5vw, 75px) clamp(40px, 6vw, 90px);
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 18px;
-    background: radial-gradient(
-      ellipse at 50% 0%,
-      rgba(248, 95, 54, 0.05) 0%,
-      rgba(248, 95, 54, 0) 70%
-    );
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(248, 95, 54, 0.04) 0%, rgba(248, 95, 54, 0) 70%),
+      #1C1B2D;
   }
   .cc-cmp-col {
-    border-radius: 12px;
-    padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-  }
-  .cc-cmp-col-chris {
-    background: #171625;
-  }
-  .cc-cmp-col-others {
-    opacity: 0.8;
+    gap: 18px;
   }
   .cc-cmp-col h3 {
+    font-family: var(--cc-font-display);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.07;
+    color: var(--cc-mirinda);
+    margin: 0 0 12px;
+  }
+  .cc-cmp-col-others h3 {
+    color: var(--cc-pearl);
     font-family: var(--cc-font-body);
     font-weight: 700;
-    font-size: 30px;
-    line-height: 1.07;
-    color: var(--cc-mirinda-deep);
-    margin: 0;
+    font-size: 28px;
   }
   .cc-cmp-bullet {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    align-items: start;
     gap: 14px;
     font-family: var(--cc-font-body);
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 17px;
+    line-height: 1.45;
     color: var(--cc-pearl);
   }
-  .cc-cmp-dot {
-    flex: 0 0 18px;
-    width: 18px;
-    height: 18px;
-    margin-top: 4px;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, #fff6e4 0%, #f5872b 56%, #f85f36 100%);
+  .cc-cmp-check {
+    color: var(--cc-mirinda);
+    margin-top: 3px;
+  }
+  .cc-cmp-x {
+    color: var(--cc-pearl);
+    opacity: 0.75;
+    margin-top: 3px;
   }
   @media (max-width: 900px) {
     .cc-cmp-shell {
       grid-template-columns: 1fr;
-    }
-    .cc-cmp-col {
-      padding: 28px;
+      gap: 36px;
+      padding: 36px;
     }
   }
 </style>

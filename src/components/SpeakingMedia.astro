@@ -1,10 +1,42 @@
 ---
 /**
- * SpeakingMedia — section headline + 2 image-top topic cards + 2 icon-orb cards + CTA.
- * Topics drawn from bundle + discovery Q3 (Chris's signature talks).
+ * SpeakingMedia — section headline + 5 IconOrb cards in 3+2 grid + "BOOK TO SPEAK" CTA.
+ *
+ * Per Figma: all five signature talks share the same orange-glow card treatment,
+ * each with a unique IconOrb at the top. Top row: 3 cards. Bottom row: 2 cards
+ * centered. The CTA links to Chris's HubSpot Meetings public-speaking booking page
+ * (wired from SITE.links.bookToSpeak — distinct from the speaking-kit mailto).
  */
 import IconOrb from './IconOrb.astro';
 import { SITE } from '../lib/site';
+
+const talks = [
+  {
+    title: "Don't Replace Your\nPeople, Activate Them",
+    body: 'Why AI should unlock human capability, not erase it.',
+    icon: 'people',
+  },
+  {
+    title: 'From the Industrial\nAge to the AI Era',
+    body: 'How to rethink the way your company operates before you add more tools.',
+    icon: 'grid',
+  },
+  {
+    title: 'Value Over Activity',
+    body: 'Why most companies are measuring the wrong things and what to do instead.',
+    icon: 'scale',
+  },
+  {
+    title: 'Transformation,\nNot Optimization',
+    body: 'Stop improving broken systems. Build the right one.',
+    icon: 'route',
+  },
+  {
+    title: 'The 5-Layer Model\nto Become AI-Native',
+    body: 'What it takes to rebuild your company for the AI era.',
+    icon: 'layers',
+  },
+];
 ---
 
 <section class="cc-speak">
@@ -16,93 +48,77 @@ import { SITE } from '../lib/site';
       </div>
     </div>
 
-    <!-- Top row: two image cards -->
-    <div class="cc-speak-row cc-speak-row-images">
-      <div class="cc-speak-topic">
-        <div
-          class="cc-speak-topic-image"
-          style="background-image: url('/assets/photo-conversation.png');"
-          aria-hidden="true"
-        >
-        </div>
-        <div class="cc-speak-topic-title">From the Industrial Age<br />to the AI Era</div>
-        <div class="cc-speak-topic-body">
-          How to rethink the way your company operates before you add more tools.
-        </div>
-      </div>
-      <div class="cc-speak-topic">
-        <div
-          class="cc-speak-topic-image"
-          style="background-image: url('/assets/chris-speaking-media.png');"
-          aria-hidden="true"
-        >
-        </div>
-        <div class="cc-speak-topic-title">Value Over Activity</div>
-        <div class="cc-speak-topic-body">
-          Why most companies are measuring the wrong things and what to do instead.
-        </div>
-      </div>
+    <div class="cc-speak-grid">
+      {
+        talks.map((t) => (
+          <div class="cc-speak-card">
+            <IconOrb size={56}>
+              {t.icon === 'people' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="8" r="3.2" />
+                  <circle cx="17" cy="10" r="2.4" />
+                  <path d="M3 19c0-3 3-5 6-5s6 2 6 5" />
+                  <path d="M14 19c0-2 2-3.5 4-3.5s3.5 1.5 3.5 3.5" />
+                </svg>
+              )}
+              {t.icon === 'grid' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+              )}
+              {t.icon === 'scale' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18" />
+                  <path d="M5 7h14" />
+                  <path d="M5 7l-3 6a4 4 0 008 0L7 7" />
+                  <path d="M19 7l-3 6a4 4 0 008 0l-3-6" transform="translate(-2 0)" />
+                </svg>
+              )}
+              {t.icon === 'route' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="4" y1="4" x2="8" y2="8" />
+                  <line x1="8" y1="4" x2="4" y2="8" />
+                  <circle cx="6" cy="14" r="2" />
+                  <path d="M8 14c4 0 4 -4 8 -4" />
+                  <polyline points="14 6 18 6 18 10" />
+                  <line x1="16" y1="16" x2="20" y2="20" />
+                  <line x1="20" y1="16" x2="16" y2="20" />
+                </svg>
+              )}
+              {t.icon === 'layers' && (
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="12 2 22 8.5 12 15 2 8.5 12 2" />
+                  <polyline points="2 15.5 12 22 22 15.5" />
+                  <polyline points="2 12 12 18.5 22 12" />
+                </svg>
+              )}
+            </IconOrb>
+            <div class="cc-speak-card-title">{t.title}</div>
+            <div class="cc-speak-card-body">{t.body}</div>
+          </div>
+        ))
+      }
     </div>
 
-    <!-- Bottom row: two orb cards -->
-    <div class="cc-speak-row cc-speak-row-orbs">
-      <div class="cc-speak-orb-card">
-        <IconOrb size={56}>
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M3 3h7v7H3z"></path>
-            <path d="M14 3h7v7h-7z"></path>
-            <path d="M14 14h7v7h-7z"></path>
-            <path d="M3 14h7v7H3z"></path>
-          </svg>
-        </IconOrb>
-        <div class="cc-speak-orb-title">Transformation,<br />Not Optimization</div>
-        <div class="cc-speak-orb-body">Stop improving broken systems. Build the right one.</div>
-      </div>
-      <div class="cc-speak-orb-card">
-        <IconOrb size={56}>
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="12 2 22 8.5 12 15 2 8.5 12 2"></polyline>
-            <polyline points="2 15.5 12 22 22 15.5"></polyline>
-            <polyline points="2 12 12 18.5 22 12"></polyline>
-          </svg>
-        </IconOrb>
-        <div class="cc-speak-orb-title">The 5-Layer Model<br />to Become AI-Native</div>
-        <div class="cc-speak-orb-body">What it takes to rebuild your company for the AI era.</div>
-      </div>
-    </div>
-
-    <a class="cc-btn" href={SITE.links.speakingKit}>Book to Speak</a>
+    <a class="cc-btn" href={SITE.links.bookToSpeak} target="_blank" rel="noopener">
+      Book to Speak
+    </a>
   </div>
 </section>
 
 <style>
   .cc-speak {
-    padding: 80px clamp(24px, 20vw, 390px);
+    padding: 80px clamp(24px, 16vw, 314px);
   }
   .cc-speak-inner {
     display: flex;
     flex-direction: column;
     gap: 50px;
     align-items: center;
-    max-width: 1142px;
+    max-width: 1180px;
     margin: 0 auto;
   }
   .cc-speak-heading {
@@ -110,7 +126,7 @@ import { SITE } from '../lib/site';
     flex-direction: column;
     gap: 22px;
     align-items: center;
-    max-width: 700px;
+    max-width: 760px;
     text-align: center;
   }
   .cc-speak-headline {
@@ -118,93 +134,78 @@ import { SITE } from '../lib/site';
     font-weight: 500;
     font-size: clamp(36px, 4.2vw, 64px);
     line-height: 1;
-    color: var(--cc-mirinda-deep);
+    color: var(--cc-mirinda);
     margin: 0;
   }
   .cc-speak-sub {
     font-family: var(--cc-font-body);
-    font-size: 20px;
-    line-height: 1.55;
-    color: var(--cc-pearl);
-  }
-
-  .cc-speak-row {
-    display: grid;
-    width: 100%;
-    gap: 60px;
-  }
-  .cc-speak-row-images {
-    grid-template-columns: 1fr 1fr;
-  }
-  .cc-speak-row-orbs {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    width: 80%;
-  }
-
-  .cc-speak-topic {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  .cc-speak-topic-image {
-    aspect-ratio: 338 / 268;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px;
-  }
-  .cc-speak-topic-title {
-    font-family: var(--cc-font-display);
-    font-size: clamp(24px, 2.4vw, 30px);
-    font-weight: 500;
-    line-height: 1.1;
-    color: var(--cc-mirinda-deep);
-    white-space: pre-line;
-  }
-  .cc-speak-topic-body {
-    font-family: var(--cc-font-body);
     font-size: 18px;
     line-height: 1.55;
     color: var(--cc-pearl);
+    opacity: 0.95;
   }
 
-  .cc-speak-orb-card {
-    border-radius: 12px;
-    background: radial-gradient(
-      circle at 50% 0%,
-      rgba(248, 95, 54, 0.3) 0%,
-      rgba(248, 95, 54, 0) 100%
-    );
+  /* 3 + 2 grid. The 5th card sits in column 2 of the second row visually.
+     Use a 6-col grid; each card spans 2; last two are offset to center. */
+  .cc-speak-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 28px;
+  }
+  .cc-speak-card {
+    grid-column: span 2;
+    border-radius: 16px;
     border: 0.5px solid var(--cc-mirinda-deep);
-    padding: 25px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(248, 95, 54, 0.22) 0%, rgba(248, 95, 54, 0) 70%),
+      #1D1C31;
+    padding: 28px 28px 32px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
   }
-  .cc-speak-orb-title {
+  /* Center the last two cards: card 4 starts at col 2, card 5 at col 4 */
+  .cc-speak-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+  .cc-speak-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+  .cc-speak-card-title {
     font-family: var(--cc-font-body);
     font-weight: 700;
-    font-size: 24px;
-    line-height: 1.2;
-    color: var(--cc-mirinda-deep);
+    font-size: 22px;
+    line-height: 1.15;
+    color: var(--cc-mirinda);
     white-space: pre-line;
+    margin-top: 6px;
   }
-  .cc-speak-orb-body {
+  .cc-speak-card-body {
     font-family: var(--cc-font-body);
-    font-size: 18px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.5;
     color: var(--cc-pearl);
+    opacity: 0.92;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1100px) {
+    .cc-speak-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .cc-speak-card,
+    .cc-speak-card:nth-child(4),
+    .cc-speak-card:nth-child(5) {
+      grid-column: span 1;
+    }
+  }
+  @media (max-width: 600px) {
     .cc-speak {
       padding: 60px 24px;
     }
-    .cc-speak-row-images,
-    .cc-speak-row-orbs {
+    .cc-speak-grid {
       grid-template-columns: 1fr;
-      gap: 30px;
-      width: 100%;
     }
   }
 </style>

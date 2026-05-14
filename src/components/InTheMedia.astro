@@ -1,7 +1,7 @@
 ---
 /**
- * InTheMedia — overlay text card on a wide photo, with Watch & Listen CTA.
- * Body copy from bundle (about hosting/joining conversations + Value-First Media Network).
+ * InTheMedia — cream overlay card on the LEFT atop a wide dark VFT-website screenshot
+ * card on the RIGHT, with "WATCH & LISTEN" CTA.
  */
 import { SITE } from '../lib/site';
 ---
@@ -20,7 +20,7 @@ import { SITE } from '../lib/site';
         I host and join conversations across podcasts and platforms about what&rsquo;s changing in business in real-time.
       </p>
       <p>
-        Through the Value-First Media Network, I share live shows and daily insights on AI, technology, leadership, culture, and how companies can adapt to a changing landscape.
+        Through the <strong>Value-First Media Network</strong>, I share live shows and daily insights on AI, technology, leadership, culture, and how companies can adapt to a changing landscape.
       </p>
       <div class="cc-itm-cta">
         <a class="cc-btn" href={SITE.links.shows} target="_blank" rel="noopener">
@@ -33,57 +33,63 @@ import { SITE } from '../lib/site';
 
 <style>
   .cc-itm {
-    padding: 60px clamp(24px, 20vw, 390px);
+    padding: 60px clamp(24px, 16vw, 314px);
   }
   .cc-itm-frame {
     position: relative;
     max-width: 1318px;
     margin: 0 auto;
-    min-height: 683px;
+    min-height: 580px;
   }
   .cc-itm-photo {
     position: absolute;
     right: 0;
     top: 0;
-    width: 80%;
-    height: 683px;
+    width: 75%;
+    height: 580px;
     border-radius: 25px;
     background-image: url('/assets/in-the-media-bg.png');
     background-size: cover;
-    background-position: center;
+    background-position: left center;
+    background-color: #0A0A0A;
   }
   .cc-itm-card {
     position: absolute;
     left: 0;
-    top: 82px;
-    width: 48%;
+    top: 60px;
+    width: 46%;
     min-width: 360px;
     border-radius: 25px;
-    background: rgba(28, 27, 45, 0.92);
+    background: var(--cc-pearl);
+    color: var(--cc-prune);
     padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    box-shadow: 0 0 80px 0 #171625;
+    gap: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   }
   .cc-itm-logo {
-    width: 100px;
-    opacity: 0.95;
+    width: 64px;
+    height: auto;
+    margin-bottom: 4px;
   }
   .cc-itm-headline {
     font-family: var(--cc-font-display);
     font-weight: 500;
-    font-size: clamp(36px, 4.2vw, 64px);
+    font-size: clamp(36px, 4vw, 56px);
     line-height: 1;
-    color: var(--cc-mirinda-deep);
-    margin: 0;
+    color: var(--cc-mirinda);
+    margin: 0 0 4px;
   }
   .cc-itm-card p {
     margin: 0;
     font-family: var(--cc-font-body);
-    font-size: 20px;
-    line-height: 1.6;
-    color: var(--cc-pearl);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--cc-prune);
+  }
+  .cc-itm-card p strong {
+    font-weight: 700;
   }
   .cc-itm-cta {
     margin-top: 10px;
@@ -98,8 +104,8 @@ import { SITE } from '../lib/site';
     .cc-itm-photo {
       position: relative;
       width: 100%;
-      height: 280px;
-      margin-bottom: 24px;
+      height: 240px;
+      margin-bottom: -100px;
     }
     .cc-itm-card {
       position: relative;

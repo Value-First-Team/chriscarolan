@@ -48,18 +48,23 @@ const steps = [
   }
   .cc-how-inner {
     border-radius: 25px;
-    padding: clamp(32px, 5vw, 75px);
+    background: var(--cc-pearl);
+    color: var(--cc-prune);
+    padding: clamp(40px, 5vw, 75px);
     display: flex;
     flex-direction: column;
     gap: 50px;
     align-items: center;
     text-align: left;
+    max-width: 1180px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   }
   .cc-how-headline {
     align-self: stretch;
     font-family: var(--cc-font-display);
     font-weight: 500;
-    font-size: clamp(36px, 4.2vw, 64px);
+    font-size: clamp(36px, 4.2vw, 56px);
     line-height: 1;
     color: var(--cc-mirinda);
     margin: 0;
@@ -67,34 +72,34 @@ const steps = [
   .cc-how-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 60px;
+    gap: 50px;
     align-self: stretch;
   }
   .cc-how-step {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 14px;
   }
   .cc-how-step-n {
     font-family: var(--cc-font-display);
     font-weight: 500;
-    font-size: 56px;
+    font-size: 28px;
     line-height: 1;
-    color: var(--cc-mirinda-deep);
+    color: var(--cc-mirinda);
   }
   .cc-how-step-title {
-    font-family: var(--cc-font-display);
-    font-weight: 500;
-    font-size: clamp(24px, 2.4vw, 32px);
-    line-height: 1.05;
-    color: var(--cc-pearl);
+    font-family: var(--cc-font-body);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.15;
+    color: var(--cc-prune);
     white-space: pre-line;
   }
   .cc-how-step-body {
     font-family: var(--cc-font-body);
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.55;
-    color: var(--cc-pearl);
+    color: var(--cc-prune);
     opacity: 0.9;
   }
   @media (max-width: 900px) {
