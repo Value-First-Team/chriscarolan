@@ -1,19 +1,22 @@
 ---
 /**
- * DottedOrbits — concentric crisp wireframe rings behind the hero portrait.
+ * DottedOrbits — concentric luminous half-donut ring tubes behind the hero
+ * portrait (Figma "Chris Carolan - One page" source of truth).
  *
- * Name kept for stable imports. Despite the historical name, these are NOT
- * dotted, dashed, blurred, or feathered. They are paired 1px SVG circles:
- *   - A black ring at 35% opacity (Figma source-of-truth color)
- *   - An inner cream ring at 8% opacity, 1px smaller radius
- * The paired treatment gives a subtle engraved/embossed 3D edge against
- * the textured cosmic-particle background.
+ * Name kept for stable imports. These are NOT dotted/dashed outlines anymore —
+ * they are 3D luminous half-donut tubes arcing UP from the baseline where the
+ * headline sits, nested concentrically to create a portal/tunnel effect behind
+ * the portrait.
  *
- * Source of truth: Figma "Chris Carolan - One page" — 4 concentric rings
- * with outer radii ~295, ~422, ~538, ~701 on a 1920px canvas (centered at
- * the visual center of the hero portrait). We scale that proportionally
- * across a 2400px viewBox so the rings sit comfortably behind the portrait
- * and fade out past the hero's overflow boundary.
+ * Each ring is the canonical Figma SVG pattern:
+ *   - Half-donut path (outer half-circle + inner half-circle)
+ *   - Radial gradient fill: #1D1C31 (deep navy) -> #595697 (violet)
+ *   - Inner shadow filter (feMorphology erode r=20 + dy=-10 + blur 20) for 3D
+ *   - 2px black stroke masked to ring shape
+ *
+ * Each instance scales the canonical 1076x538 pattern proportionally.
+ * Ring thickness scales with width (~10.9% of width per Figma: 117/1076).
+ * All rings share the same baseline (bottom edge of viewBox = bottom of hero).
  */
 interface Props {
   size?: number;
@@ -32,52 +35,161 @@ const styleParts = [
   toCss(top) ? `top: ${toCss(top)}` : undefined,
   `opacity: ${opacity}`,
   `width: ${size}px`,
-  `height: ${size}px`,
+  `height: ${size / 2}px`,
 ].filter(Boolean);
 
 const styleStr = styleParts.join('; ');
 
-// 4 concentric rings. Radii proportional to the Figma source (295, 422, 538, 701
-// against a 1920px width), scaled up to a 2400px viewBox so the centerpoint sits
-// behind the portrait. Even radial intervals roughly matching the Figma render.
-const rings = [369, 528, 673, 877];
+/**
+ * Ring system — 5 nested half-donut tubes.
+ * Width in pixels relative to a 2400px canvas. Largest ring spans the full
+ * hero width; each subsequent ring nests inside. Aspect is 2:1 (W:H) since
+ * each is a half-donut (top half of a ring) anchored at the bottom-center.
+ *
+ * Widths chosen to match the visible ring count + spacing in the Figma render
+ * (4-5 distinct tubes behind the portrait).
+ */
+const ringWidths = [2400, 2000, 1620, 1260, 920];
+
+/**
+ * Build the half-donut path for a given canonical width W.
+ * Outer half-circle radius = W/2, inner half-circle radius = W/2 - thickness.
+ * Thickness scales with width per the canonical ratio (117 / 1076 ≈ 0.1087).
+ * Path starts top-right of the outer half-circle, arcs to top-left, drops to
+ * the inner half-circle's top-left, arcs back to top-right, and closes.
+ *
+ * Coordinate system per ring: viewBox "0 0 W W/2" with the ring's center at
+ * (W/2, W/2) — the bottom-center of its own viewBox.
+ */
+function buildRingPath(W: number) {
+  const H = W / 2;
+  const rOuter = W / 2;
+  const thickness = W * (117 / 1076);
+  const rInner = rOuter - thickness;
+  const cx = W / 2;
+  const cy = H;
+  // Outer half-circle: from (W, H) at right baseline, arc up over the top
+  // to (0, H) at left baseline (sweep over the top).
+  // Inner half-circle: from (cx - rInner, H) back to (cx + rInner, H), arc
+  // over the top in opposite sweep direction so the ring is hollow on top.
+  return [
+    `M ${cx + rOuter} ${cy}`,
+    `A ${rOuter} ${rOuter} 0 0 0 ${cx - rOuter} ${cy}`,
+    `L ${cx - rInner} ${cy}`,
+    `A ${rInner} ${rInner} 0 0 1 ${cx + rInner} ${cy}`,
+    'Z',
+  ].join(' ');
+}
+
+// Pre-compute per-ring data with unique IDs (filter + gradient) to avoid SVG ID collisions.
+const ringsData = ringWidths.map((W, i) => {
+  const H = W / 2;
+  return {
+    W,
+    H,
+    path: buildRingPath(W),
+    filterId: `cc-ring-shadow-${i}`,
+    gradientId: `cc-ring-grad-${i}`,
+    maskId: `cc-ring-mask-${i}`,
+  };
+});
+
+// The wrapper SVG uses the largest ring's coordinate space. Smaller rings are
+// nested as <svg> children offset to share the same bottom-center baseline.
+const outerW = ringWidths[0];
+const outerH = outerW / 2;
 ---
 
 <svg
   class="cc-orbits"
   width={size}
-  height={size}
-  viewBox="0 0 2400 2400"
+  height={size / 2}
+  viewBox={`0 0 ${outerW} ${outerH}`}
+  preserveAspectRatio="xMidYMax meet"
   style={styleStr}
   aria-hidden="true"
 >
+  <defs>
+    {
+      ringsData.map((r) => (
+        <>
+          <radialGradient
+            id={r.gradientId}
+            cx="0"
+            cy="0"
+            r="1"
+            gradientUnits="userSpaceOnUse"
+            gradientTransform={`translate(${r.W / 2} ${r.H * 0.6}) rotate(90) scale(${r.H * 0.75})`}
+          >
+            <stop stop-color="#1D1C31" />
+            <stop offset="1" stop-color="#595697" />
+          </radialGradient>
+          <filter
+            id={r.filterId}
+            x="0"
+            y="-10"
+            width={r.W}
+            height={r.H + 10}
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feMorphology
+              radius="20"
+              operator="erode"
+              in="SourceAlpha"
+              result={`${r.filterId}-erode`}
+            />
+            <feOffset dy="-10" />
+            <feGaussianBlur stdDeviation="20" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"
+            />
+            <feBlend mode="normal" in2="shape" result={`${r.filterId}-inner`} />
+          </filter>
+        </>
+      ))
+    }
+  </defs>
+
   {
-    rings.map((r) => (
-      <>
-        {/* Inner highlight — subtle cream engraved edge for 3D feel */}
-        <circle
-          cx="1200"
-          cy="1200"
-          r={r - 1}
-          fill="none"
-          stroke="#FFF6E4"
-          stroke-width="1"
-          stroke-opacity="0.08"
-          vector-effect="non-scaling-stroke"
-        />
-        {/* Crisp black ring — Figma source-of-truth */}
-        <circle
-          cx="1200"
-          cy="1200"
-          r={r}
-          fill="none"
-          stroke="#000000"
-          stroke-width="1"
-          stroke-opacity="0.35"
-          vector-effect="non-scaling-stroke"
-        />
-      </>
-    ))
+    ringsData.map((r) => {
+      // Center each ring's coordinate space on the bottom-center of the outer
+      // viewBox. Translate so the ring's (W/2, H) sits at (outerW/2, outerH).
+      const tx = (outerW - r.W) / 2;
+      const ty = outerH - r.H;
+      return (
+        <g transform={`translate(${tx} ${ty})`}>
+          {/* 3D luminous tube fill with inner shadow */}
+          <g filter={`url(#${r.filterId})`}>
+            <path d={r.path} fill={`url(#${r.gradientId})`} />
+          </g>
+          {/* Crisp black edge stroke — 2px per canonical SVG */}
+          <path
+            d={r.path}
+            fill="none"
+            stroke="#000000"
+            stroke-width="2"
+            stroke-opacity="0.85"
+            vector-effect="non-scaling-stroke"
+          />
+        </g>
+      );
+    })
   }
 </svg>
 
@@ -86,7 +198,6 @@ const rings = [369, 528, 673, 877];
     position: absolute;
     pointer-events: none;
     max-width: none;
-    width: 100%;
-    height: 100%;
+    display: block;
   }
 </style>

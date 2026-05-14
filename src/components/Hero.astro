@@ -1,25 +1,25 @@
 ---
 /**
  * Hero — orange Kameron headline overlaying a centered portrait of Chris,
- * layered against cosmic-particle texture + soft atmospheric halo + crisp
- * wireframe rings for a 3D depth composition (per Figma "One page").
+ * layered against concentric luminous half-donut ring tubes (per Figma
+ * "Chris Carolan - One page" source of truth).
+ *
+ * The hero background is FLAT navy (var(--cc-prune)). The atmospheric
+ * luminosity comes from the radial gradients baked into each ring tube —
+ * no cosmic-particle JPG, no separate halo. The rings ARE the atmosphere.
  *
  * Z-stack (back to front):
- *   0. Cosmic-particle texture (local to hero — page body is flat navy)
- *   1. Soft atmospheric halo (large blurred radial gradient behind portrait)
- *   2. Concentric wireframe rings (DottedOrbits — name kept for stable imports)
- *   3. Chris portrait, alpha-masked at edges so it fades into the navy page
- *   4. Headline + subtitle + CTA + byline (centered, overlays portrait)
+ *   0. Flat navy hero base
+ *   1. Concentric luminous half-donut ring tubes (DottedOrbits)
+ *   2. Chris portrait, alpha-masked at edges so it fades into the navy page
+ *   3. Headline + subtitle + CTA + byline (centered, overlays portrait)
  */
 import DottedOrbits from './DottedOrbits.astro';
 import { SITE } from '../lib/site';
 ---
 
 <section class="cc-hero">
-  <!-- Soft atmospheric halo — large blurred radial gradient behind portrait -->
-  <div class="cc-hero-halo" aria-hidden="true"></div>
-
-  <!-- Concentric crisp wireframe rings — sit above halo, behind portrait -->
+  <!-- Concentric luminous half-donut ring tubes — arc UP from the baseline -->
   <div class="cc-hero-orbits-wrap" aria-hidden="true">
     <DottedOrbits size={2400} />
   </div>
@@ -54,45 +54,30 @@ import { SITE } from '../lib/site';
     overflow: hidden;
     padding: 30px clamp(24px, 12vw, 240px) 70px;
     isolation: isolate;
-    /* Local cosmic composition: particle JPG + atmospheric gradient veil
-       muting the texture into navy at top/bottom. Halo + rings layer on top. */
-    background:
-      linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0) 35%, rgba(28, 27, 45, 0) 65%, #1C1B2D 100%),
-      url('/assets/bg-cosmic-particles.jpg') center center / cover no-repeat;
+    /* Flat navy base — rings provide all atmospheric luminosity */
+    background: var(--cc-prune, #1C1B2D);
   }
 
-  /* Layer 2: soft atmospheric halo — large blurred radial "planet" behind portrait.
-     Uses --cc-grad-cosmic token; positioned slightly offset for asymmetry. */
-  .cc-hero-halo {
-    position: absolute;
-    left: 50%;
-    top: 80px;
-    transform: translate(-48%, 0);
-    width: 820px;
-    height: 820px;
-    max-width: 110vw;
-    border-radius: 50%;
-    background: radial-gradient(circle, #1D1C31 0%, #595697 60%, rgba(89, 86, 151, 0) 75%);
-    filter: blur(40px);
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Concentric ring bands — centered on the portrait, above halo, behind portrait */
+  /* Concentric luminous half-donut ring tubes — anchored at hero baseline.
+     Each ring is a half-donut arcing UP, so the wrap sits at the bottom of
+     the hero with the rings nesting concentrically behind the portrait. */
   .cc-hero-orbits-wrap {
     position: absolute;
     left: 50%;
-    top: -420px;
+    bottom: 70px;
     transform: translateX(-50%);
     width: 2400px;
-    height: 2400px;
+    height: 1200px;
+    max-width: 200vw;
     pointer-events: none;
     z-index: 1;
   }
   .cc-hero-orbits-wrap :global(.cc-orbits) {
     left: 0;
-    top: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 100%;
   }
 
   /* Portrait — centered, soft radial alpha mask on the img itself so the
@@ -181,20 +166,10 @@ import { SITE } from '../lib/site';
       min-height: auto;
       padding: 20px 24px 60px;
     }
-    .cc-hero-halo {
-      width: min(600px, 95vw);
-      height: min(600px, 95vw);
-      top: 40px;
-      filter: blur(30px);
-    }
     .cc-hero-orbits-wrap {
-      width: min(1400px, 200vw);
-      height: min(1400px, 200vw);
-      top: -240px;
-    }
-    .cc-hero-orbits-wrap :global(.cc-orbits) {
-      width: 100%;
-      height: 100%;
+      width: min(1600px, 220vw);
+      height: min(800px, 110vw);
+      bottom: 40px;
     }
     .cc-hero-portrait {
       width: 320px;
