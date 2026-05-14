@@ -5,7 +5,8 @@
  * wireframe rings for a 3D depth composition (per Figma "One page").
  *
  * Z-stack (back to front):
- *   0. Cosmic-particle texture (CSS background on .cc-hero) + gradient veil
+ *   0. Cosmic-particle texture — now inherited from page-level body background,
+ *      not painted on .cc-hero. Hero sits transparent over the page texture.
  *   1. Soft atmospheric halo (large blurred radial gradient behind portrait)
  *   2. Concentric wireframe rings (DottedOrbits — name kept for stable imports)
  *   3. Chris portrait, alpha-masked at edges so it fades into the navy page
@@ -54,15 +55,9 @@ import { SITE } from '../lib/site';
     overflow: hidden;
     padding: 30px clamp(24px, 12vw, 240px) 70px;
     isolation: isolate;
-    /* Layer 1: cosmic-particle texture + gradient veil on top of base navy.
-       Veil mutes the JPG so it reads as atmosphere, not as a literal photo. */
-    background-color: var(--cc-prune);
-    background-image:
-      linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0.55) 45%, rgba(28, 27, 45, 0.85) 75%, #171625 100%),
-      url('/assets/bg-cosmic-particles.jpg');
-    background-size: auto, cover;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
+    /* Cosmic-particle texture now lives on body — hero is transparent so the
+       page-level texture shows through. Keep the atmospheric halo + rings here. */
+    background: transparent;
   }
 
   /* Layer 2: soft atmospheric halo — large blurred radial "planet" behind portrait.

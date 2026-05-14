@@ -131,7 +131,18 @@
    ============================================================ */
 
 body {
-  background: var(--cc-bg);
+  /* Page-level cosmic-particle texture + atmospheric gradient veil over base navy.
+     Veil mutes the JPG so it reads as atmosphere across every dark section.
+     background-attachment: fixed gives the parallax feel from the Figma render —
+     the texture stays put as content scrolls over it. */
+  background-color: var(--cc-prune);
+  background-image:
+    linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0.55) 45%, rgba(28, 27, 45, 0.85) 75%, #171625 100%),
+    url('/assets/bg-cosmic-particles.jpg');
+  background-size: auto, cover;
+  background-position: center top, center top;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
   color: var(--cc-fg);
   font-family: var(--cc-font-body);
   font-size: var(--cc-fs-body-xl);
