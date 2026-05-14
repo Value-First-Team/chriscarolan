@@ -77,9 +77,9 @@ const year = new Date().getFullYear();
 
 <style>
   .cc-footer {
-    /* Transparent so page-level cosmic-particle texture shows through.
-       Page gradient ends at #171625, keeping footer dark by inheritance. */
-    background: transparent;
+    /* Footer is its own design element — dark gray #222222, not part of the
+       body navy or any cosmic band. */
+    background: var(--cc-footer);
     padding: 50px clamp(24px, 20vw, 390px);
     color: var(--cc-pearl);
     font-family: var(--cc-font-body);

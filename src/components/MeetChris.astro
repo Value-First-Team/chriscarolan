@@ -41,6 +41,12 @@ import CosmicHalo from './CosmicHalo.astro';
     position: relative;
     padding: 120px clamp(24px, 20vw, 390px) 60px;
     overflow: hidden;
+    /* Section-level cosmic band — Figma places swirl image at y=4187 behind
+       MeetChris. Gradient veil fades the texture into navy at top + bottom so
+       it reads as a self-contained band, not bleeding into neighbors. */
+    background:
+      linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0) 35%, rgba(28, 27, 45, 0) 65%, #1C1B2D 100%),
+      url('/assets/bg-cosmic-particles.jpg') center center / cover no-repeat;
   }
   .cc-meet-headline {
     position: relative;

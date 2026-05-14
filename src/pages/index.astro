@@ -39,7 +39,20 @@ import Footer from '../components/Footer.astro';
   <InTheMedia />
   <PodcastSection />
   <SpeakingKit />
-  <JustForFun />
-  <ReadyToConnect />
+  <section class="cc-bottom-band">
+    <JustForFun />
+    <ReadyToConnect />
+  </section>
   <Footer />
 </BaseLayout>
+
+<style>
+  /* Bottom cosmic band — Figma places swirl image at y=9661 spanning the
+     JustForFun + ReadyToConnect block. One image, two sections sitting on it.
+     Veil fades top + bottom into navy so it reads as a contained band. */
+  .cc-bottom-band {
+    background:
+      linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0) 25%, rgba(28, 27, 45, 0) 75%, #1C1B2D 100%),
+      url('/assets/bg-cosmic-particles.jpg') center center / cover no-repeat;
+  }
+</style>
