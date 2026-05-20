@@ -23,9 +23,10 @@ import { SITE } from '../lib/site';
     <img src="/assets/hero-rings.webp" alt="" />
   </div>
 
-  <!-- Portrait — sits BEHIND the headline; torso dissolves into the navy -->
+  <!-- Portrait — sits BEHIND the headline. Fade is baked into the PNG alpha
+       (exact Figma "Mask group" export), so no CSS mask is applied. -->
   <div class="cc-hero-portrait" aria-hidden="true">
-    <img src="/assets/chris-portrait-hero.png" alt="" />
+    <img src="/assets/hero-portrait.png" alt="" />
   </div>
 
   <!-- Headline stack — orange Kameron over the portrait -->
@@ -79,38 +80,18 @@ import { SITE } from '../lib/site';
   .cc-hero-portrait {
     position: absolute;
     left: 50%;
-    top: -10px;
+    top: 14px;
     transform: translateX(-50%);
-    width: 500px;
-    max-width: 72vw;
-    height: 700px;
+    width: 560px;
+    max-width: 74vw;
     pointer-events: none;
     z-index: 2;
   }
   .cc-hero-portrait img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 12%;
+    height: auto;
     display: block;
-    /* Tall ellipse centred high — keeps the face crisp, lets the torso run
-       further down before dissolving softly at the bottom + side edges. */
-    -webkit-mask-image: radial-gradient(
-      ellipse 84% 108% at 50% 30%,
-      #000 60%,
-      rgba(0, 0, 0, 0.5) 84%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    mask-image: radial-gradient(
-      ellipse 84% 108% at 50% 30%,
-      #000 60%,
-      rgba(0, 0, 0, 0.5) 84%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
+    /* No CSS mask — the soft fade is baked into the PNG's alpha channel. */
   }
 
   /* Headline stack — overlays the portrait */
@@ -162,9 +143,8 @@ import { SITE } from '../lib/site';
       padding: 20px 24px 60px;
     }
     .cc-hero-portrait {
-      width: 340px;
-      height: 460px;
-      top: 0;
+      width: 360px;
+      top: 4px;
     }
     .cc-hero-stack {
       padding-top: 250px;
