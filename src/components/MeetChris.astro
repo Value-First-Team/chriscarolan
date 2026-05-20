@@ -7,8 +7,6 @@
 ---
 
 <section class="cc-meet">
-  <img class="cc-meet-ring cc-meet-ring-l" src="/assets/ellipse-14.webp" alt="" aria-hidden="true" />
-  <img class="cc-meet-ring cc-meet-ring-r" src="/assets/ellipse-17.webp" alt="" aria-hidden="true" />
   <h2 class="cc-meet-headline">Meet Chris</h2>
 
   <div class="cc-meet-grid">
@@ -74,6 +72,8 @@
     align-items: start;
   }
   .cc-meet-col {
+    position: relative;
+    z-index: 2; /* text overlays the portrait shoulders */
     font-family: var(--cc-font-body);
     font-size: 18px;
     line-height: 1.6;
@@ -91,15 +91,20 @@
   .cc-meet-emphasis {
     font-weight: 500;
   }
-  /* Cutout portrait — bottom-aligned so the body meets the section's bottom border */
+  /* Cutout portrait — bottom-aligned, enlarged so it overflows under the text
+     columns (which sit above it), so the copy overlays the shoulders. */
   .cc-meet-portrait {
+    position: relative;
+    z-index: 1;
     align-self: end;
     display: flex;
     align-items: flex-end;
     justify-content: center;
   }
   .cc-meet-portrait img {
-    width: 100%;
+    width: 150%;
+    max-width: none;
+    margin: 0 -25%;
     height: auto;
     display: block;
     /* Transparent cutout — blends on the dark section as-is (Figma has no baked
@@ -114,7 +119,7 @@
   /* Luminous divider at the section's bottom border (same asset as the hero) */
   .cc-meet-divider {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);
@@ -125,19 +130,6 @@
     width: 100%;
     height: auto;
     display: block;
-  }
-  /* Figma ring decorations replacing the old solid discs */
-  .cc-meet-ring {
-    position: absolute;
-    z-index: 0;
-    height: auto;
-    pointer-events: none;
-    user-select: none;
-  }
-  .cc-meet-ring-l { left: -340px; top: 80px; width: 560px; }
-  .cc-meet-ring-r { right: -320px; bottom: 40px; width: 520px; }
-  @media (max-width: 900px) {
-    .cc-meet-ring { display: none; }
   }
   @media (max-width: 900px) {
     .cc-meet {
