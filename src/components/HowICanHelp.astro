@@ -4,7 +4,6 @@
  * Step copy verbatim from bundle (already in Chris's voice).
  */
 import { SITE } from '../lib/site';
-import CosmicHalo from './CosmicHalo.astro';
 
 const steps = [
   {
@@ -26,7 +25,8 @@ const steps = [
 ---
 
 <section class="cc-how">
-  <CosmicHalo size={520} right="-220px" top="-120px" opacity={0.55} hideOnMobile />
+  <!-- Figma ring (Ellipse 15) bleeding off the right — replaces the solid CosmicHalo disc -->
+  <img class="cc-how-ring" src="/assets/ellipse-15.webp" alt="" aria-hidden="true" />
   <div class="cc-how-inner">
     <h2 class="cc-how-headline">How I Can Help</h2>
     <div class="cc-how-grid">
@@ -49,6 +49,20 @@ const steps = [
     position: relative;
     padding: 60px clamp(24px, 16vw, 314px);
     overflow: hidden;
+  }
+  /* Figma ring decoration — bleeds off the right edge behind the card */
+  .cc-how-ring {
+    position: absolute;
+    right: -300px;
+    top: -60px;
+    width: 560px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media (max-width: 900px) {
+    .cc-how-ring { display: none; }
   }
   .cc-how-inner {
     position: relative;
