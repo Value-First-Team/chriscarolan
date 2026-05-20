@@ -1,22 +1,21 @@
 ---
 /**
- * ProofRow — "PROOF OF IMPACT" orange eyebrow + four credential columns.
+ * ProofRow — "PROOF OF IMPACT" green eyebrow + four credential columns.
  *
- * Per V (2026-05-14): eyebrow is orange (--cc-mirinda), not lime. Lime is
- * reserved for CTAs (buttons + dates). Eyebrows on dark surfaces default
- * to the orange accent.
+ * Eyebrow is lime green (--cc-chinese) to match the Figma (Chris 2026-05-20).
+ * This intentionally overrides the earlier "lime reserved for CTAs" rule.
  *
- * Verified credentials:
+ * Verified credentials (Chris 2026-05-20):
  *   1. Founder, Value-First Team
  *   2. Creator of the Value-First methodology
- *   3. HubSpot Solutions Partner since 2020
- *   4. Host of 1,000+ live episodes across 11 shows
+ *   3. HubSpot Solutions Partner since 2023
+ *   4. Host of 1,000+ LinkedIn Live Streams
  */
 const items = [
   { headline: 'Founder,', sub: 'Value-First Team' },
   { headline: 'Creator of the', sub: 'Value-First methodology' },
-  { headline: 'HubSpot Solutions', sub: 'Partner since 2020' },
-  { headline: 'Host of 1,000+', sub: 'live episodes across 11 shows' },
+  { headline: 'HubSpot Solutions', sub: 'Partner since 2023' },
+  { headline: 'Host of 1,000+', sub: 'LinkedIn Live Streams' },
 ];
 ---
 
@@ -50,9 +49,8 @@ const items = [
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    /* Orange — lime is reserved for CTAs (buttons + dates) per bundle README.
-       Eyebrows on dark surfaces default to the orange accent. */
-    color: var(--cc-mirinda);
+    /* Lime green to match the Figma proof-row eyebrow (Chris 2026-05-20). */
+    color: var(--cc-chinese);
     padding-top: 4px;
     white-space: nowrap;
   }
