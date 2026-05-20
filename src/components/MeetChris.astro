@@ -35,12 +35,17 @@
       </p>
     </div>
   </div>
+
+  <!-- Same luminous divider as the hero, at the section's bottom border -->
+  <div class="cc-meet-divider" aria-hidden="true">
+    <img src="/assets/hero-divider.webp" alt="" />
+  </div>
 </section>
 
 <style>
   .cc-meet {
     position: relative;
-    padding: 120px clamp(24px, 20vw, 390px) 60px;
+    padding: 120px clamp(24px, 20vw, 390px) 0;
     overflow: hidden;
     /* Section-level cosmic band — Figma places swirl image at y=4187 behind
        MeetChris. Gradient veil fades the texture into navy at top + bottom so
@@ -64,7 +69,7 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     gap: 40px;
     align-items: start;
   }
@@ -86,10 +91,11 @@
   .cc-meet-emphasis {
     font-weight: 500;
   }
-  /* Feathered Figma portrait (baked alpha) — no crop, no rounded rect */
+  /* Cutout portrait — bottom-aligned so the body meets the section's bottom border */
   .cc-meet-portrait {
+    align-self: end;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
   }
   .cc-meet-portrait img {
@@ -104,6 +110,21 @@
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
+  }
+  /* Luminous divider at the section's bottom border (same asset as the hero) */
+  .cc-meet-divider {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 16px;
+    pointer-events: none;
+  }
+  .cc-meet-divider img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   /* Figma ring decorations replacing the old solid discs */
   .cc-meet-ring {
