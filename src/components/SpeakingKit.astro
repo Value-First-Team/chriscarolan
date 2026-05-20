@@ -10,11 +10,10 @@
  * Book blurb pulled from canonical synopsis.
  */
 import { SITE } from '../lib/site';
-import CosmicHalo from './CosmicHalo.astro';
 ---
 
 <section class="cc-kit">
-  <CosmicHalo size={580} right="-260px" bottom="-180px" opacity={0.4} hideOnMobile />
+  <img class="cc-kit-ring" src="/assets/ellipse-14.webp" alt="" aria-hidden="true" />
   <!-- Speaking Kit row -->
   <div class="cc-kit-row cc-kit-row-speaking">
     <div class="cc-kit-text">
@@ -63,6 +62,17 @@ import CosmicHalo from './CosmicHalo.astro';
     gap: 80px;
     overflow: hidden;
   }
+  .cc-kit-ring {
+    position: absolute;
+    right: -260px;
+    bottom: -180px;
+    width: 580px;
+    height: auto;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media (max-width: 900px) { .cc-kit-ring { display: none; } }
   .cc-kit-row {
     position: relative;
     z-index: 1;
