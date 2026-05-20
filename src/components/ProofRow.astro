@@ -20,10 +20,6 @@ const items = [
 ---
 
 <section class="cc-proofrow">
-  <!-- Luminous divider glow at the hero seam (exact Figma export), behind the row -->
-  <div class="cc-proof-glow" aria-hidden="true">
-    <img src="/assets/hero-divider.webp" alt="" />
-  </div>
   <div class="cc-proof-eyebrow">Proof of Impact</div>
   <div class="cc-proof-items">
     {
@@ -46,27 +42,6 @@ const items = [
     grid-template-columns: auto 1fr;
     align-items: start;
     gap: 60px;
-  }
-  /* Luminous divider glow — bright line sits at the hero seam, glow fans down
-     behind the credential columns. Full-bleed; baked Figma asset. */
-  .cc-proof-glow {
-    position: absolute;
-    top: -2px;
-    left: 0;
-    width: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .cc-proof-glow img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  /* lift the row content above the glow */
-  .cc-proof-eyebrow,
-  .cc-proof-items {
-    position: relative;
-    z-index: 1;
   }
   .cc-proof-eyebrow {
     font-family: var(--cc-font-meta);

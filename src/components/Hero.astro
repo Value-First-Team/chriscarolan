@@ -39,6 +39,10 @@ import { SITE } from '../lib/site';
     <div class="cc-hero-cta">
       <a class="cc-btn" href={SITE.links.bookCall} target="_blank" rel="noopener">Book a Call</a>
     </div>
+    <!-- Luminous divider (exact Figma export) — sits below the CTA, byline underneath -->
+    <div class="cc-hero-divider" aria-hidden="true">
+      <img src="/assets/hero-divider.webp" alt="" />
+    </div>
     <div class="cc-hero-byline">
       Chris Carolan &nbsp;|&nbsp; Business Transformation Advisor for the AI Era
     </div>
@@ -127,6 +131,20 @@ import { SITE } from '../lib/site';
   }
   .cc-hero-cta {
     margin-top: 4px;
+  }
+  /* Full-bleed luminous divider — bright line covers the dark seam below the CTA */
+  .cc-hero-divider {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 10px 0 2px;
+    pointer-events: none;
+  }
+  .cc-hero-divider img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   .cc-hero-byline {
     margin-top: 24px;
