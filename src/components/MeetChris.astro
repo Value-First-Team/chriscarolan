@@ -1,15 +1,20 @@
 ---
 /**
- * MeetChris — left bio column, center portrait, right second column.
- * Copy: bundle text + brand correction ("Value-First mindset", not "values-first").
- * Bundle's "values-first mindset" was a typo against brand rule "always Value-First, never Values-First."
+ * MeetChris — large bottom-anchored cutout portrait flanked by two WIDE text
+ * columns that overlay the shoulders. Portrait is sized in vw and the columns
+ * in fr, so the whole section scales together responsively. Divider glow at the
+ * section's bottom border (same asset as the hero).
  */
 ---
 
 <section class="cc-meet">
   <h2 class="cc-meet-headline">Meet Chris</h2>
 
-  <div class="cc-meet-grid">
+  <div class="cc-meet-body">
+    <div class="cc-meet-portrait" aria-hidden="true">
+      <img src="/assets/meet-portrait.webp" alt="" />
+    </div>
+
     <div class="cc-meet-col cc-meet-col-left">
       <p>
         Hey! I&rsquo;m Chris Carolan, and I help leaders and businesses move from industrial-age operations to AI-empowered organizations. I do this with a Value-First mindset so you can activate your team&rsquo;s capabilities instead of replacing them.
@@ -17,10 +22,6 @@
       <p>
         What makes my work different isn&rsquo;t just my understanding of HubSpot, AI, or business systems. It&rsquo;s how I think.
       </p>
-    </div>
-
-    <div class="cc-meet-portrait" aria-hidden="true">
-      <img src="/assets/meet-portrait.webp" alt="" />
     </div>
 
     <div class="cc-meet-col cc-meet-col-right">
@@ -43,39 +44,43 @@
 <style>
   .cc-meet {
     position: relative;
-    padding: 120px clamp(24px, 20vw, 390px) 0;
+    padding: 120px clamp(24px, 10vw, 200px) 0;
     overflow: hidden;
-    /* Section-level cosmic band — Figma places swirl image at y=4187 behind
-       MeetChris. Gradient veil fades the texture into navy at top + bottom so
-       it reads as a self-contained band, not bleeding into neighbors. */
+    /* Section-level cosmic band, veiled into navy at top + bottom */
     background:
       linear-gradient(180deg, #1C1B2D 0%, rgba(28, 27, 45, 0) 35%, rgba(28, 27, 45, 0) 65%, #1C1B2D 100%),
       url('/assets/bg-cosmic-particles.jpg') center center / cover no-repeat;
   }
   .cc-meet-headline {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     font-family: var(--cc-font-display);
     font-weight: 500;
     font-size: clamp(36px, 4.2vw, 64px);
     line-height: 1;
     color: var(--cc-mirinda);
-    margin: 0 0 30px;
+    margin: 0 0 40px;
     text-align: center;
   }
-  .cc-meet-grid {
+
+  /* Two wide text columns; the center is reserved (gap) for the face, and the
+     large portrait overlaps the inner edges (shoulders). */
+  .cc-meet-body {
     position: relative;
     z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: clamp(440px, 48vw, 700px);
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(40px, 26vw, 440px);
     align-items: start;
   }
   .cc-meet-col {
     position: relative;
     z-index: 2; /* text overlays the portrait shoulders */
     font-family: var(--cc-font-body);
-    font-size: 18px;
+    font-size: clamp(15px, 1.15vw, 18px);
     line-height: 1.6;
     color: var(--cc-pearl);
     display: flex;
@@ -83,7 +88,7 @@
     gap: 18px;
   }
   .cc-meet-col-right {
-    padding-top: 80px;
+    padding-top: 60px;
   }
   .cc-meet-col p {
     margin: 0;
@@ -91,31 +96,30 @@
   .cc-meet-emphasis {
     font-weight: 500;
   }
-  /* Cutout portrait — bottom-aligned, enlarged so it overflows under the text
-     columns (which sit above it), so the copy overlays the shoulders. */
+
+  /* Cutout portrait — sized in vw (scales with the section), anchored bottom-center */
   .cc-meet-portrait {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: clamp(360px, 44vw, 640px);
     z-index: 1;
-    align-self: end;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    pointer-events: none;
   }
   .cc-meet-portrait img {
-    width: 150%;
-    max-width: none;
-    margin: 0 -25%;
+    width: 100%;
     height: auto;
     display: block;
-    /* Transparent cutout — blends on the dark section as-is (Figma has no baked
-       feather). A whisper of bottom fade hides the photo's hard lower crop. */
-    -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+    /* whisper of bottom fade for the photo's hard lower crop */
+    -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
   }
+
   /* Luminous divider at the section's bottom border (same asset as the hero) */
   .cc-meet-divider {
     position: relative;
@@ -131,21 +135,27 @@
     height: auto;
     display: block;
   }
+
   @media (max-width: 900px) {
     .cc-meet {
-      padding: 60px 24px;
+      padding: 60px 24px 0;
     }
-    .cc-meet-grid {
+    .cc-meet-body {
       grid-template-columns: 1fr;
-      gap: 30px;
+      column-gap: 0;
+      gap: 24px;
+      min-height: 0;
+    }
+    .cc-meet-portrait {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      width: 320px;
+      margin: 24px auto 0;
     }
     .cc-meet-col-right {
       padding-top: 0;
-    }
-    .cc-meet-portrait {
-      max-width: 480px;
-      margin: 0 auto;
-      width: 100%;
     }
   }
 </style>
