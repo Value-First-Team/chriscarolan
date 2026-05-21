@@ -39,12 +39,13 @@ import { SITE } from '../lib/site';
     <div class="cc-hero-cta">
       <a class="cc-btn" href={SITE.links.bookCall} target="_blank" rel="noopener">Book a Call</a>
     </div>
-    <!-- Luminous divider (exact Figma export) — sits below the CTA, byline underneath -->
-    <div class="cc-hero-divider" aria-hidden="true">
-      <img src="/assets/hero-divider.webp" alt="" />
-    </div>
     <div class="cc-hero-byline">
       Chris Carolan &nbsp;|&nbsp; Business Transformation Advisor for the AI Era
+    </div>
+    <!-- Luminous divider at the hero's bottom edge — masks the section end so it
+         doesn't read as an abrupt black line; byline sits tight above it -->
+    <div class="cc-hero-divider" aria-hidden="true">
+      <img src="/assets/hero-divider.webp" alt="" />
     </div>
   </div>
 </section>
@@ -54,9 +55,9 @@ import { SITE } from '../lib/site';
     position: relative;
     width: 100%;
     max-width: 100vw;
-    min-height: 780px;
+    min-height: 680px;
     overflow: hidden;
-    padding: 30px clamp(24px, 12vw, 240px) 70px;
+    padding: 30px clamp(24px, 12vw, 240px) 0;
     isolation: isolate;
     /* Flat navy base — the ring backdrop image provides all atmosphere */
     background: var(--cc-prune, #1C1B2D);
@@ -77,6 +78,12 @@ import { SITE } from '../lib/site';
     width: 100%;
     height: auto;
     display: block;
+    /* Fade the ring backdrop's bottom into the navy so the section doesn't end
+       on a hard ring edge (no abrupt "black line" at the seam). */
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
   }
 
   /* Portrait — centered; soft mask keeps the head/face clean and dissolves the
@@ -132,13 +139,13 @@ import { SITE } from '../lib/site';
   .cc-hero-cta {
     margin-top: 4px;
   }
-  /* Full-bleed luminous divider — bright line covers the dark seam below the CTA */
+  /* Full-bleed luminous divider at the hero's bottom edge */
   .cc-hero-divider {
     position: relative;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);
-    margin: 10px 0 2px;
+    margin: -6px 0 0; /* tight under the byline; sits at the section end */
     pointer-events: none;
   }
   .cc-hero-divider img {
@@ -147,11 +154,11 @@ import { SITE } from '../lib/site';
     display: block;
   }
   .cc-hero-byline {
-    margin-top: 24px;
+    margin-top: 14px;
     font-family: var(--cc-font-body);
-    font-size: 14px;
+    font-size: 17px;
     color: var(--cc-pearl-soft);
-    opacity: 0.75;
+    opacity: 0.85;
     letter-spacing: 0.01em;
   }
 
