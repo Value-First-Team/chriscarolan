@@ -20,7 +20,7 @@ export const SITE = {
     bookCall: 'https://meetings.hubspot.com/chris-carolan1/value-first-team-free-consult',
     valueFirstTeam: 'https://www.valuefirstteam.com',
     shows: 'https://www.valuefirstteam.com/shows',
-    aiDailyShow: 'https://www.valuefirstteam.com/shows/vf-ai-daily',
+    aiDailyShow: 'https://ainativeshift.com',
     // Public speaking booking — HubSpot Meetings (per Chris, 2026-05-14).
     bookToSpeak: 'https://meetings.hubspot.com/chris-carolan1/public-speaking',
     // Speaking kit request — mailto until hosted PDF exists.
