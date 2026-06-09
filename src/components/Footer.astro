@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
   <hr class="cc-footer-rule" />
 
   <div class="cc-footer-bottom">
-    <div class="cc-footer-copy">© {year} Chris Carolan | Site by Brand Alchemy</div>
+    <div class="cc-footer-copy">© {year} Chris Carolan | Brand Design by Brand Alchemy</div>
     <div class="cc-footer-socials" aria-label="Social links">
       <a href={SITE.social.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -132,12 +132,19 @@ const year = new Date().getFullYear();
   }
   .cc-footer-socials {
     display: flex;
-    gap: 22px;
+    gap: 4px;
+    /* offset the negative space the 44px hit areas add, keeping the row aligned
+       with the copyright baseline */
+    margin-right: -11px;
   }
   .cc-footer-socials a {
     color: var(--cc-mirinda-light);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    /* 44x44 minimum tap target (WCAG 2.5.5) — icon stays visually 22px */
+    min-width: 44px;
+    min-height: 44px;
     text-decoration: none;
     transition: color 200ms ease;
   }

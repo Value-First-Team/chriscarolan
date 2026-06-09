@@ -225,7 +225,8 @@ a:hover { color: var(--cc-mirinda-deep); }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 28px;
+  /* padding-block 14px -> total height 44px (WCAG 2.5.5 target size) */
+  padding: 14px 28px;
   border-radius: var(--cc-r-pill);
   background: var(--cc-chinese);
   color: var(--cc-prune);
@@ -248,7 +249,9 @@ a:hover { color: var(--cc-mirinda-deep); }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 28px;
+  /* padding-block 14px -> total height 44px (WCAG 2.5.5 target size); the 1px
+     border is inside the box so the rendered height matches the filled button */
+  padding: 14px 28px;
   border-radius: var(--cc-r-pill);
   background: transparent;
   color: var(--cc-chinese);
