@@ -64,6 +64,14 @@ const steps = [
     opacity: 0.68;
     filter: blur(12px) saturate(1.2);
     mix-blend-mode: screen;
+    /* The ring is positioned top:-120px and the section clips overflow, which used
+       to chop the glow's top into a hard horizontal line at the Problem->How seam.
+       Feather the ring's top edge to transparent so the overflow clip lands on
+       already-faded pixels — the glow now dissolves across the boundary. */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 32%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 32%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     pointer-events: none;
     user-select: none;
   }
