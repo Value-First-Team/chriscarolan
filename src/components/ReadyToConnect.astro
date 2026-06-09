@@ -43,6 +43,13 @@ import { SITE } from '../lib/site';
     opacity: 0.5;
     filter: blur(30px) saturate(1.2);
     mix-blend-mode: screen;
+    /* Feather the BOTTOM edge. The ring bleeds down across the band seam (~79%
+       down its height) into the opaque Footer, which would otherwise occlude the
+       lower edge into a hard line. Fade to transparent before that seam. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 77%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 77%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     pointer-events: none;
     user-select: none;
   }

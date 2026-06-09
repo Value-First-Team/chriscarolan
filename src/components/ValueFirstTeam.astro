@@ -48,6 +48,14 @@ import { SITE } from '../lib/site';
     opacity: 0.62;
     filter: blur(26px) saturate(1.2);
     mix-blend-mode: screen;
+    /* Feather the BOTTOM edge. The ring bleeds down across the section seam
+       (~66% down its height) into MeetChris, which has an opaque cosmic
+       background that would otherwise occlude the lower edge into a hard line.
+       Fade to transparent before that seam so the cut lands on nothing. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 64%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 64%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     pointer-events: none;
     user-select: none;
   }
