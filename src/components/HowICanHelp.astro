@@ -48,7 +48,10 @@ const steps = [
   .cc-how {
     position: relative;
     padding: 60px clamp(24px, 16vw, 314px);
-    overflow: hidden;
+    /* No overflow clip here. html/body already clip horizontally
+       (overflow-x:hidden + max-width:100vw), so the decorative ring overflows
+       vertically across the section seam with its own soft blurred edge instead
+       of being guillotined into a hard line at the boundary. */
   }
   /* Figma ring (Ellipse 15) — a soft blue-violet arc bleeding off the right edge,
      partly tucked behind the cream card (Figma 04-howicanhelp). Lighter blur than
@@ -64,16 +67,8 @@ const steps = [
     opacity: 0.68;
     filter: blur(12px) saturate(1.2);
     mix-blend-mode: screen;
-    /* The ring is positioned top:-120px and the section clips overflow. The
-       section clips the ring at 120/865 ~= 13.9% down its own rendered height, so
-       the mask must be FULLY transparent through that line and only fade in below
-       it — otherwise the glow is still partly opaque where the overflow cuts it
-       (the residual hard line). Hold transparent through 30% (>2x the clip line),
-       opaque by 55% so the glow still reads below the seam. */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, #000 55%);
-    mask-image: linear-gradient(to bottom, transparent 0%, transparent 30%, #000 55%);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+    /* No mask: the section no longer clips overflow, so the ring's own 12px-blurred
+       edge IS the soft boundary — there is no hard clip line to feather away. */
     pointer-events: none;
     user-select: none;
   }
