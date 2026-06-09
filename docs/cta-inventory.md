@@ -59,4 +59,4 @@ Record each CTA change here (date · what changed · old → new · commit). Kee
 | Date | # / Button | Change (old → new) | Commit |
 |------|-----------|--------------------|--------|
 | 2026-06-09 | — | Inventory created (baseline) | `da36e46` |
-| 2026-06-09 | #10 Learn More (SaaSpocalypse book) | `valuefirstteam.com` → `valuefirstteam.com/book/saaspocalypse` (temporary) | `a05284c` |
+| 2026-06-09 | #10 Learn More (SaaSpocalypse book) | `valuefirstteam.com` → `valuefirstteam.com/book/saaspocalypse` (temporary) | `4016b34` |
