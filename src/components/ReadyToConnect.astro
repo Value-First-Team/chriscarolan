@@ -7,7 +7,6 @@ import { SITE } from '../lib/site';
 ---
 
 <section class="cc-ready">
-  <img class="cc-halo cc-ready-ring" src="/assets/ellipse-17.webp" alt="" aria-hidden="true" />
   <h2 class="cc-ready-headline">Ready to Connect?</h2>
   <p class="cc-ready-body">
     If something feels off in how your company is operating, you&rsquo;re probably right. Let&rsquo;s have a real conversation and see where you are.
@@ -24,36 +23,7 @@ import { SITE } from '../lib/site';
     align-items: center;
     gap: 28px;
     text-align: center;
-    /* No clip — the ring overflows the section seam with its own soft blurred
-       edge instead of a hard line; html/body clip horizontally (no scrollbar). */
   }
-  .cc-ready > *:not(.cc-halo) {
-    position: relative;
-    z-index: 1;
-  }
-  /* Ellipse 17 as a soft luminous glow bleeding off the upper-right (Figma
-     15-readytoconnect) — blur + screen blend, not a flat grey donut. */
-  .cc-ready-ring {
-    position: absolute;
-    right: -300px;
-    top: -120px;
-    width: 660px;
-    height: auto;
-    z-index: 0;
-    opacity: 0.5;
-    filter: blur(30px) saturate(1.2);
-    mix-blend-mode: screen;
-    /* Feather the BOTTOM edge. The ring bleeds down across the band seam (~79%
-       down its height) into the opaque Footer, which would otherwise occlude the
-       lower edge into a hard line. Fade to transparent before that seam. */
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 77%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 65%, transparent 77%);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    pointer-events: none;
-    user-select: none;
-  }
-  @media (max-width: 900px) { .cc-ready-ring { display: none; } }
   .cc-ready-headline {
     font-family: var(--cc-font-display);
     font-weight: 500;
