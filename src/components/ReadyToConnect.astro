@@ -24,7 +24,8 @@ import { SITE } from '../lib/site';
     align-items: center;
     gap: 28px;
     text-align: center;
-    overflow: hidden;
+    /* No clip — the ring overflows the section seam with its own soft blurred
+       edge instead of a hard line; html/body clip horizontally (no scrollbar). */
   }
   .cc-ready > *:not(.cc-halo) {
     position: relative;

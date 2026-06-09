@@ -36,7 +36,8 @@ import { SITE } from '../lib/site';
   .cc-itm {
     position: relative;
     padding: 60px clamp(24px, 16vw, 314px);
-    overflow: hidden;
+    /* No clip — the ring overflows the section seam with its own soft blurred
+       edge instead of a hard line; html/body clip horizontally (no scrollbar). */
   }
   /* Ellipse 15 as a soft luminous glow bleeding off the lower-left (Figma
      09-inthemedia) — blur + screen blend, not a flat grey donut. */

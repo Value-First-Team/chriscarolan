@@ -32,7 +32,8 @@ import { SITE } from '../lib/site';
   .cc-vft {
     position: relative;
     padding: 60px clamp(24px, 20vw, 390px);
-    overflow: hidden;
+    /* No clip — the ring overflows the section seam with its own soft blurred
+       edge instead of a hard line; html/body clip horizontally (no scrollbar). */
   }
   /* Ellipse 16 as a soft luminous arc (Figma 06-valuefirstteam): blur + screen
      blend turns the grey 3D torus into a blue-violet glow bleeding off the

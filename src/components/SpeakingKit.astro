@@ -60,7 +60,8 @@ import { SITE } from '../lib/site';
     display: flex;
     flex-direction: column;
     gap: 80px;
-    overflow: hidden;
+    /* No clip — the ring overflows the section seam with its own soft blurred
+       edge instead of a hard line; html/body clip horizontally (no scrollbar). */
   }
   /* Ellipse 14 as a soft luminous glow bleeding off the lower-right (Figma
      12-speakingkit) — blur + screen blend, not a flat grey donut. */
