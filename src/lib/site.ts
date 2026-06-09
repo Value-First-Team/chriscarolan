@@ -25,6 +25,8 @@ export const SITE = {
     bookToSpeak: 'https://meetings.hubspot.com/chris-carolan1/public-speaking',
     // Speaking & Media Kit — hosted PDF (Brand Alchemy final deliverable).
     speakingKit: '/speaking-media-kit.pdf',
-    bookLearnMore: 'https://www.valuefirstteam.com',
+    // "Surviving the SaaSpocalypse" book row → Learn More CTA. Temporary target
+    // per Chris 2026-06-09 ("for now"); revisit when the book page is final.
+    bookLearnMore: 'https://www.valuefirstteam.com/book/saaspocalypse',
   },
 };

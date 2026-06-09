@@ -26,7 +26,7 @@ them, give that button its own new key in `site.ts` (don't hardcode inline) and 
 | 7 | In the Media | **Watch & Listen** | `https://www.valuefirstteam.com/shows` | yes | `links.shows` | `InTheMedia.astro:27` |
 | 8 | Podcast (AI-Native Shift Daily) | **Listen & Subscribe** | `https://ainativeshift.com` | yes | `links.aiDailyShow` | `PodcastSection.astro:63` |
 | 9 | Speaking Kit | **Download Speaking Kit** | `/speaking-media-kit.pdf` (hosted) | yes (download) | `links.speakingKit` | `SpeakingKit.astro:25` |
-| 10 | Speaking Kit | **Learn More** | `https://www.valuefirstteam.com` | yes | `links.bookLearnMore` | `SpeakingKit.astro:48` |
+| 10 | Speaking Kit (book row) | **Learn More** (Surviving the SaaSpocalypse) | `https://www.valuefirstteam.com/book/saaspocalypse` | yes | `links.bookLearnMore` | `SpeakingKit.astro:48` |
 | 11 | Ready to Connect | **Book a Call** | `…/value-first-team-free-consult` | yes | `links.bookCall` ⚠️shared | `ReadyToConnect.astro:14` |
 | 12 | Footer | **Email** (chris.carolan@valuefirstteam.com) | `mailto:chris.carolan@valuefirstteam.com` | no | `SITE.email` | `Footer.astro:17` |
 | 13 | Footer | **LinkedIn** (icon) | `https://www.linkedin.com/in/chris-carolan/` | yes | `social.linkedin` | `Footer.astro:40` |
@@ -38,7 +38,8 @@ them, give that button its own new key in `site.ts` (don't hardcode inline) and 
 
 - **`value-first-team-free-consult`** (HubSpot Meetings) ← #2, #3, #4, #11 *(via the one shared `bookCall` key)*
 - **`public-speaking`** (HubSpot Meetings) ← #6 (`bookToSpeak`)
-- **`valuefirstteam.com`** ← #5 (`valueFirstTeam`) **and** #10 (`bookLearnMore`) — same URL, two separate keys, so they can diverge independently
+- **`valuefirstteam.com`** ← #5 (`valueFirstTeam`)
+- **`valuefirstteam.com/book/saaspocalypse`** ← #10 (`bookLearnMore`) — Surviving the SaaSpocalypse book CTA (temporary target set 2026-06-09)
 - **`valuefirstteam.com/shows`** ← #7 (`shows`)
 - **`ainativeshift.com`** ← #8 (`aiDailyShow`)
 - **`/speaking-media-kit.pdf`** ← #9 (`speakingKit`)
@@ -49,7 +50,7 @@ them, give that button its own new key in `site.ts` (don't hardcode inline) and 
 
 - All external CTAs open in a new tab (`target="_blank" rel="noopener"`). The Top Nav brand (#1) and footer email (#12) stay in-tab.
 - #9 also carries the `download` attribute (saves the PDF rather than navigating).
-- The four `bookCall` buttons and the two `valuefirstteam.com` Learn-More buttons are the spots most likely to need divergence — plan a new `site.ts` key before repointing just one.
+- The four `bookCall` buttons still share one key — plan a new `site.ts` key before repointing just one of them. (#10's Learn More was repointed to the SaaSpocalypse book page on 2026-06-09; #5 still → valuefirstteam.com.)
 
 ## Change log
 
@@ -58,3 +59,4 @@ Record each CTA change here (date · what changed · old → new · commit). Kee
 | Date | # / Button | Change (old → new) | Commit |
 |------|-----------|--------------------|--------|
 | 2026-06-09 | — | Inventory created (baseline) | `da36e46` |
+| 2026-06-09 | #10 Learn More (SaaSpocalypse book) | `valuefirstteam.com` → `valuefirstteam.com/book/saaspocalypse` (temporary) | `a05284c` |
