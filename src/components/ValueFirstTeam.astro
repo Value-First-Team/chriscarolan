@@ -34,13 +34,19 @@ import { SITE } from '../lib/site';
     padding: 60px clamp(24px, 20vw, 390px);
     overflow: hidden;
   }
+  /* Ellipse 16 as a soft luminous arc (Figma 06-valuefirstteam): blur + screen
+     blend turns the grey 3D torus into a blue-violet glow bleeding off the
+     upper-left, rather than a flat hard-edged donut. */
   .cc-vft-ring {
     position: absolute;
-    left: -260px;
-    top: 40px;
-    width: 560px;
+    left: -300px;
+    top: -150px;
+    width: 680px;
     height: auto;
     z-index: 0;
+    opacity: 0.62;
+    filter: blur(26px) saturate(1.2);
+    mix-blend-mode: screen;
     pointer-events: none;
     user-select: none;
   }

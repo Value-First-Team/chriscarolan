@@ -30,13 +30,18 @@ import { SITE } from '../lib/site';
     position: relative;
     z-index: 1;
   }
+  /* Ellipse 17 as a soft luminous glow bleeding off the upper-right (Figma
+     15-readytoconnect) — blur + screen blend, not a flat grey donut. */
   .cc-ready-ring {
     position: absolute;
-    right: -240px;
-    top: 0;
-    width: 520px;
+    right: -300px;
+    top: -120px;
+    width: 660px;
     height: auto;
     z-index: 0;
+    opacity: 0.5;
+    filter: blur(30px) saturate(1.2);
+    mix-blend-mode: screen;
     pointer-events: none;
     user-select: none;
   }

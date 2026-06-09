@@ -38,13 +38,18 @@ import { SITE } from '../lib/site';
     padding: 60px clamp(24px, 16vw, 314px);
     overflow: hidden;
   }
+  /* Ellipse 15 as a soft luminous glow bleeding off the lower-left (Figma
+     09-inthemedia) — blur + screen blend, not a flat grey donut. */
   .cc-itm-ring {
     position: absolute;
-    left: -240px;
-    bottom: -120px;
-    width: 500px;
+    left: -300px;
+    bottom: -200px;
+    width: 620px;
     height: auto;
     z-index: 0;
+    opacity: 0.5;
+    filter: blur(30px) saturate(1.2);
+    mix-blend-mode: screen;
     pointer-events: none;
     user-select: none;
   }

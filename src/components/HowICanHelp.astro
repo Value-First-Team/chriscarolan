@@ -50,14 +50,20 @@ const steps = [
     padding: 60px clamp(24px, 16vw, 314px);
     overflow: hidden;
   }
-  /* Figma ring decoration — bleeds off the right edge behind the card */
+  /* Figma ring (Ellipse 15) — a soft blue-violet arc bleeding off the right edge,
+     partly tucked behind the cream card (Figma 04-howicanhelp). Lighter blur than
+     the pure-glow sections so the arc keeps a little torus structure where it
+     peeks onto the navy; screen blend keeps it luminous, never a flat grey donut. */
   .cc-how-ring {
     position: absolute;
-    right: -300px;
-    top: -60px;
-    width: 560px;
+    right: -320px;
+    top: -120px;
+    width: 620px;
     height: auto;
     z-index: 0;
+    opacity: 0.55;
+    filter: blur(18px) saturate(1.2);
+    mix-blend-mode: screen;
     pointer-events: none;
     user-select: none;
   }

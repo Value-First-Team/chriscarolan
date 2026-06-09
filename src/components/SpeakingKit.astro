@@ -25,8 +25,8 @@ import { SITE } from '../lib/site';
         <a class="cc-btn" href={SITE.links.speakingKit} target="_blank" rel="noopener" download>Download Speaking Kit</a>
       </div>
     </div>
-    <div class="cc-kit-mockup" aria-hidden="true">
-      <img src="/assets/speaking-media-kit.png" alt="" />
+    <div class="cc-kit-mockup">
+      <img src="/assets/speaking-media-kit.png" alt="Chris Carolan Speaking & Media Kit cover" />
     </div>
   </div>
 
@@ -62,13 +62,18 @@ import { SITE } from '../lib/site';
     gap: 80px;
     overflow: hidden;
   }
+  /* Ellipse 14 as a soft luminous glow bleeding off the lower-right (Figma
+     12-speakingkit) — blur + screen blend, not a flat grey donut. */
   .cc-kit-ring {
     position: absolute;
-    right: -260px;
-    bottom: -180px;
-    width: 580px;
+    right: -320px;
+    bottom: -260px;
+    width: 700px;
     height: auto;
     z-index: 0;
+    opacity: 0.5;
+    filter: blur(30px) saturate(1.2);
+    mix-blend-mode: screen;
     pointer-events: none;
     user-select: none;
   }
