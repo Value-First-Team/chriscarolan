@@ -11,9 +11,9 @@ export const SITE = {
   tagline: 'Rethinking how businesses operate in the AI era',
   email: 'chris.carolan@valuefirstteam.com',
   social: {
-    linkedin: 'https://www.linkedin.com/in/chriscarolan',
-    x: 'https://x.com/chrisbcarolan',
-    instagram: 'https://www.instagram.com/chris.b.carolan/',
+    linkedin: 'https://www.linkedin.com/in/chris-carolan/',
+    x: 'https://x.com/chriscarolan',
+    instagram: 'https://www.instagram.com/beardabides/',
     youtube: 'https://www.youtube.com/@Value-First',
   },
   links: {
@@ -23,8 +23,8 @@ export const SITE = {
     aiDailyShow: 'https://ainativeshift.com',
     // Public speaking booking — HubSpot Meetings (per Chris, 2026-05-14).
     bookToSpeak: 'https://meetings.hubspot.com/chris-carolan1/public-speaking',
-    // Speaking kit request — mailto until hosted PDF exists.
-    speakingKit: 'mailto:chris.carolan@valuefirstteam.com?subject=Speaking%20Kit%20request',
+    // Speaking & Media Kit — hosted PDF (Brand Alchemy final deliverable).
+    speakingKit: '/speaking-media-kit.pdf',
     bookLearnMore: 'https://www.valuefirstteam.com',
   },
 };
