@@ -90,6 +90,13 @@ async function main() {
           const vfBrand = getComputedStyle(html).getPropertyValue('--vf-brand').trim();
           // count rendered body sections
           const sectionCount = document.querySelectorAll('.cc-page > section, .cc-page > .cc-bottom-band').length;
+          // Brand-fidelity teeth (Chris 2026-06-18: NO hat, NO shared footer):
+          //  - exactly one <footer> (the bespoke .cc-footer), no shared SiteFooter
+          //  - the shared SiteFooter's signature surface (.bg-vf-surface-2) absent
+          //  - the VF utility eyebrow (hat) does not render inside <header>
+          const footerCount = document.querySelectorAll('footer').length;
+          const hasSharedFooter = !!document.querySelector('footer.bg-vf-surface-2');
+          const hatInHeader = header ? /Founder,\s*Value-First Team/i.test(header.textContent || '') : false;
           return {
             isDark: html.classList.contains('dark'),
             ccBg, h1Color, h1Font,
@@ -100,6 +107,9 @@ async function main() {
             mirindaToken: mirinda,
             vfBrandToken: vfBrand,
             sectionCount,
+            footerCount,
+            hasSharedFooter,
+            hatInHeader,
           };
         });
 
@@ -132,10 +142,15 @@ async function main() {
       /Kameron/i.test(p.h1Font || '');
     const shellPresent = p.hasHeader && p.vfBrandToken.length > 0;
     const parity = p.sectionCount >= 13; // 12 <section> + 1 .cc-bottom-band wrapper
-    const ok = themeMatches && ccStyled && shellPresent && p.hasH1 && p.hasCcFooter && parity;
+    // Brand fidelity: exactly the bespoke footer, no shared footer, no hat.
+    const oneFooterOnly = p.footerCount === 1 && !p.hasSharedFooter;
+    const noHat = !p.hatInHeader;
+    const ok =
+      themeMatches && ccStyled && shellPresent && p.hasH1 && p.hasCcFooter &&
+      parity && oneFooterOnly && noHat;
     if (!ok) failures++;
     console.log(
-      `${ok ? 'PASS' : 'FAIL'}  ${tag.padEnd(28)} ccBg=${p.ccBg} h1=${p.h1Color} font=${(p.h1Font || '').split(',')[0]} mirinda=[${p.mirindaToken}] vfBrand=[${p.vfBrandToken}] hdr=${p.hasHeader} ccFoot=${p.hasCcFooter} sections=${p.sectionCount} dark=${p.isDark}`
+      `${ok ? 'PASS' : 'FAIL'}  ${tag.padEnd(28)} ccBg=${p.ccBg} h1=${p.h1Color} font=${(p.h1Font || '').split(',')[0]} mirinda=[${p.mirindaToken}] vfBrand=[${p.vfBrandToken}] hdr=${p.hasHeader} ccFoot=${p.hasCcFooter} footers=${p.footerCount} sharedFoot=${p.hasSharedFooter} hat=${p.hatInHeader} sections=${p.sectionCount} dark=${p.isDark}`
     );
   }
   console.log(`\n${results.length - failures}/${results.length} render checks passed. Shots in ${OUT}`);

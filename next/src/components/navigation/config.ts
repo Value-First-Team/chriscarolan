@@ -28,27 +28,9 @@ export const SHELL_CONFIG: SiteShellConfig = {
     },
   ],
 
-  headerHat: {
-    // The shared SiteHeader renders the hat highlight as a restrained bio credit
-    // — Chris's "and here's where I do that work" line, NOT company chrome (the
-    // personal CCLogo mark owns the brand). The `href` is preserved so the
-    // bio-credit can link to valuefirstteam.com once the shared shell grows
-    // hat-link support (the global-first improvement); today the shell renders
-    // the highlight as text. (Catalyst, 2026-06-18.)
-    highlight: {
-      label: 'Founder, Value-First Team',
-      href: 'https://valuefirstteam.com',
-      external: true,
-    },
-    links: [
-      { label: 'The AI-Native Shift', href: 'https://ainativeshift.com', external: true },
-    ],
-    cta: {
-      label: 'Book a Call',
-      href: 'https://meetings.hubspot.com/chris-carolan1/value-first-team-free-consult',
-      external: true,
-    },
-  },
+  // NO headerHat: this site never wore the VF utility eyebrow and must not now
+  // (Chris, 2026-06-18). The shared shell (@vf/site-kit#d306953) makes the hat
+  // opt-in via config presence, so omitting it renders no eyebrow at all.
 
   mobileBottomBar: [
     { id: 'top', label: 'Home', href: '/' },

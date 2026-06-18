@@ -3,12 +3,12 @@
  * tagline + email, divider, copyright + 4 social icons). Ported from
  * Footer.astro.
  *
- * NOTE: this is the BODY footer that is part of Chris's distinct visual
- * identity — it sits at the end of the .cc-page canvas, ABOVE the shared
- * constellation SiteFooter (which provides cross-node nav + legal). Preserved
- * faithfully so the personal-site close (the cosmic band → this dark-gray
- * footer) reads exactly as the Astro original; the shared shell footer adds the
- * constellation membership beneath it.
+ * NOTE: this is the site's ONE AND ONLY footer — part of Chris's distinct
+ * visual identity, at the end of the .cc-page canvas. The shared constellation
+ * SiteFooter is suppressed (SiteShell showFooter={false} in layout.tsx), so
+ * this personal-site close (the cosmic band → this dark-gray footer) is the
+ * final element on the page, exactly as the Astro original — no shared
+ * constellation footer beneath it (Chris, 2026-06-18).
  */
 
 import { CCLogo } from './CCLogo';

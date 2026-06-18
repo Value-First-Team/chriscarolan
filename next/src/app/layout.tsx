@@ -6,24 +6,27 @@
  *      site's globals.css (which pulls in the bespoke cc-* brand tokens).
  *   2. Runs the FOUC-free theme init (default dark; honors saved pref / OS) —
  *      the shell's header/footer + theme toggle respond to it.
- *   3. Mounts the SHARED @vf/site-kit SiteShell (header + main + footer + mobile
- *      bottom bar) — the global-first constellation frame every node consumes —
- *      and supplies Chris's PERSONAL identity through it:
- *        - headerBrandMark / footerBrandMark → the personal CCLogo (NOT the VF
- *          Team LogoLockup), via the BrandMark `node` escape hatch (the same
- *          approach ainativeshift used for its text wordmark). Theme-aware: the
- *          shell header/footer sit on --vf-surface / --vf-surface-2, which flip
- *          between dark and near-white across themes, so the wordmark ink flips
- *          with them (cream on dark, prune on light) — the monogram is the
- *          orange gradient in both. The mark assets are this node's identity and
- *          are intentionally exempt from --vf-* (per BrandMarkSlot).
- *        - config={SHELL_CONFIG} → Chris's own nav, hat bio-credit, footer
- *          columns, social, legal (src/components/navigation/config.ts).
- *        - brandLabel / brandTagline / copyrightName → Chris's, not VFT's.
- *      The single personal SiteFooterBespoke (the dark-gray close) is rendered
- *      at the END of the page body (src/app/page.tsx); the shared SiteFooter
- *      below it carries the constellation membership map — they are distinct
- *      footers (personal close + constellation map), not a duplicated VFT footer.
+ *   3. Mounts the SHARED @vf/site-kit SiteShell for the HEADER + nav ONLY — the
+ *      global-first constellation frame, carrying Chris's PERSONAL identity:
+ *        - headerBrandMark → the personal CCLogo (NOT the VF Team LogoLockup),
+ *          via the BrandMark `node` escape hatch (the same approach ainativeshift
+ *          used for its text wordmark). Theme-aware: the shell header sits on
+ *          --vf-surface, which flips between dark and near-white across themes,
+ *          so the wordmark ink flips with it (cream on dark, prune on light) —
+ *          the monogram is the orange gradient in both. The mark assets are this
+ *          node's identity and are intentionally exempt from --vf-* (per
+ *          BrandMarkSlot).
+ *        - config={SHELL_CONFIG} → Chris's own nav, social, legal. NO headerHat
+ *          (the site never wore the VF utility eyebrow) and showFooter={false}
+ *          (the shared constellation footer is suppressed). Chris's own
+ *          SiteFooterBespoke, rendered at the END of the page body
+ *          (src/app/page.tsx), is the ONE AND ONLY footer. The shell makes both
+ *          the hat and the footer opt-out (global-first @vf/site-kit#d306953),
+ *          so this node keeps the shared header/nav frame while wearing its own
+ *          footer and no eyebrow — not the duplicated VFT chrome a prior pass
+ *          wrongly layered on (Chris, 2026-06-18: "There was not a hat on these
+ *          sites...nor the footer. And there shouldn't be now.").
+ *        - brandLabel / brandTagline → Chris's, not VFT's.
  *   4. Provides all OpenGraph / SEO defaults (ported from BaseLayout.astro).
  *
  * Brand-fidelity history: the original re-platform (b013f35) mounted SiteShell
@@ -33,12 +36,10 @@
  * a per-node BrandMarkSlot, so the durable global-first fix lands: re-join the
  * shared shell + supply the personal mark via the slot, and retire the fork.
  *
- * NOTE on the hat bio-credit: the shared SiteHeader renders the hat highlight
- * ("Founder, Value-First Team") as bio-credit text. In the bespoke fork it was
- * also a link to valuefirstteam.com; the shared shell renders the highlight as
- * text (its href is carried in config for when the shell grows hat-link support
- * — the global-first improvement to land next; flagged for Chris). The
- * bio-credit identity itself is preserved.
+ * NOTE: the site renders NO header hat (utility eyebrow). It never wore one and
+ * must not now — the config omits headerHat, so the shared shell renders no
+ * eyebrow. Chris's "Founder, Value-First Team" identity lives in the page body
+ * (the ValueFirstTeam section), not as chrome.
  */
 
 import type { Metadata, Viewport } from 'next';
@@ -72,23 +73,6 @@ const HEADER_MARK = {
       {/* Light theme → prune (dark) wordmark */}
       <span className="flex dark:hidden">
         <CCLogo height={40} color="dark" />
-      </span>
-    </span>
-  ),
-};
-
-// The shared SiteFooter surface (--vf-surface-2) flips with the theme exactly
-// like the header, so the footer mark uses the same theme-aware swap (cream on
-// dark, prune on light). Slightly larger to suit the footer brand block.
-const FOOTER_MARK = {
-  alt: 'Chris Carolan',
-  node: (
-    <span className="flex items-center" aria-hidden="true">
-      <span className="hidden dark:flex">
-        <CCLogo height={44} color="cream" />
-      </span>
-      <span className="flex dark:hidden">
-        <CCLogo height={44} color="dark" />
       </span>
     </span>
   ),
@@ -178,10 +162,9 @@ export default function RootLayout({
           logoLabel="Chris Carolan"
           logoHref="/"
           headerBrandMark={HEADER_MARK}
-          footerBrandMark={FOOTER_MARK}
           brandLabel="Chris Carolan"
           brandTagline="Helping companies operate in the AI era"
-          copyrightName="Chris Carolan"
+          showFooter={false}
           sticky
         >
           {children}
