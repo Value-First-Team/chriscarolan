@@ -6,21 +6,39 @@
  *      site's globals.css (which pulls in the bespoke cc-* brand tokens).
  *   2. Runs the FOUC-free theme init (default dark; honors saved pref / OS) —
  *      the shell's header/footer + theme toggle respond to it.
- *   3. Renders the node's OWN PersonalHeader (Chris's mark + nav) above the page
- *      body. The single footer is the bespoke SiteFooterBespoke rendered at the
- *      end of the page body (src/app/page.tsx). We do NOT mount the shared
- *      SiteShell, because its SiteHeader/SiteFooter hardcode the official
- *      Value-First Team LogoLockup (company chrome) with no per-node mark slot —
- *      and this is Chris's PERSONAL site, which must wear HIS brand. (Brand-
- *      fidelity fix, 2026-06-18. The durable global-first fix is a BrandMarkSlot
- *      on the shared shell; until that lands this node carries its own header by
- *      construction.)
+ *   3. Mounts the SHARED @vf/site-kit SiteShell (header + main + footer + mobile
+ *      bottom bar) — the global-first constellation frame every node consumes —
+ *      and supplies Chris's PERSONAL identity through it:
+ *        - headerBrandMark / footerBrandMark → the personal CCLogo (NOT the VF
+ *          Team LogoLockup), via the BrandMark `node` escape hatch (the same
+ *          approach ainativeshift used for its text wordmark). Theme-aware: the
+ *          shell header/footer sit on --vf-surface / --vf-surface-2, which flip
+ *          between dark and near-white across themes, so the wordmark ink flips
+ *          with them (cream on dark, prune on light) — the monogram is the
+ *          orange gradient in both. The mark assets are this node's identity and
+ *          are intentionally exempt from --vf-* (per BrandMarkSlot).
+ *        - config={SHELL_CONFIG} → Chris's own nav, hat bio-credit, footer
+ *          columns, social, legal (src/components/navigation/config.ts).
+ *        - brandLabel / brandTagline / copyrightName → Chris's, not VFT's.
+ *      The single personal SiteFooterBespoke (the dark-gray close) is rendered
+ *      at the END of the page body (src/app/page.tsx); the shared SiteFooter
+ *      below it carries the constellation membership map — they are distinct
+ *      footers (personal close + constellation map), not a duplicated VFT footer.
  *   4. Provides all OpenGraph / SEO defaults (ported from BaseLayout.astro).
  *
- * The shell's per-node-safe client components (ThemeToggle, MobileNav,
- * MobileBottomBar — none of which carry a brand mark) are reused inside
- * PersonalHeader, so the navigation grammar stays identical to the rest of the
- * constellation; only the brand mark and the hat credit are this node's own.
+ * Brand-fidelity history: the original re-platform (b013f35) mounted SiteShell
+ * with no brand mark, so it wore the official VFT LogoLockup (company chrome) —
+ * wrong for a personal site. The interim fix (a766eaa) forked a bespoke
+ * PersonalHeader to carry Chris's mark. With @vf/site-kit#74d8c74 the shell grew
+ * a per-node BrandMarkSlot, so the durable global-first fix lands: re-join the
+ * shared shell + supply the personal mark via the slot, and retire the fork.
+ *
+ * NOTE on the hat bio-credit: the shared SiteHeader renders the hat highlight
+ * ("Founder, Value-First Team") as bio-credit text. In the bespoke fork it was
+ * also a link to valuefirstteam.com; the shared shell renders the highlight as
+ * text (its href is carried in config for when the shell grows hat-link support
+ * — the global-first improvement to land next; flagged for Chris). The
+ * bio-credit identity itself is preserved.
  */
 
 import type { Metadata, Viewport } from 'next';
@@ -29,11 +47,52 @@ import type { Metadata, Viewport } from 'next';
 // nested setups.
 import '@vf/design-engine/tokens.css';
 import './globals.css';
-import { PersonalHeader } from '@/components/navigation/PersonalHeader';
+import { SiteShell } from '@vf/site-kit';
 import { SHELL_CONFIG } from '@/components/navigation/config';
+import { CCLogo } from '@/components/sections/CCLogo';
 import { SITE } from '@/lib/site';
 
 const FULL_TITLE = `${SITE.name} — Business Transformation Advisor for the AI Era`;
+
+/**
+ * The personal brand mark, theme-aware, as a BrandMark `node`. The swap is
+ * pure CSS (`hidden dark:flex` / `flex dark:hidden`, Tailwind darkMode:'class'
+ * set by the FOUC script + ThemeToggle), so it renders in this RSC with no
+ * client boundary. The CCLogo's own `aria-label` is hidden from AT here (the
+ * surrounding logo link carries `logoLabel`) to avoid a double announcement.
+ */
+const HEADER_MARK = {
+  alt: 'Chris Carolan',
+  node: (
+    <span className="flex items-center" aria-hidden="true">
+      {/* Dark theme → cream wordmark */}
+      <span className="hidden dark:flex">
+        <CCLogo height={40} color="cream" />
+      </span>
+      {/* Light theme → prune (dark) wordmark */}
+      <span className="flex dark:hidden">
+        <CCLogo height={40} color="dark" />
+      </span>
+    </span>
+  ),
+};
+
+// The shared SiteFooter surface (--vf-surface-2) flips with the theme exactly
+// like the header, so the footer mark uses the same theme-aware swap (cream on
+// dark, prune on light). Slightly larger to suit the footer brand block.
+const FOOTER_MARK = {
+  alt: 'Chris Carolan',
+  node: (
+    <span className="flex items-center" aria-hidden="true">
+      <span className="hidden dark:flex">
+        <CCLogo height={44} color="cream" />
+      </span>
+      <span className="flex dark:hidden">
+        <CCLogo height={44} color="dark" />
+      </span>
+    </span>
+  ),
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -114,20 +173,19 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <PersonalHeader
-          shellConfig={SHELL_CONFIG}
+        <SiteShell
+          config={SHELL_CONFIG}
           logoLabel="Chris Carolan"
           logoHref="/"
+          headerBrandMark={HEADER_MARK}
+          footerBrandMark={FOOTER_MARK}
+          brandLabel="Chris Carolan"
+          brandTagline="Helping companies operate in the AI era"
+          copyrightName="Chris Carolan"
           sticky
-        />
-        {/* The mobile bottom bar (rendered inside PersonalHeader) is fixed, so
-            reserve matching bottom padding on small screens. */}
-        <main id="main-content" role="main" className="pb-20 md:pb-0">
+        >
           {children}
-        </main>
+        </SiteShell>
       </body>
     </html>
   );

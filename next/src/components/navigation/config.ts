@@ -29,9 +29,12 @@ export const SHELL_CONFIG: SiteShellConfig = {
   ],
 
   headerHat: {
-    // Rendered by PersonalHeader as a restrained bio credit — a constellation-
-    // membership link (Chris IS a node), NOT company chrome. The personal mark
-    // owns the brand; this is the "and here's where I do that work" line.
+    // The shared SiteHeader renders the hat highlight as a restrained bio credit
+    // — Chris's "and here's where I do that work" line, NOT company chrome (the
+    // personal CCLogo mark owns the brand). The `href` is preserved so the
+    // bio-credit can link to valuefirstteam.com once the shared shell grows
+    // hat-link support (the global-first improvement); today the shell renders
+    // the highlight as text. (Catalyst, 2026-06-18.)
     highlight: {
       label: 'Founder, Value-First Team',
       href: 'https://valuefirstteam.com',
