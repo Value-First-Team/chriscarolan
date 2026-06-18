@@ -1,0 +1,123 @@
+/*
+ * globals.css — chriscarolan.com (Next.js).
+ *
+ * Two token layers coexist here, by design:
+ *
+ *   1. @vf/design-engine --vf-* tokens (imported as a JS side-effect in
+ *      layout.tsx BEFORE this file) power the SHARED constellation shell —
+ *      SiteHeader, SiteFooter, nav, theme toggle, mobile bottom bar. The shell
+ *      is the global-first frame every node consumes.
+ *
+ *   2. The bespoke `cc-*` brand tokens (src/styles/colors_and_type.css, imported
+ *      below) power THIS node's body sections — the personal authority site's
+ *      prune-navy + mirinda-orange + chinese-lime identity, Kameron/Roboto/
+ *      Poppins type. Ported faithfully from the Astro original; nothing
+ *      genericized into the shared shell.
+ *
+ * Import order is load-bearing: tokens.css (layout.tsx) → Tailwind layers →
+ * brand CSS (so the cc-* element styling lands cleanly over Tailwind base).
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bespoke brand tokens + element/component classes (ported verbatim from the
+   Astro site's colors_and_type.css; body background scoped to .cc-page below so
+   the shared shell controls page chrome). */
+@import './../styles/colors_and_type.css';
+/* Per-section layout/visual styles (the consolidated component <style> blocks
+   from the Astro original, verbatim). */
+@import './../styles/sections.css';
+
+/* --- Reset just enough so the brand styles land cleanly (ported from the Astro
+   global.css). --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+a.cc-btn,
+a.cc-btn-outline {
+  text-decoration: none;
+}
+
+/* The bespoke navy background belongs to the page body wrapper, NOT the global
+   <body> — the constellation shell (header/footer) owns the page chrome and
+   themes via --vf-*. .cc-page re-establishes the personal-site canvas for the
+   sections between header and footer. The Astro original set this on <body>;
+   here it is scoped so the two token systems do not fight. */
+.cc-page {
+  background: var(--cc-bg);
+  color: var(--cc-fg);
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-body-xl);
+  line-height: var(--cc-lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--cc-mirinda);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    background: hsl(var(--vf-surface));
+    color: hsl(var(--vf-text));
+    border: 1px solid hsl(var(--vf-border));
+    border-radius: var(--vf-radius-sm, 6px);
+    text-decoration: none;
+    transition: top var(--vf-dur-fast, 120ms) var(--vf-ease-standard, ease);
+  }
+
+  .skip-link:focus {
+    top: 0.5rem;
+  }
+}
