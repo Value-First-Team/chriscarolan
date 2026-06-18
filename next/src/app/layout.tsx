@@ -6,11 +6,21 @@
  *      site's globals.css (which pulls in the bespoke cc-* brand tokens).
  *   2. Runs the FOUC-free theme init (default dark; honors saved pref / OS) —
  *      the shell's header/footer + theme toggle respond to it.
- *   3. Renders SiteShell (the shared frame) wrapping the page body.
+ *   3. Renders the node's OWN PersonalHeader (Chris's mark + nav) above the page
+ *      body. The single footer is the bespoke SiteFooterBespoke rendered at the
+ *      end of the page body (src/app/page.tsx). We do NOT mount the shared
+ *      SiteShell, because its SiteHeader/SiteFooter hardcode the official
+ *      Value-First Team LogoLockup (company chrome) with no per-node mark slot —
+ *      and this is Chris's PERSONAL site, which must wear HIS brand. (Brand-
+ *      fidelity fix, 2026-06-18. The durable global-first fix is a BrandMarkSlot
+ *      on the shared shell; until that lands this node carries its own header by
+ *      construction.)
  *   4. Provides all OpenGraph / SEO defaults (ported from BaseLayout.astro).
  *
- * SiteHeader/SiteFooter come from @vf/site-kit (the React shell); the body
- * sections are this node's own bespoke components.
+ * The shell's per-node-safe client components (ThemeToggle, MobileNav,
+ * MobileBottomBar — none of which carry a brand mark) are reused inside
+ * PersonalHeader, so the navigation grammar stays identical to the rest of the
+ * constellation; only the brand mark and the hat credit are this node's own.
  */
 
 import type { Metadata, Viewport } from 'next';
@@ -19,7 +29,7 @@ import type { Metadata, Viewport } from 'next';
 // nested setups.
 import '@vf/design-engine/tokens.css';
 import './globals.css';
-import { SiteShell } from '@vf/site-kit';
+import { PersonalHeader } from '@/components/navigation/PersonalHeader';
 import { SHELL_CONFIG } from '@/components/navigation/config';
 import { SITE } from '@/lib/site';
 
@@ -104,17 +114,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
-        <SiteShell
-          config={SHELL_CONFIG}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <PersonalHeader
+          shellConfig={SHELL_CONFIG}
           logoLabel="Chris Carolan"
           logoHref="/"
-          brandLabel="Chris Carolan"
-          brandTagline="Business Transformation Advisor for the AI Era"
-          copyrightName="Chris Carolan"
           sticky
-        >
+        />
+        {/* The mobile bottom bar (rendered inside PersonalHeader) is fixed, so
+            reserve matching bottom padding on small screens. */}
+        <main id="main-content" role="main" className="pb-20 md:pb-0">
           {children}
-        </SiteShell>
+        </main>
       </body>
     </html>
   );

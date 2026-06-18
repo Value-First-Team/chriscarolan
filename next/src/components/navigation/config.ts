@@ -29,8 +29,11 @@ export const SHELL_CONFIG: SiteShellConfig = {
   ],
 
   headerHat: {
+    // Rendered by PersonalHeader as a restrained bio credit — a constellation-
+    // membership link (Chris IS a node), NOT company chrome. The personal mark
+    // owns the brand; this is the "and here's where I do that work" line.
     highlight: {
-      label: 'Founder of Value-First Team',
+      label: 'Founder, Value-First Team',
       href: 'https://valuefirstteam.com',
       external: true,
     },
