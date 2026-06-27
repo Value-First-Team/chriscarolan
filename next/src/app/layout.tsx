@@ -155,6 +155,14 @@ export default function RootLayout({
             __html: `(function(){try{var s=localStorage.getItem('vf-theme');var p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var d=s?s==='dark':p!==false;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();`,
           }}
         />
+        {/* HubSpot tracking (portal 40810431 = VF Team). */}
+        <script
+          type="text/javascript"
+          id="hs-script-loader"
+          async
+          defer
+          src="//js.hs-scripts.com/40810431.js"
+        />
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
         <SiteShell
