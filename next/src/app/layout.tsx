@@ -50,6 +50,12 @@ import Script from 'next/script';
 import '@vf/design-engine/tokens.css';
 import './globals.css';
 import { SiteShell } from '@vf/site-kit';
+// THE FLY-IN LAYER. One mount, and every page of this site has fly-ins
+// available at every side (left/right/top/bottom/center), every stack axis
+// (z depth, x parallel, y nested) and every mode (overlay, push, inset — an
+// inset fly-in IS a docked rail). Any archetype item's `detail` prop, any
+// FlyInTrigger, or useFlyInStack().open() reaches it; no per-page wiring.
+import { SiteOverlayRoot } from '@vf/site-kit/flyin';
 import { SHELL_CONFIG } from '@/components/navigation/config';
 import { CCLogo } from '@/components/sections/CCLogo';
 import { SITE } from '@/lib/site';
@@ -168,6 +174,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
         <SiteShell
+          overlayRoot={SiteOverlayRoot}
           config={SHELL_CONFIG}
           logoLabel="Chris Carolan"
           logoHref="/"
