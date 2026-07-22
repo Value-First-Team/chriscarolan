@@ -43,6 +43,7 @@
  */
 
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 // Token CSS must load BEFORE globals.css so hsl(var(--vf-*)) shell utilities
 // resolve. JS-layer import respects package exports — CSS @import does not in
 // nested setups.
@@ -155,13 +156,14 @@ export default function RootLayout({
             __html: `(function(){try{var s=localStorage.getItem('vf-theme');var p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var d=s?s==='dark':p!==false;document.documentElement.classList.toggle('dark',d);}catch(e){document.documentElement.classList.add('dark');}})();`,
           }}
         />
-        {/* HubSpot tracking (portal 40810431 = VF Team). */}
-        <script
-          type="text/javascript"
+        {/* HubSpot tracking (portal 40810431 = VF Team). Loaded via next/script
+            afterInteractive so it executes AFTER hydration — a raw head <script>
+            can win the race against React and inject its anchor div into <body>,
+            causing an intermittent hydration mismatch (React #418). */}
+        <Script
           id="hs-script-loader"
-          async
-          defer
           src="//js.hs-scripts.com/40810431.js"
+          strategy="afterInteractive"
         />
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
