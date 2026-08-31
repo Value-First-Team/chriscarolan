@@ -22,8 +22,15 @@ export const SITE = {
   },
   links: {
     bookCall: 'https://meetings.hubspot.com/chris-carolan1/value-first-team-free-consult',
-    valueFirstTeam: 'https://www.valuefirstteam.com',
-    shows: 'https://www.valuefirstteam.com/shows',
+    // APEX, no www — valuefirstteam.com's canonical host as of 2026-08-31. The
+    // two anchor sites link each other at the host each one actually serves and
+    // declares canonical, so no cross-anchor link is a redirect.
+    valueFirstTeam: 'https://valuefirstteam.com',
+    // KNOWN DEAD as of 2026-08-31: /shows returns 404 on both hosts. Host
+    // corrected to apex here; the missing destination is a separate call about
+    // where the shows index should point (valuefirststudios.com is the likely
+    // home) and is not guessed at here.
+    shows: 'https://valuefirstteam.com/shows',
     aiDailyShow: 'https://ainativeshift.com',
     // Public speaking booking — HubSpot Meetings (per Chris, 2026-05-14).
     bookToSpeak: 'https://meetings.hubspot.com/chris-carolan1/public-speaking',
@@ -31,6 +38,6 @@ export const SITE = {
     speakingKit: '/speaking-media-kit.pdf',
     // "Surviving the SaaSpocalypse" book row → Learn More CTA. Temporary target
     // per Chris 2026-06-09 ("for now"); revisit when the book page is final.
-    bookLearnMore: 'https://www.valuefirstteam.com/book/saaspocalypse',
+    bookLearnMore: 'https://valuefirstteam.com/book/saaspocalypse',
   },
 } as const;

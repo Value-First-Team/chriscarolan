@@ -56,6 +56,12 @@ import { SiteShell } from '@vf/site-kit';
 // inset fly-in IS a docked rail). Any archetype item's `detail` prop, any
 // FlyInTrigger, or useFlyInStack().open() reaches it; no per-page wiring.
 import { SiteOverlayRoot } from '@vf/site-kit/flyin';
+// THE SHARED IDENTITY SOURCE. One Person (Chris) and one Organization
+// (Value-First Team), defined once in @vf/site-kit/identity and emitted here as
+// schema.org JSON-LD. This site does NOT author its own identity block — the
+// component takes a site key, not data, so the facts cannot drift from what
+// valuefirstteam.com publishes about the same two entities.
+import { IdentityJsonLd } from '@vf/site-kit/identity';
 import { SHELL_CONFIG } from '@/components/navigation/config';
 import { CCLogo } from '@/components/sections/CCLogo';
 import { SITE } from '@/lib/site';
@@ -171,6 +177,10 @@ export default function RootLayout({
           src="//js.hs-scripts.com/40810431.js"
           strategy="afterInteractive"
         />
+        {/* Person + Organization + WebSite, as one schema.org @graph. Rendered
+            by this Server Component so it lands in the SERVER HTML — a crawler
+            that never runs JavaScript still reads it. */}
+        <IdentityJsonLd site="chrisCarolan" />
       </head>
       <body className="min-h-screen bg-vf-bg text-vf-text antialiased">
         <SiteShell
