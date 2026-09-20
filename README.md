@@ -1,5 +1,11 @@
 # chriscarolan.com
 
+> **Where the live app is (checked 2026-09-20).** The deployed site is the Next.js app in
+> `next/`. The files at the repo root (`src/`, `astro.config.mjs`, root `vercel.json`) are the
+> retired Astro build and are not what serves. Edit `next/` only. Evidence:
+> `L4-orchestration/roadmap/ecosystem/chriscarolan/current-state.md` (rootDirectory=next/,
+> re-verified 2026-08-05) plus a live GET of chriscarolan.com/ returning `_next/static` assets.
+
 Chris Carolan's personal authority site — business transformation advisor for the AI era,
 founder of Value-First Team. One page: hero, proof, the problem he addresses, how he helps,
 why him, a comparison card, a Value-First Team cross-link, bio, speaking/media reel, podcast
