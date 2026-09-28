@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check": "tsc --noEmit"
+    "check": "npm run assert:changelog && tsc --noEmit",
+    "assert:changelog": "node ../repo-changelog-lint-run.mjs --repo .. --since 294fed27b8ef5f188eda3ca580af30acaa9ec2ed --behavior-paths next/src,next/public,next/next.config.ts,next/vercel.json,next/tailwind.config.ts,next/postcss.config.cjs,next/package-lock.json"
   },
   "dependencies": {
     "@vf/brand": "github:Value-First-Team/vf-brand#390302b",

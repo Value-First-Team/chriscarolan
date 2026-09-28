@@ -6,6 +6,11 @@
 > `L4-orchestration/roadmap/ecosystem/chriscarolan/current-state.md` (rootDirectory=next/,
 > re-verified 2026-08-05) plus a live GET of chriscarolan.com/ returning `_next/static` assets.
 
+> **A deploy a visitor would notice gets a `CHANGELOG.md` entry (2026-09-28).** Run
+> `npm run check` in `next/` before you push; it runs `npm run assert:changelog`, then the
+> typecheck. `CHANGELOG.md` at the repo root says what counts as an entry and what the check
+> watches. Outside a MainBrain checkout, set `MAINBRAIN_ROOT` or the check prints SKIPPED.
+
 Chris Carolan's personal authority site — business transformation advisor for the AI era,
 founder of Value-First Team. One page: hero, proof, the problem he addresses, how he helps,
 why him, a comparison card, a Value-First Team cross-link, bio, speaking/media reel, podcast
