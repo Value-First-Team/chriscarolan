@@ -1,10 +1,8 @@
 # chriscarolan.com
 
-> **Where the live app is (checked 2026-09-20).** The deployed site is the Next.js app in
-> `next/`. The files at the repo root (`src/`, `astro.config.mjs`, root `vercel.json`) are the
-> retired Astro build and are not what serves. Edit `next/` only. Evidence:
-> `L4-orchestration/roadmap/ecosystem/chriscarolan/current-state.md` (rootDirectory=next/,
-> re-verified 2026-08-05) plus a live GET of chriscarolan.com/ returning `_next/static` assets.
+> **Where the live app is.** The site is the Next.js app in `next/`; the Vercel project
+> builds that folder and nothing else. The retired Astro build that used to sit at the repo
+> root was deleted on 2026-09-28, so `next/` is the only tree here.
 
 > **A deploy a visitor would notice gets a `CHANGELOG.md` entry (2026-09-28).** Run
 > `npm run check` in `next/` before you push; it runs `npm run assert:changelog`, then the
@@ -20,29 +18,30 @@ See `VALUE-PROFILE.md` for what this site is *for* and how its value is tracked.
 
 ## Stack
 
-- **Astro 5** + React, on `@vf/design-engine` + `@vf/site-kit` + `@vf/ui` + `@vf/brand`
+- **Next.js** (App Router, static export) + React, on `@vf/design-engine` + `@vf/site-kit` + `@vf/ui` + `@vf/brand`
 - **Vercel** for hosting
 - **HubSpot** visitor tracking (portal 40810431)
 
 ## Structure
 
 ```
-src/
-  components/     One component per homepage section (Hero, ProofRow, WhyChris, MeetChris,
-                   SpeakingKit, PodcastSection, ReadyToConnect, …)
-  layouts/        BaseLayout
-  lib/site.ts     Site constants — name, tagline, social links, booking URLs
-  pages/index.astro   The single page, composed in Figma render order
-  styles/         Global + brand color/type tokens
+next/src/
+  app/                 The single page, its layout, robots and sitemap
+  components/sections/ One component per homepage section (Hero, ProofRow, WhyChris, MeetChris,
+                       SpeakingKit, PodcastSection, ReadyToConnect, …)
+  lib/site.ts          Site constants — name, tagline, social links, booking URLs
+  styles/              Global + brand color/type tokens
 ```
 
 ## Local development
 
 ```bash
+cd next
 export GITHUB_TOKEN=$(gh auth token)   # to install the private @vf/* git deps
 npm install
-npm run dev        # http://localhost:4321
-npm run build
+npm run dev        # http://localhost:3000
+npm run build      # next build (static export -> next/out)
+npm run check      # the CHANGELOG check, then tsc --noEmit
 ```
 
 ## Deployment
