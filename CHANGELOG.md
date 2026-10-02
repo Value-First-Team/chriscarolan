@@ -52,3 +52,11 @@ chriscarolan.com starts saying who it is to anything that reads the page's data.
 **Owner:** Showcase
 
 Nothing a visitor sees changed: no file under `next/` moved. The retired Astro build that still sat at the repo root was deleted: `astro.config.mjs`, `src/` (25 files), `public/` (41 files), `package.json` and `pnpm-lock.yaml`, `tailwind.config.mjs`, `tsconfig.json` and the root `vercel.json`, which still named the framework as Astro. None of it was read: the Vercel project builds `next/` only and its production build ran the install command from `next/vercel.json` inside `next/`; nothing tracked under `next/` reaches a root path except the launcher and `--repo ..`; no MainBrain script and no shared package reads one. Kept: this file, the launcher, `README.md` (now describing `next/`), `VALUE-PROFILE.md`, `docs/`, `screenshots/` and `.gitignore`. Entered so the one tree left is on the record; the check does not require it.
+
+## 2026-10-01 — deploy 15ce4e8
+**Breaking:** No
+**Consumer action:** None.
+**Commit:** `15ce4e8`
+**Owner:** showcase (`log.md` 2026-10-01, @showcase/d29d9801)
+
+The site-wide canonical link now names each page's own address instead of always the home page. The one page today reads the same as before; this keeps the next page added from telling search engines that it is the home page. Nothing a visitor sees changed. The standing revert is `git revert 15ce4e8`; production before it was `6040cdf`.
