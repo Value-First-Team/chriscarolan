@@ -98,8 +98,10 @@ export const metadata: Metadata = {
     default: FULL_TITLE,
   },
   description: SITE.description,
+  // SELF-REFERENCING CANONICAL, per page: './' resolves against each route.
+  // '/' here would point every future page at the home page.
   alternates: {
-    canonical: '/',
+    canonical: './',
   },
   icons: {
     icon: [
