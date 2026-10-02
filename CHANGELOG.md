@@ -60,3 +60,11 @@ Nothing a visitor sees changed: no file under `next/` moved. The retired Astro b
 **Owner:** showcase (`log.md` 2026-10-01, @showcase/d29d9801)
 
 The site-wide canonical link now names each page's own address instead of always the home page. The one page today reads the same as before; this keeps the next page added from telling search engines that it is the home page. Nothing a visitor sees changed. The standing revert is `git revert 15ce4e8`; production before it was `6040cdf`.
+
+## 2026-10-02 — deploy 099728b
+**Breaking:** No
+**Consumer action:** None. Keep `next/public/googlec8c9f1e5c6ee9199.html`: removing it takes the site out of Google Search Console.
+**Commit:** `099728b`
+**Owner:** showcase (`log.md` 2026-10-02, @showcase/d29d9801)
+
+Google can confirm the Value-First Team owns this site. The site serves one small file Google asked for, which makes it a Google Search Console property and lets each production deploy hand Google the sitemap without anyone submitting it by hand. Nothing a visitor sees changed. Revert: `git revert 099728b` (it removes the site from Search Console).
