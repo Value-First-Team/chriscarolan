@@ -17,7 +17,7 @@ drafted_by: squire   # no agent_owner registered for this repo; declaration draf
 
 ## 1. Value Specification
 
-A live, fully-built one-page Astro site at chriscarolan.com — hero, proof row, problem
+A live, fully-built one-page site at chriscarolan.com (Next.js, in `next/`; the Astro build was retired 2026-09-28) — hero, proof row, problem
 statement, how-he-helps, comparison card, Value-First Team cross-link, bio, speaking/media
 reel, podcast section, downloadable speaking kit, and a booking CTA. Built on `@vf/design-engine`,
 `@vf/site-kit`, `@vf/ui` and `@vf/brand`, deployed on Vercel.
